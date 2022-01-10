@@ -303,6 +303,18 @@ type DcimConsolePortsListParams struct {
 	// Typen.
 	Typen *string
 
+	// VirtualChassis.
+	VirtualChassis *string
+
+	// VirtualChassisn.
+	VirtualChassisn *string
+
+	// VirtualChassisID.
+	VirtualChassisID *string
+
+	// VirtualChassisIDn.
+	VirtualChassisIDn *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -1168,6 +1180,50 @@ func (o *DcimConsolePortsListParams) WithTypen(typen *string) *DcimConsolePortsL
 // SetTypen adds the typeN to the dcim console ports list params
 func (o *DcimConsolePortsListParams) SetTypen(typen *string) {
 	o.Typen = typen
+}
+
+// WithVirtualChassis adds the virtualChassis to the dcim console ports list params
+func (o *DcimConsolePortsListParams) WithVirtualChassis(virtualChassis *string) *DcimConsolePortsListParams {
+	o.SetVirtualChassis(virtualChassis)
+	return o
+}
+
+// SetVirtualChassis adds the virtualChassis to the dcim console ports list params
+func (o *DcimConsolePortsListParams) SetVirtualChassis(virtualChassis *string) {
+	o.VirtualChassis = virtualChassis
+}
+
+// WithVirtualChassisn adds the virtualChassisn to the dcim console ports list params
+func (o *DcimConsolePortsListParams) WithVirtualChassisn(virtualChassisn *string) *DcimConsolePortsListParams {
+	o.SetVirtualChassisn(virtualChassisn)
+	return o
+}
+
+// SetVirtualChassisn adds the virtualChassisN to the dcim console ports list params
+func (o *DcimConsolePortsListParams) SetVirtualChassisn(virtualChassisn *string) {
+	o.VirtualChassisn = virtualChassisn
+}
+
+// WithVirtualChassisID adds the virtualChassisID to the dcim console ports list params
+func (o *DcimConsolePortsListParams) WithVirtualChassisID(virtualChassisID *string) *DcimConsolePortsListParams {
+	o.SetVirtualChassisID(virtualChassisID)
+	return o
+}
+
+// SetVirtualChassisID adds the virtualChassisId to the dcim console ports list params
+func (o *DcimConsolePortsListParams) SetVirtualChassisID(virtualChassisID *string) {
+	o.VirtualChassisID = virtualChassisID
+}
+
+// WithVirtualChassisIDn adds the virtualChassisIDn to the dcim console ports list params
+func (o *DcimConsolePortsListParams) WithVirtualChassisIDn(virtualChassisIDn *string) *DcimConsolePortsListParams {
+	o.SetVirtualChassisIDn(virtualChassisIDn)
+	return o
+}
+
+// SetVirtualChassisIDn adds the virtualChassisIdN to the dcim console ports list params
+func (o *DcimConsolePortsListParams) SetVirtualChassisIDn(virtualChassisIDn *string) {
+	o.VirtualChassisIDn = virtualChassisIDn
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -2431,6 +2487,74 @@ func (o *DcimConsolePortsListParams) WriteToRequest(r runtime.ClientRequest, reg
 		if qTypen != "" {
 
 			if err := r.SetQueryParam("type__n", qTypen); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.VirtualChassis != nil {
+
+		// query param virtual_chassis
+		var qrVirtualChassis string
+
+		if o.VirtualChassis != nil {
+			qrVirtualChassis = *o.VirtualChassis
+		}
+		qVirtualChassis := qrVirtualChassis
+		if qVirtualChassis != "" {
+
+			if err := r.SetQueryParam("virtual_chassis", qVirtualChassis); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.VirtualChassisn != nil {
+
+		// query param virtual_chassis__n
+		var qrVirtualChassisn string
+
+		if o.VirtualChassisn != nil {
+			qrVirtualChassisn = *o.VirtualChassisn
+		}
+		qVirtualChassisn := qrVirtualChassisn
+		if qVirtualChassisn != "" {
+
+			if err := r.SetQueryParam("virtual_chassis__n", qVirtualChassisn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.VirtualChassisID != nil {
+
+		// query param virtual_chassis_id
+		var qrVirtualChassisID string
+
+		if o.VirtualChassisID != nil {
+			qrVirtualChassisID = *o.VirtualChassisID
+		}
+		qVirtualChassisID := qrVirtualChassisID
+		if qVirtualChassisID != "" {
+
+			if err := r.SetQueryParam("virtual_chassis_id", qVirtualChassisID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.VirtualChassisIDn != nil {
+
+		// query param virtual_chassis_id__n
+		var qrVirtualChassisIDn string
+
+		if o.VirtualChassisIDn != nil {
+			qrVirtualChassisIDn = *o.VirtualChassisIDn
+		}
+		qVirtualChassisIDn := qrVirtualChassisIDn
+		if qVirtualChassisIDn != "" {
+
+			if err := r.SetQueryParam("virtual_chassis_id__n", qVirtualChassisIDn); err != nil {
 				return err
 			}
 		}

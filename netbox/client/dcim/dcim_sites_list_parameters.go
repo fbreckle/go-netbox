@@ -93,6 +93,12 @@ type DcimSitesListParams struct {
 	// Asnn.
 	Asnn *string
 
+	// AsnID.
+	AsnID *string
+
+	// AsnIDn.
+	AsnIDn *string
+
 	// ContactEmail.
 	ContactEmail *string
 
@@ -555,6 +561,28 @@ func (o *DcimSitesListParams) WithAsnn(asnn *string) *DcimSitesListParams {
 // SetAsnn adds the asnN to the dcim sites list params
 func (o *DcimSitesListParams) SetAsnn(asnn *string) {
 	o.Asnn = asnn
+}
+
+// WithAsnID adds the asnID to the dcim sites list params
+func (o *DcimSitesListParams) WithAsnID(asnID *string) *DcimSitesListParams {
+	o.SetAsnID(asnID)
+	return o
+}
+
+// SetAsnID adds the asnId to the dcim sites list params
+func (o *DcimSitesListParams) SetAsnID(asnID *string) {
+	o.AsnID = asnID
+}
+
+// WithAsnIDn adds the asnIDn to the dcim sites list params
+func (o *DcimSitesListParams) WithAsnIDn(asnIDn *string) *DcimSitesListParams {
+	o.SetAsnIDn(asnIDn)
+	return o
+}
+
+// SetAsnIDn adds the asnIdN to the dcim sites list params
+func (o *DcimSitesListParams) SetAsnIDn(asnIDn *string) {
+	o.AsnIDn = asnIDn
 }
 
 // WithContactEmail adds the contactEmail to the dcim sites list params
@@ -1905,6 +1933,40 @@ func (o *DcimSitesListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if qAsnn != "" {
 
 			if err := r.SetQueryParam("asn__n", qAsnn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.AsnID != nil {
+
+		// query param asn_id
+		var qrAsnID string
+
+		if o.AsnID != nil {
+			qrAsnID = *o.AsnID
+		}
+		qAsnID := qrAsnID
+		if qAsnID != "" {
+
+			if err := r.SetQueryParam("asn_id", qAsnID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.AsnIDn != nil {
+
+		// query param asn_id__n
+		var qrAsnIDn string
+
+		if o.AsnIDn != nil {
+			qrAsnIDn = *o.AsnIDn
+		}
+		qAsnIDn := qrAsnIDn
+		if qAsnIDn != "" {
+
+			if err := r.SetQueryParam("asn_id__n", qAsnIDn); err != nil {
 				return err
 			}
 		}

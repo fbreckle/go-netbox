@@ -285,6 +285,21 @@ type IpamPrefixesListParams struct {
 	// VlanVid.
 	VlanVid *float64
 
+	// VlanVidGt.
+	VlanVidGt *float64
+
+	// VlanVidGte.
+	VlanVidGte *float64
+
+	// VlanVidLt.
+	VlanVidLt *float64
+
+	// VlanVidLte.
+	VlanVidLte *float64
+
+	// VlanVidn.
+	VlanVidn *float64
+
 	// Vrf.
 	Vrf *string
 
@@ -1102,6 +1117,61 @@ func (o *IpamPrefixesListParams) WithVlanVid(vlanVid *float64) *IpamPrefixesList
 // SetVlanVid adds the vlanVid to the ipam prefixes list params
 func (o *IpamPrefixesListParams) SetVlanVid(vlanVid *float64) {
 	o.VlanVid = vlanVid
+}
+
+// WithVlanVidGt adds the vlanVidGt to the ipam prefixes list params
+func (o *IpamPrefixesListParams) WithVlanVidGt(vlanVidGt *float64) *IpamPrefixesListParams {
+	o.SetVlanVidGt(vlanVidGt)
+	return o
+}
+
+// SetVlanVidGt adds the vlanVidGt to the ipam prefixes list params
+func (o *IpamPrefixesListParams) SetVlanVidGt(vlanVidGt *float64) {
+	o.VlanVidGt = vlanVidGt
+}
+
+// WithVlanVidGte adds the vlanVidGte to the ipam prefixes list params
+func (o *IpamPrefixesListParams) WithVlanVidGte(vlanVidGte *float64) *IpamPrefixesListParams {
+	o.SetVlanVidGte(vlanVidGte)
+	return o
+}
+
+// SetVlanVidGte adds the vlanVidGte to the ipam prefixes list params
+func (o *IpamPrefixesListParams) SetVlanVidGte(vlanVidGte *float64) {
+	o.VlanVidGte = vlanVidGte
+}
+
+// WithVlanVidLt adds the vlanVidLt to the ipam prefixes list params
+func (o *IpamPrefixesListParams) WithVlanVidLt(vlanVidLt *float64) *IpamPrefixesListParams {
+	o.SetVlanVidLt(vlanVidLt)
+	return o
+}
+
+// SetVlanVidLt adds the vlanVidLt to the ipam prefixes list params
+func (o *IpamPrefixesListParams) SetVlanVidLt(vlanVidLt *float64) {
+	o.VlanVidLt = vlanVidLt
+}
+
+// WithVlanVidLte adds the vlanVidLte to the ipam prefixes list params
+func (o *IpamPrefixesListParams) WithVlanVidLte(vlanVidLte *float64) *IpamPrefixesListParams {
+	o.SetVlanVidLte(vlanVidLte)
+	return o
+}
+
+// SetVlanVidLte adds the vlanVidLte to the ipam prefixes list params
+func (o *IpamPrefixesListParams) SetVlanVidLte(vlanVidLte *float64) {
+	o.VlanVidLte = vlanVidLte
+}
+
+// WithVlanVidn adds the vlanVidn to the ipam prefixes list params
+func (o *IpamPrefixesListParams) WithVlanVidn(vlanVidn *float64) *IpamPrefixesListParams {
+	o.SetVlanVidn(vlanVidn)
+	return o
+}
+
+// SetVlanVidn adds the vlanVidN to the ipam prefixes list params
+func (o *IpamPrefixesListParams) SetVlanVidn(vlanVidn *float64) {
+	o.VlanVidn = vlanVidn
 }
 
 // WithVrf adds the vrf to the ipam prefixes list params
@@ -2329,6 +2399,91 @@ func (o *IpamPrefixesListParams) WriteToRequest(r runtime.ClientRequest, reg str
 		if qVlanVid != "" {
 
 			if err := r.SetQueryParam("vlan_vid", qVlanVid); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.VlanVidGt != nil {
+
+		// query param vlan_vid__gt
+		var qrVlanVidGt float64
+
+		if o.VlanVidGt != nil {
+			qrVlanVidGt = *o.VlanVidGt
+		}
+		qVlanVidGt := swag.FormatFloat64(qrVlanVidGt)
+		if qVlanVidGt != "" {
+
+			if err := r.SetQueryParam("vlan_vid__gt", qVlanVidGt); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.VlanVidGte != nil {
+
+		// query param vlan_vid__gte
+		var qrVlanVidGte float64
+
+		if o.VlanVidGte != nil {
+			qrVlanVidGte = *o.VlanVidGte
+		}
+		qVlanVidGte := swag.FormatFloat64(qrVlanVidGte)
+		if qVlanVidGte != "" {
+
+			if err := r.SetQueryParam("vlan_vid__gte", qVlanVidGte); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.VlanVidLt != nil {
+
+		// query param vlan_vid__lt
+		var qrVlanVidLt float64
+
+		if o.VlanVidLt != nil {
+			qrVlanVidLt = *o.VlanVidLt
+		}
+		qVlanVidLt := swag.FormatFloat64(qrVlanVidLt)
+		if qVlanVidLt != "" {
+
+			if err := r.SetQueryParam("vlan_vid__lt", qVlanVidLt); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.VlanVidLte != nil {
+
+		// query param vlan_vid__lte
+		var qrVlanVidLte float64
+
+		if o.VlanVidLte != nil {
+			qrVlanVidLte = *o.VlanVidLte
+		}
+		qVlanVidLte := swag.FormatFloat64(qrVlanVidLte)
+		if qVlanVidLte != "" {
+
+			if err := r.SetQueryParam("vlan_vid__lte", qVlanVidLte); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.VlanVidn != nil {
+
+		// query param vlan_vid__n
+		var qrVlanVidn float64
+
+		if o.VlanVidn != nil {
+			qrVlanVidn = *o.VlanVidn
+		}
+		qVlanVidn := swag.FormatFloat64(qrVlanVidn)
+		if qVlanVidn != "" {
+
+			if err := r.SetQueryParam("vlan_vid__n", qVlanVidn); err != nil {
 				return err
 			}
 		}

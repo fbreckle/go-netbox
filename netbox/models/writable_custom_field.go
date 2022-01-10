@@ -79,6 +79,7 @@ type WritableCustomField struct {
 	// Required: true
 	// Max Length: 50
 	// Min Length: 1
+	// Pattern: ^[a-z0-9_]+$
 	Name *string `json:"name"`
 
 	// Required
@@ -87,7 +88,7 @@ type WritableCustomField struct {
 	Required bool `json:"required,omitempty"`
 
 	// Type
-	// Enum: [text integer boolean date url select multiselect]
+	// Enum: [text longtext integer boolean date url json select multiselect]
 	Type string `json:"type,omitempty"`
 
 	// Url
@@ -297,6 +298,10 @@ func (m *WritableCustomField) validateName(formats strfmt.Registry) error {
 		return err
 	}
 
+	if err := validate.Pattern("name", "body", *m.Name, `^[a-z0-9_]+$`); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -304,7 +309,7 @@ var writableCustomFieldTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["text","integer","boolean","date","url","select","multiselect"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["text","longtext","integer","boolean","date","url","json","select","multiselect"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -317,6 +322,9 @@ const (
 	// WritableCustomFieldTypeText captures enum value "text"
 	WritableCustomFieldTypeText string = "text"
 
+	// WritableCustomFieldTypeLongtext captures enum value "longtext"
+	WritableCustomFieldTypeLongtext string = "longtext"
+
 	// WritableCustomFieldTypeInteger captures enum value "integer"
 	WritableCustomFieldTypeInteger string = "integer"
 
@@ -328,6 +336,9 @@ const (
 
 	// WritableCustomFieldTypeURL captures enum value "url"
 	WritableCustomFieldTypeURL string = "url"
+
+	// WritableCustomFieldTypeJSON captures enum value "json"
+	WritableCustomFieldTypeJSON string = "json"
 
 	// WritableCustomFieldTypeSelect captures enum value "select"
 	WritableCustomFieldTypeSelect string = "select"

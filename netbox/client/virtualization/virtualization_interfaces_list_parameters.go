@@ -75,6 +75,12 @@ func NewVirtualizationInterfacesListParamsWithHTTPClient(client *http.Client) *V
 */
 type VirtualizationInterfacesListParams struct {
 
+	// BridgeID.
+	BridgeID *string
+
+	// BridgeIDn.
+	BridgeIDn *string
+
 	// Cluster.
 	Cluster *string
 
@@ -297,6 +303,28 @@ func (o *VirtualizationInterfacesListParams) WithHTTPClient(client *http.Client)
 // SetHTTPClient adds the HTTPClient to the virtualization interfaces list params
 func (o *VirtualizationInterfacesListParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithBridgeID adds the bridgeID to the virtualization interfaces list params
+func (o *VirtualizationInterfacesListParams) WithBridgeID(bridgeID *string) *VirtualizationInterfacesListParams {
+	o.SetBridgeID(bridgeID)
+	return o
+}
+
+// SetBridgeID adds the bridgeId to the virtualization interfaces list params
+func (o *VirtualizationInterfacesListParams) SetBridgeID(bridgeID *string) {
+	o.BridgeID = bridgeID
+}
+
+// WithBridgeIDn adds the bridgeIDn to the virtualization interfaces list params
+func (o *VirtualizationInterfacesListParams) WithBridgeIDn(bridgeIDn *string) *VirtualizationInterfacesListParams {
+	o.SetBridgeIDn(bridgeIDn)
+	return o
+}
+
+// SetBridgeIDn adds the bridgeIdN to the virtualization interfaces list params
+func (o *VirtualizationInterfacesListParams) SetBridgeIDn(bridgeIDn *string) {
+	o.BridgeIDn = bridgeIDn
 }
 
 // WithCluster adds the cluster to the virtualization interfaces list params
@@ -911,6 +939,40 @@ func (o *VirtualizationInterfacesListParams) WriteToRequest(r runtime.ClientRequ
 		return err
 	}
 	var res []error
+
+	if o.BridgeID != nil {
+
+		// query param bridge_id
+		var qrBridgeID string
+
+		if o.BridgeID != nil {
+			qrBridgeID = *o.BridgeID
+		}
+		qBridgeID := qrBridgeID
+		if qBridgeID != "" {
+
+			if err := r.SetQueryParam("bridge_id", qBridgeID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.BridgeIDn != nil {
+
+		// query param bridge_id__n
+		var qrBridgeIDn string
+
+		if o.BridgeIDn != nil {
+			qrBridgeIDn = *o.BridgeIDn
+		}
+		qBridgeIDn := qrBridgeIDn
+		if qBridgeIDn != "" {
+
+			if err := r.SetQueryParam("bridge_id__n", qBridgeIDn); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.Cluster != nil {
 

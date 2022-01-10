@@ -174,6 +174,9 @@ type ExtrasCustomFieldsListParams struct {
 	*/
 	Offset *int64
 
+	// Q.
+	Q *string
+
 	// Required.
 	Required *string
 
@@ -587,6 +590,17 @@ func (o *ExtrasCustomFieldsListParams) WithOffset(offset *int64) *ExtrasCustomFi
 // SetOffset adds the offset to the extras custom fields list params
 func (o *ExtrasCustomFieldsListParams) SetOffset(offset *int64) {
 	o.Offset = offset
+}
+
+// WithQ adds the q to the extras custom fields list params
+func (o *ExtrasCustomFieldsListParams) WithQ(q *string) *ExtrasCustomFieldsListParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the extras custom fields list params
+func (o *ExtrasCustomFieldsListParams) SetQ(q *string) {
+	o.Q = q
 }
 
 // WithRequired adds the required to the extras custom fields list params
@@ -1196,6 +1210,23 @@ func (o *ExtrasCustomFieldsListParams) WriteToRequest(r runtime.ClientRequest, r
 		if qOffset != "" {
 
 			if err := r.SetQueryParam("offset", qOffset); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+
+			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}

@@ -70,6 +70,9 @@ type WritableCable struct {
 	// tags
 	Tags []*NestedTag `json:"tags"`
 
+	// Tenant
+	Tenant *int64 `json:"tenant,omitempty"`
+
 	// Termination a
 	// Read Only: true
 	Terminationa map[string]*string `json:"termination_a,omitempty"`

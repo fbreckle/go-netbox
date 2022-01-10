@@ -51,6 +51,11 @@ type Webhook struct {
 	// Max Length: 4096
 	CaFilePath *string `json:"ca_file_path,omitempty"`
 
+	// Conditions
+	//
+	// A set of conditions which determine whether the webhook will be generated.
+	Conditions *string `json:"conditions,omitempty"`
+
 	// content types
 	// Required: true
 	// Unique: true

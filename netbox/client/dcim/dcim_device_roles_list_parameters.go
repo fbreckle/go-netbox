@@ -225,6 +225,12 @@ type DcimDeviceRolesListParams struct {
 	// SlugNisw.
 	SlugNisw *string
 
+	// Tag.
+	Tag *string
+
+	// Tagn.
+	Tagn *string
+
 	// VMRole.
 	VMRole *string
 
@@ -807,6 +813,28 @@ func (o *DcimDeviceRolesListParams) WithSlugNisw(slugNisw *string) *DcimDeviceRo
 // SetSlugNisw adds the slugNisw to the dcim device roles list params
 func (o *DcimDeviceRolesListParams) SetSlugNisw(slugNisw *string) {
 	o.SlugNisw = slugNisw
+}
+
+// WithTag adds the tag to the dcim device roles list params
+func (o *DcimDeviceRolesListParams) WithTag(tag *string) *DcimDeviceRolesListParams {
+	o.SetTag(tag)
+	return o
+}
+
+// SetTag adds the tag to the dcim device roles list params
+func (o *DcimDeviceRolesListParams) SetTag(tag *string) {
+	o.Tag = tag
+}
+
+// WithTagn adds the tagn to the dcim device roles list params
+func (o *DcimDeviceRolesListParams) WithTagn(tagn *string) *DcimDeviceRolesListParams {
+	o.SetTagn(tagn)
+	return o
+}
+
+// SetTagn adds the tagN to the dcim device roles list params
+func (o *DcimDeviceRolesListParams) SetTagn(tagn *string) {
+	o.Tagn = tagn
 }
 
 // WithVMRole adds the vMRole to the dcim device roles list params
@@ -1639,6 +1667,40 @@ func (o *DcimDeviceRolesListParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if qSlugNisw != "" {
 
 			if err := r.SetQueryParam("slug__nisw", qSlugNisw); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Tag != nil {
+
+		// query param tag
+		var qrTag string
+
+		if o.Tag != nil {
+			qrTag = *o.Tag
+		}
+		qTag := qrTag
+		if qTag != "" {
+
+			if err := r.SetQueryParam("tag", qTag); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Tagn != nil {
+
+		// query param tag__n
+		var qrTagn string
+
+		if o.Tagn != nil {
+			qrTagn = *o.Tagn
+		}
+		qTagn := qrTagn
+		if qTagn != "" {
+
+			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
 				return err
 			}
 		}

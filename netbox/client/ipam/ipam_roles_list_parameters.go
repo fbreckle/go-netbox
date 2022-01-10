@@ -192,6 +192,12 @@ type IpamRolesListParams struct {
 	// SlugNisw.
 	SlugNisw *string
 
+	// Tag.
+	Tag *string
+
+	// Tagn.
+	Tagn *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -650,6 +656,28 @@ func (o *IpamRolesListParams) WithSlugNisw(slugNisw *string) *IpamRolesListParam
 // SetSlugNisw adds the slugNisw to the ipam roles list params
 func (o *IpamRolesListParams) SetSlugNisw(slugNisw *string) {
 	o.SlugNisw = slugNisw
+}
+
+// WithTag adds the tag to the ipam roles list params
+func (o *IpamRolesListParams) WithTag(tag *string) *IpamRolesListParams {
+	o.SetTag(tag)
+	return o
+}
+
+// SetTag adds the tag to the ipam roles list params
+func (o *IpamRolesListParams) SetTag(tag *string) {
+	o.Tag = tag
+}
+
+// WithTagn adds the tagn to the ipam roles list params
+func (o *IpamRolesListParams) WithTagn(tagn *string) *IpamRolesListParams {
+	o.SetTagn(tagn)
+	return o
+}
+
+// SetTagn adds the tagN to the ipam roles list params
+func (o *IpamRolesListParams) SetTagn(tagn *string) {
+	o.Tagn = tagn
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -1284,6 +1312,40 @@ func (o *IpamRolesListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if qSlugNisw != "" {
 
 			if err := r.SetQueryParam("slug__nisw", qSlugNisw); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Tag != nil {
+
+		// query param tag
+		var qrTag string
+
+		if o.Tag != nil {
+			qrTag = *o.Tag
+		}
+		qTag := qrTag
+		if qTag != "" {
+
+			if err := r.SetQueryParam("tag", qTag); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Tagn != nil {
+
+		// query param tag__n
+		var qrTagn string
+
+		if o.Tagn != nil {
+			qrTagn = *o.Tagn
+		}
+		qTagn := qrTagn
+		if qTagn != "" {
+
+			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
 				return err
 			}
 		}

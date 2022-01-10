@@ -76,6 +76,7 @@ type CustomField struct {
 	// Required: true
 	// Max Length: 50
 	// Min Length: 1
+	// Pattern: ^[a-z0-9_]+$
 	Name *string `json:"name"`
 
 	// Required
@@ -263,6 +264,10 @@ func (m *CustomField) validateName(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaxLength("name", "body", *m.Name, 50); err != nil {
+		return err
+	}
+
+	if err := validate.Pattern("name", "body", *m.Name, `^[a-z0-9_]+$`); err != nil {
 		return err
 	}
 
@@ -618,12 +623,12 @@ type CustomFieldType struct {
 
 	// label
 	// Required: true
-	// Enum: [Text Integer Boolean (true/false) Date URL Selection Multiple selection]
+	// Enum: [Text Text (long) Integer Boolean (true/false) Date URL JSON Selection Multiple selection]
 	Label *string `json:"label"`
 
 	// value
 	// Required: true
-	// Enum: [text integer boolean date url select multiselect]
+	// Enum: [text longtext integer boolean date url json select multiselect]
 	Value *string `json:"value"`
 }
 
@@ -649,7 +654,7 @@ var customFieldTypeTypeLabelPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["Text","Integer","Boolean (true/false)","Date","URL","Selection","Multiple selection"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["Text","Text (long)","Integer","Boolean (true/false)","Date","URL","JSON","Selection","Multiple selection"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -662,6 +667,9 @@ const (
 	// CustomFieldTypeLabelText captures enum value "Text"
 	CustomFieldTypeLabelText string = "Text"
 
+	// CustomFieldTypeLabelTextLong captures enum value "Text (long)"
+	CustomFieldTypeLabelTextLong string = "Text (long)"
+
 	// CustomFieldTypeLabelInteger captures enum value "Integer"
 	CustomFieldTypeLabelInteger string = "Integer"
 
@@ -673,6 +681,9 @@ const (
 
 	// CustomFieldTypeLabelURL captures enum value "URL"
 	CustomFieldTypeLabelURL string = "URL"
+
+	// CustomFieldTypeLabelJSON captures enum value "JSON"
+	CustomFieldTypeLabelJSON string = "JSON"
 
 	// CustomFieldTypeLabelSelection captures enum value "Selection"
 	CustomFieldTypeLabelSelection string = "Selection"
@@ -707,7 +718,7 @@ var customFieldTypeTypeValuePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["text","integer","boolean","date","url","select","multiselect"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["text","longtext","integer","boolean","date","url","json","select","multiselect"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -720,6 +731,9 @@ const (
 	// CustomFieldTypeValueText captures enum value "text"
 	CustomFieldTypeValueText string = "text"
 
+	// CustomFieldTypeValueLongtext captures enum value "longtext"
+	CustomFieldTypeValueLongtext string = "longtext"
+
 	// CustomFieldTypeValueInteger captures enum value "integer"
 	CustomFieldTypeValueInteger string = "integer"
 
@@ -731,6 +745,9 @@ const (
 
 	// CustomFieldTypeValueURL captures enum value "url"
 	CustomFieldTypeValueURL string = "url"
+
+	// CustomFieldTypeValueJSON captures enum value "json"
+	CustomFieldTypeValueJSON string = "json"
 
 	// CustomFieldTypeValueSelect captures enum value "select"
 	CustomFieldTypeValueSelect string = "select"

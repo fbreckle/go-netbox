@@ -68,6 +68,9 @@ type Cable struct {
 	// tags
 	Tags []*NestedTag `json:"tags"`
 
+	// tenant
+	Tenant *NestedTenant `json:"tenant,omitempty"`
+
 	// Termination a
 	// Read Only: true
 	Terminationa map[string]*string `json:"termination_a,omitempty"`
@@ -127,6 +130,10 @@ func (m *Cable) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTags(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTenant(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -241,6 +248,23 @@ func (m *Cable) validateTags(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *Cable) validateTenant(formats strfmt.Registry) error {
+	if swag.IsZero(m.Tenant) { // not required
+		return nil
+	}
+
+	if m.Tenant != nil {
+		if err := m.Tenant.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("tenant")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -439,6 +463,10 @@ func (m *Cable) ContextValidate(ctx context.Context, formats strfmt.Registry) er
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateTenant(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateTerminationa(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -516,6 +544,20 @@ func (m *Cable) contextValidateTags(ctx context.Context, formats strfmt.Registry
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *Cable) contextValidateTenant(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Tenant != nil {
+		if err := m.Tenant.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("tenant")
+			}
+			return err
+		}
 	}
 
 	return nil
