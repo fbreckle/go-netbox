@@ -37,6 +37,9 @@ type PrefixLength struct {
 	// Prefix length
 	// Required: true
 	PrefixLength *int64 `json:"prefix_length"`
+
+	// Custom fields
+	CustomFields interface{} `json:"custom_fields,omitempty"`
 }
 
 // Validate validates this prefix length
