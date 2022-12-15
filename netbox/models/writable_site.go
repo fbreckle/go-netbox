@@ -57,7 +57,7 @@ type WritableSite struct {
 
 	// Description
 	// Max Length: 200
-	Description string `json:"description,omitempty"`
+	Description string `json:"description"`
 
 	// Device count
 	// Read Only: true

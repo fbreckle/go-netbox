@@ -171,6 +171,12 @@ for prop, prop_spec in data["definitions"]["WritableToken"]["properties"].items(
         prop_spec["x-omitempty"] = False
         logging.info(f"set x-omitempty = false on WritableIPAddress.{prop}")
 
+# Add omitempty = false for site description
+for prop, prop_spec in data["definitions"]["WritableSite"]["properties"].items():
+    if prop == "description":
+        prop_spec["x-omitempty"] = False
+        logging.info(f"set x-omitempty = false on WritableSite.{prop}")
+
 # Delete problematic maximums (might have to be replaced with a proper value)
 for definition, definition_spec in data["definitions"].items():
     for prop, prop_spec in definition_spec["properties"].items():
