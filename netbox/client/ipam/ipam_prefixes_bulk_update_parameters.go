@@ -79,7 +79,7 @@ IpamPrefixesBulkUpdateParams contains all the parameters to send to the API endp
 type IpamPrefixesBulkUpdateParams struct {
 
 	// Data.
-	Data *models.WritablePrefix
+	Data []*models.WritablePrefix
 
 	timeout    time.Duration
 	Context    context.Context
@@ -135,13 +135,13 @@ func (o *IpamPrefixesBulkUpdateParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithData adds the data to the ipam prefixes bulk update params
-func (o *IpamPrefixesBulkUpdateParams) WithData(data *models.WritablePrefix) *IpamPrefixesBulkUpdateParams {
+func (o *IpamPrefixesBulkUpdateParams) WithData(data []*models.WritablePrefix) *IpamPrefixesBulkUpdateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the ipam prefixes bulk update params
-func (o *IpamPrefixesBulkUpdateParams) SetData(data *models.WritablePrefix) {
+func (o *IpamPrefixesBulkUpdateParams) SetData(data []*models.WritablePrefix) {
 	o.Data = data
 }
 

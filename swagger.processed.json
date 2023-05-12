@@ -52817,7 +52817,10 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/WritablePrefix"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WritablePrefix"
+              }
             }
           }
         ],
@@ -52825,7 +52828,10 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/Prefix"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Prefix"
+              }
             }
           },
           "default": {

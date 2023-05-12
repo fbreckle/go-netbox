@@ -236,6 +236,24 @@ data["paths"]["/ipam/prefixes/{id}/available-prefixes/"]["post"]["responses"]["2
     "schema": {"$ref": "#/definitions/Prefix"},
 }
 
+# Use array of WritablePrefix in prefix bulk update endpoint
+logging.info("Use array in prefix bulk update endpoint")
+data["paths"]["/ipam/prefixes/"]["put"]["parameters"] = [
+    {
+        "name": "data",
+        "in": "body",
+        "required": True,
+        "schema": {"type": "array", "items": {"$ref": "#/definitions/WritablePrefix"}},
+    }
+]
+
+# Use array of Prefix in prefix bulk update endpoint response
+logging.info("Use array in prefix bulk update endpoint")
+data["paths"]["/ipam/prefixes/"]["put"]["responses"]["200"] = {
+    "description": "",
+    "schema": {"type": "array", "items": {"$ref": "#/definitions/Prefix"}},
+}
+
 # Write output file
 with open("swagger.processed.json", "w") as writefile:
     json.dump(data, writefile, indent=2)
