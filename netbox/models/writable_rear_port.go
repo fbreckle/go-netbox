@@ -88,12 +88,6 @@ type WritableRearPort struct {
 	// Format: date-time
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
 
-	//
-	// Return the appropriate serializer for the link termination model.
-	//
-	// Read Only: true
-	LinkPeers []*string `json:"link_peers"`
-
 	// Link peers type
 	// Read Only: true
 	LinkPeersType string `json:"link_peers_type,omitempty"`
@@ -566,10 +560,6 @@ func (m *WritableRearPort) ContextValidate(ctx context.Context, formats strfmt.R
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateLinkPeers(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateLinkPeersType(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -652,15 +642,6 @@ func (m *WritableRearPort) contextValidateID(ctx context.Context, formats strfmt
 func (m *WritableRearPort) contextValidateLastUpdated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "last_updated", "body", m.LastUpdated); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableRearPort) contextValidateLinkPeers(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "link_peers", "body", []*string(m.LinkPeers)); err != nil {
 		return err
 	}
 

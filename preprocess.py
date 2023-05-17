@@ -188,6 +188,16 @@ for definition, definition_spec in data["definitions"].items():
             del prop_spec["minimum"]
             logging.info(f"deleted minimum of {definition}.{prop}")
 
+# Delete fields that need custom serializer handling
+for definition, definition_spec in data["definitions"].items():
+    for prop, prop_spec in list(definition_spec["properties"].items()):
+        if (
+            "description" in prop_spec.keys()
+            and "appropriate serializer" in prop_spec["description"]
+        ):
+            del definition_spec["properties"][prop]
+            logging.info(f"deleted field {prop} with custom serializer")
+
 # Add custom fields to PrefixLength (https://github.com/fbreckle/go-netbox/pull/11)
 data["definitions"]["PrefixLength"]["properties"]["custom_fields"] = {
     "title": "Custom fields",

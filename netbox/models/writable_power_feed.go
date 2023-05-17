@@ -56,12 +56,6 @@ type WritablePowerFeed struct {
 	// Comments
 	Comments string `json:"comments,omitempty"`
 
-	//
-	// Return the appropriate serializer for the type of connected object.
-	//
-	// Read Only: true
-	ConnectedEndpoints []*string `json:"connected_endpoints"`
-
 	// Connected endpoints reachable
 	// Read Only: true
 	ConnectedEndpointsReachable *bool `json:"connected_endpoints_reachable,omitempty"`
@@ -94,12 +88,6 @@ type WritablePowerFeed struct {
 	// Read Only: true
 	// Format: date-time
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
-
-	//
-	// Return the appropriate serializer for the link termination model.
-	//
-	// Read Only: true
-	LinkPeers []*string `json:"link_peers"`
 
 	// Link peers type
 	// Read Only: true
@@ -603,10 +591,6 @@ func (m *WritablePowerFeed) ContextValidate(ctx context.Context, formats strfmt.
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateConnectedEndpoints(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateConnectedEndpointsReachable(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -628,10 +612,6 @@ func (m *WritablePowerFeed) ContextValidate(ctx context.Context, formats strfmt.
 	}
 
 	if err := m.contextValidateLastUpdated(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLinkPeers(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -687,15 +667,6 @@ func (m *WritablePowerFeed) contextValidateCableEnd(ctx context.Context, formats
 	return nil
 }
 
-func (m *WritablePowerFeed) contextValidateConnectedEndpoints(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "connected_endpoints", "body", []*string(m.ConnectedEndpoints)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *WritablePowerFeed) contextValidateConnectedEndpointsReachable(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "connected_endpoints_reachable", "body", m.ConnectedEndpointsReachable); err != nil {
@@ -744,15 +715,6 @@ func (m *WritablePowerFeed) contextValidateID(ctx context.Context, formats strfm
 func (m *WritablePowerFeed) contextValidateLastUpdated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "last_updated", "body", m.LastUpdated); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritablePowerFeed) contextValidateLinkPeers(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "link_peers", "body", []*string(m.LinkPeers)); err != nil {
 		return err
 	}
 

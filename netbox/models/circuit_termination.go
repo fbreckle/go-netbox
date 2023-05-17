@@ -77,12 +77,6 @@ type CircuitTermination struct {
 	// Format: date-time
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
 
-	//
-	// Return the appropriate serializer for the link termination model.
-	//
-	// Read Only: true
-	LinkPeers []*string `json:"link_peers"`
-
 	// Link peers type
 	// Read Only: true
 	LinkPeersType string `json:"link_peers_type,omitempty"`
@@ -500,10 +494,6 @@ func (m *CircuitTermination) ContextValidate(ctx context.Context, formats strfmt
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateLinkPeers(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateLinkPeersType(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -610,15 +600,6 @@ func (m *CircuitTermination) contextValidateID(ctx context.Context, formats strf
 func (m *CircuitTermination) contextValidateLastUpdated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "last_updated", "body", m.LastUpdated); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CircuitTermination) contextValidateLinkPeers(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "link_peers", "body", []*string(m.LinkPeers)); err != nil {
 		return err
 	}
 
