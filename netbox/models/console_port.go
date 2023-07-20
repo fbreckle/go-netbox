@@ -48,12 +48,6 @@ type ConsolePort struct {
 	// Min Length: 1
 	CableEnd string `json:"cable_end,omitempty"`
 
-	//
-	// Return the appropriate serializer for the type of connected object.
-	//
-	// Read Only: true
-	ConnectedEndpoints []*string `json:"connected_endpoints"`
-
 	// Connected endpoints reachable
 	// Read Only: true
 	ConnectedEndpointsReachable *bool `json:"connected_endpoints_reachable,omitempty"`
@@ -96,12 +90,6 @@ type ConsolePort struct {
 	// Read Only: true
 	// Format: date-time
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
-
-	//
-	// Return the appropriate serializer for the link termination model.
-	//
-	// Read Only: true
-	LinkPeers []*string `json:"link_peers"`
 
 	// Link peers type
 	// Read Only: true
@@ -425,10 +413,6 @@ func (m *ConsolePort) ContextValidate(ctx context.Context, formats strfmt.Regist
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateConnectedEndpoints(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateConnectedEndpointsReachable(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -454,10 +438,6 @@ func (m *ConsolePort) ContextValidate(ctx context.Context, formats strfmt.Regist
 	}
 
 	if err := m.contextValidateLastUpdated(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLinkPeers(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -519,15 +499,6 @@ func (m *ConsolePort) contextValidateCable(ctx context.Context, formats strfmt.R
 func (m *ConsolePort) contextValidateCableEnd(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "cable_end", "body", string(m.CableEnd)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ConsolePort) contextValidateConnectedEndpoints(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "connected_endpoints", "body", []*string(m.ConnectedEndpoints)); err != nil {
 		return err
 	}
 
@@ -598,15 +569,6 @@ func (m *ConsolePort) contextValidateID(ctx context.Context, formats strfmt.Regi
 func (m *ConsolePort) contextValidateLastUpdated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "last_updated", "body", m.LastUpdated); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ConsolePort) contextValidateLinkPeers(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "link_peers", "body", []*string(m.LinkPeers)); err != nil {
 		return err
 	}
 
