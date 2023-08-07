@@ -1,0 +1,6 @@
+module github.com/fbreckle/go-netbox
+
+go 1.18
+
+require (
+)

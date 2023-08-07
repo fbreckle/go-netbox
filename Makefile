@@ -1,13 +1,13 @@
-swagger=docker run --rm -it --env GOPATH=$(HOME)/go:/go --user $$(id -u):$$(id -g) --volume $(HOME):$(HOME) --workdir $$(pwd) quay.io/goswagger/swagger:v0.30.3
+OPENAPI-GENERATOR=docker run --rm --user $$(id -u):$$(id -g) --volume "${PWD}:/local" openapitools/openapi-generator-cli:v6.6.0
+GOIMPORTS=goimports
+
 generate:
 	mkdir -p netbox
-	$(swagger) generate client --target=./netbox --spec=./swagger.processed.json --copyright-file=./copyright_header.txt
+	$(OPENAPI-GENERATOR) generate -g go -i /local/openapi.yaml -o /local/netbox --git-host github.com --git-repo-id go-netbox --git-user-id fbreckle --package-name netbox # --enable-post-process-file
+	$(GOIMPORTS) -w netbox/*.go netbox/test/*.go
 
 preprocess:
 	python3 preprocess.py
 
 clean:
 	rm -rf netbox/
-
-integration:
-	go test ./... -tags=integration
