@@ -1,3 +1,4 @@
+# adapted from https://github.com/netbox-community/netbox/discussions/11808#discussioncomment-6068360
 YQ="yq"
 
 # Fix wrong types: (Issue: https://github.com/netbox-community/netbox/issues/11578)
@@ -14,7 +15,7 @@ ${YQ} -i 'with(.paths[]; with(.[]; with( .parameters[]; select(.schema.type=="in
 rm -rf client.gen.go
 
 # Regenerate, but without formating, since the spec generates int constants with value <nil>. Which is not valid go code.
-${topLevelDirectory}/bin/oapi-codegen --exclude-tags virtualization,wireless,circuits,schema,status,users -generate types,client,skip-fmt -package openapi openapi.yaml > client.gen.go
+oapi-codegen -generate types,client,skip-fmt -package openapi openapi.yaml > client.gen.go
 
 # Remove <nil> integers.
 sed -i "/= <nil>/d" client.gen.go
@@ -23,4 +24,4 @@ sed -i "/= <nil>/d" client.gen.go
 go fmt client.gen.go
 
 # Remove unused imports
-${topLevelDirectory}/bin/goimports -w client.gen.go
+goimports -w client.gen.go
