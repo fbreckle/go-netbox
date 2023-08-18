@@ -72839,15 +72839,6 @@
           "readOnly": true,
           "minLength": 1
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
@@ -72973,15 +72964,6 @@
           "type": "string",
           "readOnly": true,
           "minLength": 1
-        },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
         },
         "link_peers_type": {
           "title": "Link peers type",
@@ -75373,27 +75355,9 @@
           "readOnly": true,
           "minLength": 1
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
-          "readOnly": true
-        },
-        "connected_endpoints": {
-          "description": "\nReturn the appropriate serializer for the type of connected object.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
           "readOnly": true
         },
         "connected_endpoints_type": {
@@ -75543,27 +75507,9 @@
           "readOnly": true,
           "minLength": 1
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
-          "readOnly": true
-        },
-        "connected_endpoints": {
-          "description": "\nReturn the appropriate serializer for the type of connected object.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
           "readOnly": true
         },
         "connected_endpoints_type": {
@@ -75955,27 +75901,9 @@
           "readOnly": true,
           "minLength": 1
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
-          "readOnly": true
-        },
-        "connected_endpoints": {
-          "description": "\nReturn the appropriate serializer for the type of connected object.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
           "readOnly": true
         },
         "connected_endpoints_type": {
@@ -76125,27 +76053,9 @@
           "readOnly": true,
           "minLength": 1
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
-          "readOnly": true
-        },
-        "connected_endpoints": {
-          "description": "\nReturn the appropriate serializer for the type of connected object.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
           "readOnly": true
         },
         "connected_endpoints_type": {
@@ -77935,15 +77845,6 @@
           "readOnly": true,
           "minLength": 1
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
@@ -78114,15 +78015,6 @@
           "type": "string",
           "readOnly": true,
           "minLength": 1
-        },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
         },
         "link_peers_type": {
           "title": "Link peers type",
@@ -79964,15 +79856,6 @@
         "wireless_link": {
           "$ref": "#/definitions/NestedWirelessLink"
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
@@ -79990,15 +79873,6 @@
         },
         "l2vpn_termination": {
           "$ref": "#/definitions/NestedL2VPNTermination"
-        },
-        "connected_endpoints": {
-          "description": "\nReturn the appropriate serializer for the type of connected object.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
         },
         "connected_endpoints_type": {
           "title": "Connected endpoints type",
@@ -80575,15 +80449,6 @@
           "type": "integer",
           "x-nullable": true
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
@@ -80605,15 +80470,6 @@
         "l2vpn_termination": {
           "title": "L2vpn termination",
           "type": "string",
-          "readOnly": true
-        },
-        "connected_endpoints": {
-          "description": "\nReturn the appropriate serializer for the type of connected object.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
           "readOnly": true
         },
         "connected_endpoints_type": {
@@ -82786,27 +82642,9 @@
           "readOnly": true,
           "minLength": 1
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
-          "readOnly": true
-        },
-        "connected_endpoints": {
-          "description": "\nReturn the appropriate serializer for the type of connected object.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
           "readOnly": true
         },
         "connected_endpoints_type": {
@@ -82968,27 +82806,9 @@
           "readOnly": true,
           "minLength": 1
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
-          "readOnly": true
-        },
-        "connected_endpoints": {
-          "description": "\nReturn the appropriate serializer for the type of connected object.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
           "readOnly": true
         },
         "connected_endpoints_type": {
@@ -83876,27 +83696,9 @@
           "readOnly": true,
           "minLength": 1
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
-          "readOnly": true
-        },
-        "connected_endpoints": {
-          "description": "\nReturn the appropriate serializer for the type of connected object.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
           "readOnly": true
         },
         "connected_endpoints_type": {
@@ -84121,27 +83923,9 @@
           "readOnly": true,
           "minLength": 1
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
-          "readOnly": true
-        },
-        "connected_endpoints": {
-          "description": "\nReturn the appropriate serializer for the type of connected object.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
           "readOnly": true
         },
         "connected_endpoints_type": {
@@ -85111,27 +84895,9 @@
           "readOnly": true,
           "minLength": 1
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
-          "readOnly": true
-        },
-        "connected_endpoints": {
-          "description": "\nReturn the appropriate serializer for the type of connected object.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
           "readOnly": true
         },
         "connected_endpoints_type": {
@@ -85364,27 +85130,9 @@
           "readOnly": true,
           "minLength": 1
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
-          "readOnly": true
-        },
-        "connected_endpoints": {
-          "description": "\nReturn the appropriate serializer for the type of connected object.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
           "readOnly": true
         },
         "connected_endpoints_type": {
@@ -86825,15 +86573,6 @@
           "readOnly": true,
           "minLength": 1
         },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
-        },
         "link_peers_type": {
           "title": "Link peers type",
           "type": "string",
@@ -86999,15 +86738,6 @@
           "type": "string",
           "readOnly": true,
           "minLength": 1
-        },
-        "link_peers": {
-          "description": "\nReturn the appropriate serializer for the link termination model.\n",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "x-nullable": true
-          },
-          "readOnly": true
         },
         "link_peers_type": {
           "title": "Link peers type",

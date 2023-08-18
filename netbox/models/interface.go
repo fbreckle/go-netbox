@@ -51,12 +51,6 @@ type Interface struct {
 	// Min Length: 1
 	CableEnd string `json:"cable_end,omitempty"`
 
-	//
-	// Return the appropriate serializer for the type of connected object.
-	//
-	// Read Only: true
-	ConnectedEndpoints []interface{} `json:"connected_endpoints"`
-
 	// Connected endpoints reachable
 	// Read Only: true
 	ConnectedEndpointsReachable *bool `json:"connected_endpoints_reachable,omitempty"`
@@ -119,12 +113,6 @@ type Interface struct {
 	// Read Only: true
 	// Format: date-time
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
-
-	//
-	// Return the appropriate serializer for the link termination model.
-	//
-	// Read Only: true
-	LinkPeers []interface{} `json:"link_peers"`
 
 	// Link peers type
 	// Read Only: true
@@ -962,10 +950,6 @@ func (m *Interface) ContextValidate(ctx context.Context, formats strfmt.Registry
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateConnectedEndpoints(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateConnectedEndpointsReachable(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -1011,10 +995,6 @@ func (m *Interface) ContextValidate(ctx context.Context, formats strfmt.Registry
 	}
 
 	if err := m.contextValidateLastUpdated(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLinkPeers(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -1136,15 +1116,6 @@ func (m *Interface) contextValidateCable(ctx context.Context, formats strfmt.Reg
 func (m *Interface) contextValidateCableEnd(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "cable_end", "body", string(m.CableEnd)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Interface) contextValidateConnectedEndpoints(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "connected_endpoints", "body", []interface{}(m.ConnectedEndpoints)); err != nil {
 		return err
 	}
 
@@ -1281,15 +1252,6 @@ func (m *Interface) contextValidateLag(ctx context.Context, formats strfmt.Regis
 func (m *Interface) contextValidateLastUpdated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "last_updated", "body", m.LastUpdated); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Interface) contextValidateLinkPeers(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "link_peers", "body", []interface{}(m.LinkPeers)); err != nil {
 		return err
 	}
 

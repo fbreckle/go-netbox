@@ -48,12 +48,6 @@ type WritablePowerOutlet struct {
 	// Min Length: 1
 	CableEnd string `json:"cable_end,omitempty"`
 
-	//
-	// Return the appropriate serializer for the type of connected object.
-	//
-	// Read Only: true
-	ConnectedEndpoints []interface{} `json:"connected_endpoints"`
-
 	// Connected endpoints reachable
 	// Read Only: true
 	ConnectedEndpointsReachable *bool `json:"connected_endpoints_reachable,omitempty"`
@@ -102,12 +96,6 @@ type WritablePowerOutlet struct {
 	// Read Only: true
 	// Format: date-time
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
-
-	//
-	// Return the appropriate serializer for the link termination model.
-	//
-	// Read Only: true
-	LinkPeers []interface{} `json:"link_peers"`
 
 	// Link peers type
 	// Read Only: true
@@ -713,10 +701,6 @@ func (m *WritablePowerOutlet) ContextValidate(ctx context.Context, formats strfm
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateConnectedEndpoints(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateConnectedEndpointsReachable(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -738,10 +722,6 @@ func (m *WritablePowerOutlet) ContextValidate(ctx context.Context, formats strfm
 	}
 
 	if err := m.contextValidateLastUpdated(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateLinkPeers(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -797,15 +777,6 @@ func (m *WritablePowerOutlet) contextValidateCableEnd(ctx context.Context, forma
 	return nil
 }
 
-func (m *WritablePowerOutlet) contextValidateConnectedEndpoints(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "connected_endpoints", "body", []interface{}(m.ConnectedEndpoints)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *WritablePowerOutlet) contextValidateConnectedEndpointsReachable(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "connected_endpoints_reachable", "body", m.ConnectedEndpointsReachable); err != nil {
@@ -854,15 +825,6 @@ func (m *WritablePowerOutlet) contextValidateID(ctx context.Context, formats str
 func (m *WritablePowerOutlet) contextValidateLastUpdated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "last_updated", "body", m.LastUpdated); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritablePowerOutlet) contextValidateLinkPeers(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "link_peers", "body", []interface{}(m.LinkPeers)); err != nil {
 		return err
 	}
 

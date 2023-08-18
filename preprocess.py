@@ -292,6 +292,11 @@ data["paths"]["/ipam/prefixes/{id}/available-prefixes/"]["post"]["responses"]["2
     "schema": {"$ref": "#/definitions/Prefix"},
 }
 
+logging.info("Drop link_peers and connected_endpoints from definition properties")
+for definition, definition_spec in data["definitions"].items():
+    definition_spec["properties"].pop("link_peers", None)
+    definition_spec["properties"].pop("connected_endpoints", None)
+
 # Write output file
 with open("swagger.processed.json", "w") as writefile:
     json.dump(data, writefile, indent=2)
