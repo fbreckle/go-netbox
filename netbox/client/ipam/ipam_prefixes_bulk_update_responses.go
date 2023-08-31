@@ -67,7 +67,7 @@ IpamPrefixesBulkUpdateOK describes a response with status code 200, with default
 IpamPrefixesBulkUpdateOK ipam prefixes bulk update o k
 */
 type IpamPrefixesBulkUpdateOK struct {
-	Payload *models.Prefix
+	Payload []*models.Prefix
 }
 
 // IsSuccess returns true when this ipam prefixes bulk update o k response has a 2xx status code
@@ -103,16 +103,14 @@ func (o *IpamPrefixesBulkUpdateOK) String() string {
 	return fmt.Sprintf("[PUT /ipam/prefixes/][%d] ipamPrefixesBulkUpdateOK  %+v", 200, o.Payload)
 }
 
-func (o *IpamPrefixesBulkUpdateOK) GetPayload() *models.Prefix {
+func (o *IpamPrefixesBulkUpdateOK) GetPayload() []*models.Prefix {
 	return o.Payload
 }
 
 func (o *IpamPrefixesBulkUpdateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.Prefix)
-
 	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
