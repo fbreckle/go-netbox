@@ -91,6 +91,18 @@ type ClientService interface {
 
 	VirtualizationInterfacesUpdate(params *VirtualizationInterfacesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationInterfacesUpdateOK, error)
 
+	VirtualizationVirtualDisksCreate(params *VirtualizationVirtualDisksCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualDisksCreateCreated, error)
+
+	VirtualizationVirtualDisksDelete(params *VirtualizationVirtualDisksDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualDisksDeleteNoContent, error)
+
+	VirtualizationVirtualDisksList(params *VirtualizationVirtualDisksListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualDisksListOK, error)
+
+	VirtualizationVirtualDisksPartialUpdate(params *VirtualizationVirtualDisksPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualDisksPartialUpdateOK, error)
+
+	VirtualizationVirtualDisksRead(params *VirtualizationVirtualDisksReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualDisksReadOK, error)
+
+	VirtualizationVirtualDisksUpdate(params *VirtualizationVirtualDisksUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualDisksUpdateOK, error)
+
 	VirtualizationVirtualMachinesCreate(params *VirtualizationVirtualMachinesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachinesCreateCreated, error)
 
 	VirtualizationVirtualMachinesDelete(params *VirtualizationVirtualMachinesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachinesDeleteNoContent, error)
@@ -1015,6 +1027,234 @@ func (a *Client) VirtualizationInterfacesUpdate(params *VirtualizationInterfaces
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*VirtualizationInterfacesUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VirtualizationVirtualDisksCreate virtualization virtual disks create API
+*/
+func (a *Client) VirtualizationVirtualDisksCreate(params *VirtualizationVirtualDisksCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualDisksCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationVirtualDisksCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "virtualization_virtual-disks_create",
+		Method:             "POST",
+		PathPattern:        "/virtualization/virtual-disks/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationVirtualDisksCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationVirtualDisksCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VirtualizationVirtualDisksCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VirtualizationVirtualDisksDelete virtualization virtual disks delete API
+*/
+func (a *Client) VirtualizationVirtualDisksDelete(params *VirtualizationVirtualDisksDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualDisksDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationVirtualDisksDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "virtualization_virtual-disks_delete",
+		Method:             "DELETE",
+		PathPattern:        "/virtualization/virtual-disks/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationVirtualDisksDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationVirtualDisksDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VirtualizationVirtualDisksDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VirtualizationVirtualDisksList virtualization virtual disks list API
+*/
+func (a *Client) VirtualizationVirtualDisksList(params *VirtualizationVirtualDisksListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualDisksListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationVirtualDisksListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "virtualization_virtual-disks_list",
+		Method:             "GET",
+		PathPattern:        "/virtualization/virtual-disks/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationVirtualDisksListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationVirtualDisksListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VirtualizationVirtualDisksListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VirtualizationVirtualDisksPartialUpdate virtualization virtual disks partial update API
+*/
+func (a *Client) VirtualizationVirtualDisksPartialUpdate(params *VirtualizationVirtualDisksPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualDisksPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationVirtualDisksPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "virtualization_virtual-disks_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/virtualization/virtual-disks/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationVirtualDisksPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationVirtualDisksPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VirtualizationVirtualDisksPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VirtualizationVirtualDisksRead virtualization virtual disks read API
+*/
+func (a *Client) VirtualizationVirtualDisksRead(params *VirtualizationVirtualDisksReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualDisksReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationVirtualDisksReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "virtualization_virtual-disks_read",
+		Method:             "GET",
+		PathPattern:        "/virtualization/virtual-disks/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationVirtualDisksReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationVirtualDisksReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VirtualizationVirtualDisksReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VirtualizationVirtualDisksUpdate virtualization virtual disks update API
+*/
+func (a *Client) VirtualizationVirtualDisksUpdate(params *VirtualizationVirtualDisksUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualDisksUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationVirtualDisksUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "virtualization_virtual-disks_update",
+		Method:             "PUT",
+		PathPattern:        "/virtualization/virtual-disks/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationVirtualDisksUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationVirtualDisksUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VirtualizationVirtualDisksUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
