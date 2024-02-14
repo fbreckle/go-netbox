@@ -74588,7 +74588,8 @@
         "parent": {
           "title": "Parent",
           "type": "integer",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": false
         },
         "status": {
           "title": "Status",
