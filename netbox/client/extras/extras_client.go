@@ -55,6 +55,22 @@ type ClientService interface {
 
 	ExtrasConfigContextsUpdate(params *ExtrasConfigContextsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigContextsUpdateOK, error)
 
+	ExtrasConfigTemplatesCreate(params *ExtrasConfigTemplatesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesCreateCreated, error)
+
+	ExtrasConfigTemplatesDelete(params *ExtrasConfigTemplatesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesDeleteNoContent, error)
+
+	ExtrasConfigTemplatesList(params *ExtrasConfigTemplatesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesListOK, error)
+
+	ExtrasConfigTemplatesPartialUpdate(params *ExtrasConfigTemplatesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesPartialUpdateOK, error)
+
+	ExtrasConfigTemplatesRead(params *ExtrasConfigTemplatesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesReadOK, error)
+
+	ExtrasConfigTemplatesRender(params *ExtrasConfigTemplatesRenderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesRenderCreated, error)
+
+	ExtrasConfigTemplatesSync(params *ExtrasConfigTemplatesSyncParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesSyncCreated, error)
+
+	ExtrasConfigTemplatesUpdate(params *ExtrasConfigTemplatesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesUpdateOK, error)
+
 	ExtrasContentTypesList(params *ExtrasContentTypesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasContentTypesListOK, error)
 
 	ExtrasContentTypesRead(params *ExtrasContentTypesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasContentTypesReadOK, error)
@@ -425,6 +441,312 @@ func (a *Client) ExtrasConfigContextsUpdate(params *ExtrasConfigContextsUpdatePa
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*ExtrasConfigContextsUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ExtrasConfigTemplatesCreate extras config templates create API
+*/
+func (a *Client) ExtrasConfigTemplatesCreate(params *ExtrasConfigTemplatesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasConfigTemplatesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_config-templates_create",
+		Method:             "POST",
+		PathPattern:        "/extras/config-templates/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasConfigTemplatesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasConfigTemplatesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasConfigTemplatesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ExtrasConfigTemplatesDelete extras config templates delete API
+*/
+func (a *Client) ExtrasConfigTemplatesDelete(params *ExtrasConfigTemplatesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasConfigTemplatesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_config-templates_delete",
+		Method:             "DELETE",
+		PathPattern:        "/extras/config-templates/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasConfigTemplatesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasConfigTemplatesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasConfigTemplatesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ExtrasConfigTemplatesList extras config templates list API
+*/
+func (a *Client) ExtrasConfigTemplatesList(params *ExtrasConfigTemplatesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasConfigTemplatesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_config-templates_list",
+		Method:             "GET",
+		PathPattern:        "/extras/config-templates/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasConfigTemplatesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasConfigTemplatesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasConfigTemplatesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ExtrasConfigTemplatesPartialUpdate extras config templates partial update API
+*/
+func (a *Client) ExtrasConfigTemplatesPartialUpdate(params *ExtrasConfigTemplatesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasConfigTemplatesPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_config-templates_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/extras/config-templates/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasConfigTemplatesPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasConfigTemplatesPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasConfigTemplatesPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ExtrasConfigTemplatesRead extras config templates read API
+*/
+func (a *Client) ExtrasConfigTemplatesRead(params *ExtrasConfigTemplatesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasConfigTemplatesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_config-templates_read",
+		Method:             "GET",
+		PathPattern:        "/extras/config-templates/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasConfigTemplatesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasConfigTemplatesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasConfigTemplatesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+	ExtrasConfigTemplatesRender Render a ConfigTemplate using the context data provided (if any). If the client requests "text/plain" data,
+
+return the raw rendered content, rather than serialized JSON.
+*/
+func (a *Client) ExtrasConfigTemplatesRender(params *ExtrasConfigTemplatesRenderParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesRenderCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasConfigTemplatesRenderParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_config-templates_render",
+		Method:             "POST",
+		PathPattern:        "/extras/config-templates/{id}/render/",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasConfigTemplatesRenderReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasConfigTemplatesRenderCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasConfigTemplatesRenderDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ExtrasConfigTemplatesSync Provide a /sync API endpoint to synchronize an object's data from its associated DataFile (if any).
+*/
+func (a *Client) ExtrasConfigTemplatesSync(params *ExtrasConfigTemplatesSyncParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesSyncCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasConfigTemplatesSyncParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_config-templates_sync",
+		Method:             "POST",
+		PathPattern:        "/extras/config-templates/{id}/sync/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasConfigTemplatesSyncReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasConfigTemplatesSyncCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasConfigTemplatesSyncDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ExtrasConfigTemplatesUpdate extras config templates update API
+*/
+func (a *Client) ExtrasConfigTemplatesUpdate(params *ExtrasConfigTemplatesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasConfigTemplatesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasConfigTemplatesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_config-templates_update",
+		Method:             "PUT",
+		PathPattern:        "/extras/config-templates/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasConfigTemplatesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasConfigTemplatesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasConfigTemplatesUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
