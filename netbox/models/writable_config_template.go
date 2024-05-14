@@ -40,26 +40,6 @@ type WritableConfigTemplate struct {
 	// Format: date-time
 	Created *strfmt.DateTime `json:"created,omitempty"`
 
-	// Data file
-	DataFile *int64 `json:"data_file,omitempty"`
-
-	// Data path
-	//
-	// Path to remote file (relative to data source root)
-	// Read Only: true
-	// Min Length: 1
-	DataPath string `json:"data_path,omitempty"`
-
-	// Data source
-	//
-	// Remote data source
-	DataSource *int64 `json:"data_source,omitempty"`
-
-	// Data synced
-	// Read Only: true
-	// Format: date-time
-	DataSynced *strfmt.DateTime `json:"data_synced,omitempty"`
-
 	// Description
 	// Max Length: 200
 	Description string `json:"description,omitempty"`
@@ -112,14 +92,6 @@ func (m *WritableConfigTemplate) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateDataPath(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateDataSynced(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateDescription(formats); err != nil {
 		res = append(res, err)
 	}
@@ -156,30 +128,6 @@ func (m *WritableConfigTemplate) validateCreated(formats strfmt.Registry) error 
 	}
 
 	if err := validate.FormatOf("created", "body", "date-time", m.Created.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableConfigTemplate) validateDataPath(formats strfmt.Registry) error {
-	if swag.IsZero(m.DataPath) { // not required
-		return nil
-	}
-
-	if err := validate.MinLength("data_path", "body", m.DataPath, 1); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableConfigTemplate) validateDataSynced(formats strfmt.Registry) error {
-	if swag.IsZero(m.DataSynced) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("data_synced", "body", "date-time", m.DataSynced.String(), formats); err != nil {
 		return err
 	}
 
@@ -286,14 +234,6 @@ func (m *WritableConfigTemplate) ContextValidate(ctx context.Context, formats st
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateDataPath(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateDataSynced(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateDisplay(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -323,24 +263,6 @@ func (m *WritableConfigTemplate) ContextValidate(ctx context.Context, formats st
 func (m *WritableConfigTemplate) contextValidateCreated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "created", "body", m.Created); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableConfigTemplate) contextValidateDataPath(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "data_path", "body", string(m.DataPath)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableConfigTemplate) contextValidateDataSynced(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "data_synced", "body", m.DataSynced); err != nil {
 		return err
 	}
 

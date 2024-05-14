@@ -40,24 +40,6 @@ type ConfigTemplate struct {
 	// Format: date-time
 	Created *strfmt.DateTime `json:"created,omitempty"`
 
-	// data file
-	DataFile *NestedDataFile `json:"data_file,omitempty"`
-
-	// Data path
-	//
-	// Path to remote file (relative to data source root)
-	// Read Only: true
-	// Min Length: 1
-	DataPath string `json:"data_path,omitempty"`
-
-	// data source
-	DataSource *NestedDataSource `json:"data_source,omitempty"`
-
-	// Data synced
-	// Read Only: true
-	// Format: date-time
-	DataSynced *strfmt.DateTime `json:"data_synced,omitempty"`
-
 	// Description
 	// Max Length: 200
 	Description string `json:"description,omitempty"`
@@ -110,22 +92,6 @@ func (m *ConfigTemplate) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateDataFile(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateDataPath(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateDataSource(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateDataSynced(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateDescription(formats); err != nil {
 		res = append(res, err)
 	}
@@ -162,68 +128,6 @@ func (m *ConfigTemplate) validateCreated(formats strfmt.Registry) error {
 	}
 
 	if err := validate.FormatOf("created", "body", "date-time", m.Created.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ConfigTemplate) validateDataFile(formats strfmt.Registry) error {
-	if swag.IsZero(m.DataFile) { // not required
-		return nil
-	}
-
-	if m.DataFile != nil {
-		if err := m.DataFile.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("data_file")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("data_file")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigTemplate) validateDataPath(formats strfmt.Registry) error {
-	if swag.IsZero(m.DataPath) { // not required
-		return nil
-	}
-
-	if err := validate.MinLength("data_path", "body", m.DataPath, 1); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ConfigTemplate) validateDataSource(formats strfmt.Registry) error {
-	if swag.IsZero(m.DataSource) { // not required
-		return nil
-	}
-
-	if m.DataSource != nil {
-		if err := m.DataSource.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("data_source")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("data_source")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigTemplate) validateDataSynced(formats strfmt.Registry) error {
-	if swag.IsZero(m.DataSynced) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("data_synced", "body", "date-time", m.DataSynced.String(), formats); err != nil {
 		return err
 	}
 
@@ -330,22 +234,6 @@ func (m *ConfigTemplate) ContextValidate(ctx context.Context, formats strfmt.Reg
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateDataFile(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateDataPath(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateDataSource(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateDataSynced(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateDisplay(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -375,66 +263,6 @@ func (m *ConfigTemplate) ContextValidate(ctx context.Context, formats strfmt.Reg
 func (m *ConfigTemplate) contextValidateCreated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "created", "body", m.Created); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ConfigTemplate) contextValidateDataFile(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.DataFile != nil {
-
-		if swag.IsZero(m.DataFile) { // not required
-			return nil
-		}
-
-		if err := m.DataFile.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("data_file")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("data_file")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigTemplate) contextValidateDataPath(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "data_path", "body", string(m.DataPath)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ConfigTemplate) contextValidateDataSource(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.DataSource != nil {
-
-		if swag.IsZero(m.DataSource) { // not required
-			return nil
-		}
-
-		if err := m.DataSource.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("data_source")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("data_source")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ConfigTemplate) contextValidateDataSynced(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "data_synced", "body", m.DataSynced); err != nil {
 		return err
 	}
 

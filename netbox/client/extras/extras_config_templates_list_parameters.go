@@ -77,18 +77,6 @@ ExtrasConfigTemplatesListParams contains all the parameters to send to the API e
 */
 type ExtrasConfigTemplatesListParams struct {
 
-	// DataFileID.
-	DataFileID *string
-
-	// DataFileIDn.
-	DataFileIDn *string
-
-	// DataSourceID.
-	DataSourceID *string
-
-	// DataSourceIDn.
-	DataSourceIDn *string
-
 	// DataSynced.
 	DataSynced *string
 
@@ -269,50 +257,6 @@ func (o *ExtrasConfigTemplatesListParams) WithHTTPClient(client *http.Client) *E
 // SetHTTPClient adds the HTTPClient to the extras config templates list params
 func (o *ExtrasConfigTemplatesListParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
-}
-
-// WithDataFileID adds the dataFileID to the extras config templates list params
-func (o *ExtrasConfigTemplatesListParams) WithDataFileID(dataFileID *string) *ExtrasConfigTemplatesListParams {
-	o.SetDataFileID(dataFileID)
-	return o
-}
-
-// SetDataFileID adds the dataFileId to the extras config templates list params
-func (o *ExtrasConfigTemplatesListParams) SetDataFileID(dataFileID *string) {
-	o.DataFileID = dataFileID
-}
-
-// WithDataFileIDn adds the dataFileIDn to the extras config templates list params
-func (o *ExtrasConfigTemplatesListParams) WithDataFileIDn(dataFileIDn *string) *ExtrasConfigTemplatesListParams {
-	o.SetDataFileIDn(dataFileIDn)
-	return o
-}
-
-// SetDataFileIDn adds the dataFileIdN to the extras config templates list params
-func (o *ExtrasConfigTemplatesListParams) SetDataFileIDn(dataFileIDn *string) {
-	o.DataFileIDn = dataFileIDn
-}
-
-// WithDataSourceID adds the dataSourceID to the extras config templates list params
-func (o *ExtrasConfigTemplatesListParams) WithDataSourceID(dataSourceID *string) *ExtrasConfigTemplatesListParams {
-	o.SetDataSourceID(dataSourceID)
-	return o
-}
-
-// SetDataSourceID adds the dataSourceId to the extras config templates list params
-func (o *ExtrasConfigTemplatesListParams) SetDataSourceID(dataSourceID *string) {
-	o.DataSourceID = dataSourceID
-}
-
-// WithDataSourceIDn adds the dataSourceIDn to the extras config templates list params
-func (o *ExtrasConfigTemplatesListParams) WithDataSourceIDn(dataSourceIDn *string) *ExtrasConfigTemplatesListParams {
-	o.SetDataSourceIDn(dataSourceIDn)
-	return o
-}
-
-// SetDataSourceIDn adds the dataSourceIdN to the extras config templates list params
-func (o *ExtrasConfigTemplatesListParams) SetDataSourceIDn(dataSourceIDn *string) {
-	o.DataSourceIDn = dataSourceIDn
 }
 
 // WithDataSynced adds the dataSynced to the extras config templates list params
@@ -762,74 +706,6 @@ func (o *ExtrasConfigTemplatesListParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
-
-	if o.DataFileID != nil {
-
-		// query param data_file_id
-		var qrDataFileID string
-
-		if o.DataFileID != nil {
-			qrDataFileID = *o.DataFileID
-		}
-		qDataFileID := qrDataFileID
-		if qDataFileID != "" {
-
-			if err := r.SetQueryParam("data_file_id", qDataFileID); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.DataFileIDn != nil {
-
-		// query param data_file_id__n
-		var qrDataFileIDn string
-
-		if o.DataFileIDn != nil {
-			qrDataFileIDn = *o.DataFileIDn
-		}
-		qDataFileIDn := qrDataFileIDn
-		if qDataFileIDn != "" {
-
-			if err := r.SetQueryParam("data_file_id__n", qDataFileIDn); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.DataSourceID != nil {
-
-		// query param data_source_id
-		var qrDataSourceID string
-
-		if o.DataSourceID != nil {
-			qrDataSourceID = *o.DataSourceID
-		}
-		qDataSourceID := qrDataSourceID
-		if qDataSourceID != "" {
-
-			if err := r.SetQueryParam("data_source_id", qDataSourceID); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.DataSourceIDn != nil {
-
-		// query param data_source_id__n
-		var qrDataSourceIDn string
-
-		if o.DataSourceIDn != nil {
-			qrDataSourceIDn = *o.DataSourceIDn
-		}
-		qDataSourceIDn := qrDataSourceIDn
-		if qDataSourceIDn != "" {
-
-			if err := r.SetQueryParam("data_source_id__n", qDataSourceIDn); err != nil {
-				return err
-			}
-		}
-	}
 
 	if o.DataSynced != nil {
 

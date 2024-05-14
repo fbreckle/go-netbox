@@ -26,7 +26,6 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/fbreckle/go-netbox/netbox/client/circuits"
-	"github.com/fbreckle/go-netbox/netbox/client/core"
 	"github.com/fbreckle/go-netbox/netbox/client/dcim"
 	"github.com/fbreckle/go-netbox/netbox/client/extras"
 	"github.com/fbreckle/go-netbox/netbox/client/ipam"
@@ -81,7 +80,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *NetBoxAPI 
 	cli := new(NetBoxAPI)
 	cli.Transport = transport
 	cli.Circuits = circuits.New(transport, formats)
-	cli.Core = core.New(transport, formats)
 	cli.Dcim = dcim.New(transport, formats)
 	cli.Extras = extras.New(transport, formats)
 	cli.Ipam = ipam.New(transport, formats)
@@ -137,8 +135,6 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 type NetBoxAPI struct {
 	Circuits circuits.ClientService
 
-	Core core.ClientService
-
 	Dcim dcim.ClientService
 
 	Extras extras.ClientService
@@ -164,7 +160,6 @@ type NetBoxAPI struct {
 func (c *NetBoxAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.Circuits.SetTransport(transport)
-	c.Core.SetTransport(transport)
 	c.Dcim.SetTransport(transport)
 	c.Extras.SetTransport(transport)
 	c.Ipam.SetTransport(transport)
