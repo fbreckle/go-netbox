@@ -55,6 +55,9 @@ type DeviceWithConfigContext struct {
 	// Read Only: true
 	ConfigContext interface{} `json:"config_context,omitempty"`
 
+	// config template
+	ConfigTemplate *NestedConfigTemplate `json:"config_template,omitempty"`
+
 	// Created
 	// Read Only: true
 	// Format: date-time
@@ -172,6 +175,10 @@ func (m *DeviceWithConfigContext) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCluster(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateConfigTemplate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -319,6 +326,25 @@ func (m *DeviceWithConfigContext) validateCluster(formats strfmt.Registry) error
 				return ve.ValidateName("cluster")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("cluster")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeviceWithConfigContext) validateConfigTemplate(formats strfmt.Registry) error {
+	if swag.IsZero(m.ConfigTemplate) { // not required
+		return nil
+	}
+
+	if m.ConfigTemplate != nil {
+		if err := m.ConfigTemplate.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("config_template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("config_template")
 			}
 			return err
 		}
@@ -750,6 +776,10 @@ func (m *DeviceWithConfigContext) ContextValidate(ctx context.Context, formats s
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateConfigTemplate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateCreated(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -870,6 +900,27 @@ func (m *DeviceWithConfigContext) contextValidateCluster(ctx context.Context, fo
 				return ve.ValidateName("cluster")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("cluster")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeviceWithConfigContext) contextValidateConfigTemplate(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ConfigTemplate != nil {
+
+		if swag.IsZero(m.ConfigTemplate) { // not required
+			return nil
+		}
+
+		if err := m.ConfigTemplate.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("config_template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("config_template")
 			}
 			return err
 		}

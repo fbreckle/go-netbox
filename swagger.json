@@ -10940,6 +10940,13 @@
             "type": "string"
           },
           {
+            "name": "config_template_id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "console_ports",
             "in": "query",
             "description": "",
@@ -67423,7 +67430,8 @@
     },
     "/extras/event-rules/": {
       "get": {
-        "operationId": "extras_event_rules_list", "description": "Get a list of event rule objects.",
+        "operationId": "extras_event_rules_list",
+        "description": "Get a list of event rule objects.",
         "parameters": [
           {
             "in": "query",
@@ -71792,6 +71800,9 @@
           "title": "Comments",
           "type": "string"
         },
+        "config_template": {
+          "$ref": "#/definitions/NestedConfigTemplate"
+        },
         "local_context_data": {
           "title": "Local context data",
           "type": "object",
@@ -73993,6 +74004,9 @@
           "title": "Comments",
           "type": "string"
         },
+        "config_template": {
+          "$ref": "#/definitions/NestedConfigTemplate"
+        },
         "local_context_data": {
           "title": "Local context data",
           "type": "object",
@@ -74195,6 +74209,9 @@
         "comments": {
           "title": "Comments",
           "type": "string"
+        },
+        "config_template": {
+          "$ref": "#/definitions/NestedConfigTemplate"
         },
         "local_context_data": {
           "title": "Local context data",

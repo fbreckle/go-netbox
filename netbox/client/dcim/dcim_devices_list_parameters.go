@@ -122,6 +122,9 @@ type DcimDevicesListParams struct {
 	// ClusterIDn.
 	ClusterIDn *string
 
+	// ConfigTemplateID.
+	ConfigTemplateID *string
+
 	// ConsolePorts.
 	ConsolePorts *string
 
@@ -785,6 +788,17 @@ func (o *DcimDevicesListParams) WithClusterIDn(clusterIDn *string) *DcimDevicesL
 // SetClusterIDn adds the clusterIdN to the dcim devices list params
 func (o *DcimDevicesListParams) SetClusterIDn(clusterIDn *string) {
 	o.ClusterIDn = clusterIDn
+}
+
+// WithConfigTemplateID adds the configTemplateID to the dcim devices list params
+func (o *DcimDevicesListParams) WithConfigTemplateID(configTemplateID *string) *DcimDevicesListParams {
+	o.SetConfigTemplateID(configTemplateID)
+	return o
+}
+
+// SetConfigTemplateID adds the configTemplateId to the dcim devices list params
+func (o *DcimDevicesListParams) SetConfigTemplateID(configTemplateID *string) {
+	o.ConfigTemplateID = configTemplateID
 }
 
 // WithConsolePorts adds the consolePorts to the dcim devices list params
@@ -2651,6 +2665,23 @@ func (o *DcimDevicesListParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		if qClusterIDn != "" {
 
 			if err := r.SetQueryParam("cluster_id__n", qClusterIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigTemplateID != nil {
+
+		// query param config_template_id
+		var qrConfigTemplateID string
+
+		if o.ConfigTemplateID != nil {
+			qrConfigTemplateID = *o.ConfigTemplateID
+		}
+		qConfigTemplateID := qrConfigTemplateID
+		if qConfigTemplateID != "" {
+
+			if err := r.SetQueryParam("config_template_id", qConfigTemplateID); err != nil {
 				return err
 			}
 		}

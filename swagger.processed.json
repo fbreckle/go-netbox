@@ -10701,6 +10701,13 @@
             "type": "string"
           },
           {
+            "name": "config_template_id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "console_ports",
             "in": "query",
             "description": "",
@@ -70740,6 +70747,9 @@
           "title": "Comments",
           "type": "string"
         },
+        "config_template": {
+          "$ref": "#/definitions/NestedConfigTemplate"
+        },
         "local_context_data": {
           "title": "Local context data",
           "type": "object",
@@ -72952,6 +72962,9 @@
           "title": "Comments",
           "type": "string"
         },
+        "config_template": {
+          "$ref": "#/definitions/NestedConfigTemplate"
+        },
         "local_context_data": {
           "title": "Local context data",
           "type": "object",
@@ -73154,6 +73167,9 @@
         "comments": {
           "title": "Comments",
           "type": "string"
+        },
+        "config_template": {
+          "$ref": "#/definitions/NestedConfigTemplate"
         },
         "local_context_data": {
           "title": "Local context data",
