@@ -74211,7 +74211,9 @@
           "type": "string"
         },
         "config_template": {
-          "$ref": "#/definitions/NestedConfigTemplate"
+          "title": "Config Template",
+          "type": "integer",
+          "x-nullable": true
         },
         "local_context_data": {
           "title": "Local context data",
