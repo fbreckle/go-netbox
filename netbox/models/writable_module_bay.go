@@ -59,10 +59,6 @@ type WritableModuleBay struct {
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
 
-	// Installed module
-	// Required: true
-	InstalledModule *int64 `json:"installed_module"`
-
 	// Label
 	//
 	// Physical label
@@ -108,10 +104,6 @@ func (m *WritableModuleBay) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDevice(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateInstalledModule(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -172,15 +164,6 @@ func (m *WritableModuleBay) validateDescription(formats strfmt.Registry) error {
 func (m *WritableModuleBay) validateDevice(formats strfmt.Registry) error {
 
 	if err := validate.Required("device", "body", m.Device); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableModuleBay) validateInstalledModule(formats strfmt.Registry) error {
-
-	if err := validate.Required("installed_module", "body", m.InstalledModule); err != nil {
 		return err
 	}
 

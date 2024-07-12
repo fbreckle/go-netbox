@@ -77681,8 +77681,7 @@
     "WritableModuleBay": {
       "required": [
         "device",
-        "name",
-        "installed_module"
+        "name"
       ],
       "type": "object",
       "properties": {
@@ -77711,10 +77710,6 @@
           "type": "string",
           "maxLength": 64,
           "minLength": 1
-        },
-        "installed_module": {
-          "title": "Installed module",
-          "type": "integer"
         },
         "label": {
           "title": "Label",
