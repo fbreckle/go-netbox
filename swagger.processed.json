@@ -70427,7 +70427,7 @@
         },
         "family": {
           "title": "Family",
-          "type": "integer",
+          "type": "object",
           "readOnly": true
         },
         "address": {

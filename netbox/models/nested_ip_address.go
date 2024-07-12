@@ -46,7 +46,7 @@ type NestedIPAddress struct {
 
 	// Family
 	// Read Only: true
-	Family int64 `json:"family,omitempty"`
+	Family interface{} `json:"family,omitempty"`
 
 	// ID
 	// Read Only: true
@@ -105,10 +105,6 @@ func (m *NestedIPAddress) ContextValidate(ctx context.Context, formats strfmt.Re
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateFamily(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateID(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -126,15 +122,6 @@ func (m *NestedIPAddress) ContextValidate(ctx context.Context, formats strfmt.Re
 func (m *NestedIPAddress) contextValidateDisplay(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "display", "body", string(m.Display)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *NestedIPAddress) contextValidateFamily(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "family", "body", int64(m.Family)); err != nil {
 		return err
 	}
 
