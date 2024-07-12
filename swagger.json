@@ -72122,7 +72122,7 @@
         },
         "device": {
           "title": "Device",
-          "type": "integer"
+          "type": "object"
         },
         "module_bay": {
           "$ref": "#/definitions/ModuleNestedModuleBay"

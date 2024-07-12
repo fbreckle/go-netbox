@@ -36,7 +36,7 @@ type ComponentNestedModule struct {
 
 	// Device
 	// Required: true
-	Device *int64 `json:"device"`
+	Device interface{} `json:"device"`
 
 	// Display
 	// Read Only: true
@@ -79,8 +79,8 @@ func (m *ComponentNestedModule) Validate(formats strfmt.Registry) error {
 
 func (m *ComponentNestedModule) validateDevice(formats strfmt.Registry) error {
 
-	if err := validate.Required("device", "body", m.Device); err != nil {
-		return err
+	if m.Device == nil {
+		return errors.Required("device", "body", nil)
 	}
 
 	return nil
