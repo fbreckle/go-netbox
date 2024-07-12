@@ -39,9 +39,8 @@ type CustomField struct {
 	ChoiceSet *CustomFieldChoiceSet `json:"choice_set,omitempty"`
 
 	// content types
-	// Required: true
 	// Unique: true
-	ContentTypes []string `json:"content_types"`
+	ContentTypes []string `json:"content_types,omitempty"`
 
 	// Created
 	// Read Only: true
@@ -100,6 +99,10 @@ type CustomField struct {
 
 	// Object type
 	ObjectType string `json:"object_type,omitempty"`
+
+	// object types
+	// Unique: true
+	ObjectTypes []string `json:"object_types,omitempty"`
 
 	// Required
 	//
@@ -193,6 +196,10 @@ func (m *CustomField) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateObjectTypes(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateSearchWeight(formats); err != nil {
 		res = append(res, err)
 	}
@@ -251,9 +258,8 @@ func (m *CustomField) validateChoiceSet(formats strfmt.Registry) error {
 }
 
 func (m *CustomField) validateContentTypes(formats strfmt.Registry) error {
-
-	if err := validate.Required("content_types", "body", m.ContentTypes); err != nil {
-		return err
+	if swag.IsZero(m.ContentTypes) { // not required
+		return nil
 	}
 
 	if err := validate.UniqueItems("content_types", "body", m.ContentTypes); err != nil {
@@ -357,6 +363,18 @@ func (m *CustomField) validateName(formats strfmt.Registry) error {
 	}
 
 	if err := validate.Pattern("name", "body", *m.Name, `^[a-z0-9_]+$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CustomField) validateObjectTypes(formats strfmt.Registry) error {
+	if swag.IsZero(m.ObjectTypes) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("object_types", "body", m.ObjectTypes); err != nil {
 		return err
 	}
 

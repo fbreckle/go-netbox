@@ -60,9 +60,8 @@ type EventRule struct {
 	Conditions interface{} `json:"conditions,omitempty"`
 
 	// content types
-	// Required: true
 	// Unique: true
-	ContentTypes []string `json:"content_types"`
+	ContentTypes []string `json:"content_types,omitempty"`
 
 	// Created
 	// Read Only: true
@@ -97,6 +96,10 @@ type EventRule struct {
 	// Max Length: 150
 	// Min Length: 1
 	Name *string `json:"name"`
+
+	// object types
+	// Unique: true
+	ObjectTypes []string `json:"object_types,omitempty"`
 
 	// tags
 	Tags []*NestedTag `json:"tags"`
@@ -167,6 +170,10 @@ func (m *EventRule) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateObjectTypes(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateTags(formats); err != nil {
 		res = append(res, err)
 	}
@@ -211,9 +218,8 @@ func (m *EventRule) validateActionType(formats strfmt.Registry) error {
 }
 
 func (m *EventRule) validateContentTypes(formats strfmt.Registry) error {
-
-	if err := validate.Required("content_types", "body", m.ContentTypes); err != nil {
-		return err
+	if swag.IsZero(m.ContentTypes) { // not required
+		return nil
 	}
 
 	if err := validate.UniqueItems("content_types", "body", m.ContentTypes); err != nil {
@@ -270,6 +276,18 @@ func (m *EventRule) validateName(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaxLength("name", "body", *m.Name, 150); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *EventRule) validateObjectTypes(formats strfmt.Registry) error {
+	if swag.IsZero(m.ObjectTypes) { // not required
+		return nil
+	}
+
+	if err := validate.UniqueItems("object_types", "body", m.ObjectTypes); err != nil {
 		return err
 	}
 

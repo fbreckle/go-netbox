@@ -55,8 +55,7 @@ type WritableEventRule struct {
 	Conditions interface{} `json:"conditions,omitempty"`
 
 	// content types
-	// Required: true
-	ContentTypes []string `json:"content_types"`
+	ContentTypes []string `json:"content_types,omitempty"`
 
 	// Custom fields
 	CustomFields interface{} `json:"custom_fields,omitempty"`
@@ -73,6 +72,9 @@ type WritableEventRule struct {
 	// Max Length: 150
 	// Min Length: 1
 	Name *string `json:"name"`
+
+	// object types
+	ObjectTypes []string `json:"object_types,omitempty"`
 
 	// tags
 	Tags []*NestedTag `json:"tags"`
@@ -116,10 +118,6 @@ func (m *WritableEventRule) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateActionType(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateContentTypes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -198,15 +196,6 @@ func (m *WritableEventRule) validateActionType(formats strfmt.Registry) error {
 
 	// value enum
 	if err := m.validateActionTypeEnum("action_type", "body", m.ActionType); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableEventRule) validateContentTypes(formats strfmt.Registry) error {
-
-	if err := validate.Required("content_types", "body", m.ContentTypes); err != nil {
 		return err
 	}
 

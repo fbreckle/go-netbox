@@ -40,8 +40,7 @@ type ContactAssignment struct {
 	Contact *NestedContact `json:"contact"`
 
 	// Content type
-	// Required: true
-	ContentType *string `json:"content_type"`
+	ContentType string `json:"content_type,omitempty"`
 
 	// Created
 	// Read Only: true
@@ -70,6 +69,9 @@ type ContactAssignment struct {
 	// Minimum: 0
 	ObjectID *int64 `json:"object_id"`
 
+	// Object type
+	ObjectType string `json:"object_type,omitempty"`
+
 	// priority
 	Priority *ContactAssignmentPriority `json:"priority,omitempty"`
 
@@ -87,10 +89,6 @@ func (m *ContactAssignment) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateContact(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateContentType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -139,15 +137,6 @@ func (m *ContactAssignment) validateContact(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *ContactAssignment) validateContentType(formats strfmt.Registry) error {
-
-	if err := validate.Required("content_type", "body", m.ContentType); err != nil {
-		return err
 	}
 
 	return nil
