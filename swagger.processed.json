@@ -88901,19 +88901,18 @@
           "type": "object",
           "readOnly": true
         },
-        "min_vid": {
-          "title": "Minimum VLAN ID",
-          "description": "Lowest permissible ID of a child VLAN",
-          "type": "integer",
-          "maximum": 4094,
-          "minimum": 1
-        },
-        "max_vid": {
-          "title": "Maximum VLAN ID",
-          "description": "Highest permissible ID of a child VLAN",
-          "type": "integer",
-          "maximum": 4094,
-          "minimum": 1
+        "vid_ranges": {
+          "title": "VLAN IDs",
+          "description": "VLAN IDs",
+          "type": "array",
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "integer"
+            }
+          }
         },
         "description": {
           "title": "Description",

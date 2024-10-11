@@ -60,20 +60,6 @@ type VLANGroup struct {
 	// Format: date-time
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
 
-	// Maximum VLAN ID
-	//
-	// Highest permissible ID of a child VLAN
-	// Maximum: 4094
-	// Minimum: 1
-	MaxVid int64 `json:"max_vid,omitempty"`
-
-	// Minimum VLAN ID
-	//
-	// Lowest permissible ID of a child VLAN
-	// Maximum: 4094
-	// Minimum: 1
-	MinVid int64 `json:"min_vid,omitempty"`
-
 	// Name
 	// Required: true
 	// Max Length: 100
@@ -105,6 +91,11 @@ type VLANGroup struct {
 	// Format: uri
 	URL strfmt.URI `json:"url,omitempty"`
 
+	// VLAN IDs
+	//
+	// VLAN IDs
+	VidRanges [][]int64 `json:"vid_ranges"`
+
 	// Vlan count
 	// Read Only: true
 	VlanCount int64 `json:"vlan_count,omitempty"`
@@ -126,14 +117,6 @@ func (m *VLANGroup) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateMaxVid(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateMinVid(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
@@ -147,6 +130,10 @@ func (m *VLANGroup) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateURL(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateVidRanges(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -186,38 +173,6 @@ func (m *VLANGroup) validateLastUpdated(formats strfmt.Registry) error {
 	}
 
 	if err := validate.FormatOf("last_updated", "body", "date-time", m.LastUpdated.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *VLANGroup) validateMaxVid(formats strfmt.Registry) error {
-	if swag.IsZero(m.MaxVid) { // not required
-		return nil
-	}
-
-	if err := validate.MinimumInt("max_vid", "body", m.MaxVid, 1, false); err != nil {
-		return err
-	}
-
-	if err := validate.MaximumInt("max_vid", "body", m.MaxVid, 4094, false); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *VLANGroup) validateMinVid(formats strfmt.Registry) error {
-	if swag.IsZero(m.MinVid) { // not required
-		return nil
-	}
-
-	if err := validate.MinimumInt("min_vid", "body", m.MinVid, 1, false); err != nil {
-		return err
-	}
-
-	if err := validate.MaximumInt("min_vid", "body", m.MinVid, 4094, false); err != nil {
 		return err
 	}
 
@@ -295,6 +250,28 @@ func (m *VLANGroup) validateURL(formats strfmt.Registry) error {
 
 	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *VLANGroup) validateVidRanges(formats strfmt.Registry) error {
+	if swag.IsZero(m.VidRanges) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.VidRanges); i++ {
+
+		iiVidRangesSize := int64(len(m.VidRanges[i]))
+
+		if err := validate.MinItems("vid_ranges"+"."+strconv.Itoa(i), "body", iiVidRangesSize, 2); err != nil {
+			return err
+		}
+
+		if err := validate.MaxItems("vid_ranges"+"."+strconv.Itoa(i), "body", iiVidRangesSize, 2); err != nil {
+			return err
+		}
+
 	}
 
 	return nil
