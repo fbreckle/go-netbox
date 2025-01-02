@@ -67,6 +67,9 @@ type WritableEventRule struct {
 	// enabled
 	Enabled bool `json:"enabled,omitempty"`
 
+	// The types of event which will trigger this rule.
+	EventTypes []string `json:"event_types"`
+
 	// name
 	// Required: true
 	// Max Length: 150
@@ -78,31 +81,6 @@ type WritableEventRule struct {
 
 	// tags
 	Tags []*NestedTag `json:"tags"`
-
-	// On create
-	//
-	// Triggers when a matching object is created.
-	TypeCreate bool `json:"type_create"`
-
-	// On delete
-	//
-	// Triggers when a matching object is deleted.
-	TypeDelete bool `json:"type_delete"`
-
-	// On job end
-	//
-	// Triggers when a job for a matching object terminates.
-	TypeJobEnd bool `json:"type_job_end"`
-
-	// On job start
-	//
-	// Triggers when a job for a matching object is started.
-	TypeJobStart bool `json:"type_job_start"`
-
-	// On update
-	//
-	// Triggers when a matching object is updated.
-	TypeUpdate bool `json:"type_update"`
 }
 
 // Validate validates this writable event rule
@@ -122,6 +100,10 @@ func (m *WritableEventRule) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEventTypes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -209,6 +191,42 @@ func (m *WritableEventRule) validateDescription(formats strfmt.Registry) error {
 
 	if err := validate.MaxLength("description", "body", m.Description, 200); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+var writableEventRuleEventTypesItemsEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["object_created","object_updated","object_deleted","job_started","job_completed","job_failed","job_errored"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		writableEventRuleEventTypesItemsEnum = append(writableEventRuleEventTypesItemsEnum, v)
+	}
+}
+
+func (m *WritableEventRule) validateEventTypesItemsEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, writableEventRuleEventTypesItemsEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *WritableEventRule) validateEventTypes(formats strfmt.Registry) error {
+	if swag.IsZero(m.EventTypes) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.EventTypes); i++ {
+
+		// value enum
+		if err := m.validateEventTypesItemsEnum("event_types"+"."+strconv.Itoa(i), "body", m.EventTypes[i]); err != nil {
+			return err
+		}
+
 	}
 
 	return nil

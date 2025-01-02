@@ -92950,30 +92950,22 @@
           "maxLength": 150,
           "minLength": 1
         },
-        "type_create": {
-          "title": "Type create",
-          "description": "Call this webhook when a matching object is created.",
-          "type": "boolean"
-        },
-        "type_update": {
-          "title": "Type update",
-          "description": "Call this webhook when a matching object is updated.",
-          "type": "boolean"
-        },
-        "type_delete": {
-          "title": "Type delete",
-          "description": "Call this webhook when a matching object is deleted.",
-          "type": "boolean"
-        },
-        "type_job_start": {
-          "title": "Type job_start",
-          "description": "Call this webhook when a matching job is started.",
-          "type": "boolean"
-        },
-        "type_job_end": {
-          "title": "Type job_end",
-          "description": "Call this webhook when a matching job ends.",
-          "type": "boolean"
+        "event_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "* `object_created` - Object created\n* `object_updated` - Object updated\n* `object_deleted` - Object deleted\n* `job_started` - Job started\n* `job_completed` - Job completed\n* `job_failed` - Job failed\n* `job_errored` - Job errored",
+            "enum": [
+              "object_created",
+              "object_updated",
+              "object_deleted",
+              "job_started",
+              "job_completed",
+              "job_failed",
+              "job_errored"
+            ]
+          },
+          "description": "The types of event which will trigger this rule."
         },
         "enabled": {
           "title": "Enabled",
@@ -93084,35 +93076,22 @@
           "minLength": 1,
           "maxLength": 150
         },
-        "type_create": {
-          "type": "boolean",
-          "title": "On create",
-          "description": "Triggers when a matching object is created.",
-          "x-omitempty": false
-        },
-        "type_update": {
-          "type": "boolean",
-          "title": "On update",
-          "description": "Triggers when a matching object is updated.",
-          "x-omitempty": false
-        },
-        "type_delete": {
-          "type": "boolean",
-          "title": "On delete",
-          "description": "Triggers when a matching object is deleted.",
-          "x-omitempty": false
-        },
-        "type_job_start": {
-          "type": "boolean",
-          "title": "On job start",
-          "description": "Triggers when a job for a matching object is started.",
-          "x-omitempty": false
-        },
-        "type_job_end": {
-          "type": "boolean",
-          "title": "On job end",
-          "description": "Triggers when a job for a matching object terminates.",
-          "x-omitempty": false
+        "event_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "* `object_created` - Object created\n* `object_updated` - Object updated\n* `object_deleted` - Object deleted\n* `job_started` - Job started\n* `job_completed` - Job completed\n* `job_failed` - Job failed\n* `job_errored` - Job errored",
+            "enum": [
+              "object_created",
+              "object_updated",
+              "object_deleted",
+              "job_started",
+              "job_completed",
+              "job_failed",
+              "job_errored"
+            ]
+          },
+          "description": "The types of event which will trigger this rule."
         },
         "enabled": {
           "type": "boolean"
