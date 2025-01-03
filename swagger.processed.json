@@ -82089,7 +82089,39 @@
           "title": "Powerfeed count",
           "type": "integer",
           "readOnly": true
+        },
+        "form_factor": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "description": "* `2-post-frame` - 2-post frame\n* `4-post-frame` - 4-post frame\n* `4-post-cabinet` - 4-post cabinet\n* `wall-frame` - Wall-mounted frame\n* `wall-frame-vertical` - Wall-mounted frame (vertical)\n* `wall-cabinet` - Wall-mounted cabinet\n* `wall-cabinet-vertical` - Wall-mounted cabinet (vertical)",
+              "enum": [
+                "2-post-frame",
+                "4-post-frame",
+                "4-post-cabinet",
+                "wall-frame",
+                "wall-frame-vertical",
+                "wall-cabinet",
+                "wall-cabinet-vertical",
+                ""
+              ]
+            },
+            "label": {
+              "type": "string",
+              "enum": [
+                "2-post frame",
+                "4-post frame",
+                "4-post cabinet",
+                "Wall-mounted frame",
+                "Wall-mounted frame (vertical)",
+                "Wall-mounted cabinet",
+                "Wall-mounted cabinet (vertical)"
+              ]
+            }
+          }
         }
+
       }
     },
     "WritableRack": {
@@ -82173,20 +82205,6 @@
           "type": "string",
           "maxLength": 50,
           "x-nullable": true,
-          "x-omitempty": false
-        },
-        "type": {
-          "title": "Type",
-          "type": "string",
-          "enum": [
-            "2-post-frame",
-            "4-post-frame",
-            "4-post-cabinet",
-            "wall-frame",
-            "wall-frame-vertical",
-            "wall-cabinet",
-            "wall-cabinet-vertical"
-          ],
           "x-omitempty": false
         },
         "width": {
@@ -82284,6 +82302,21 @@
         "comments": {
           "title": "Comments",
           "type": "string"
+        },
+        "form_factor": {
+          "type": "string",
+          "description": "* `2-post-frame` - 2-post frame\n* `4-post-frame` - 4-post frame\n* `4-post-cabinet` - 4-post cabinet\n* `wall-frame` - wall-mounted frame\n* `wall-frame-vertical` - wall-mounted frame (vertical)\n* `wall-cabinet` - wall-mounted cabinet\n* `wall-cabinet-vertical` - wall-mounted cabinet (vertical)",
+          "enum": [
+            "2-post-frame",
+            "4-post-frame",
+            "4-post-cabinet",
+            "wall-frame",
+            "wall-frame-vertical",
+            "wall-cabinet",
+            "wall-cabinet-vertical",
+            ""
+          ],
+          "x-omitempty": false
         },
         "tags": {
           "type": "array",
