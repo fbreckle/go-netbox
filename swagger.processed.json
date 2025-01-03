@@ -29461,6 +29461,220 @@
         }
       ]
     },
+    "/dcim/rack-types/": {
+      "get": {
+        "operationId": "dcim_rack_types_list",
+        "description": "Get a list of rack type objects.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "List of unique integer values identifying rack types.",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search query string.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "dcim"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/RackType"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "dcim"
+        ]
+      },
+      "post": {
+        "operationId": "dcim_rack_types_create",
+        "description": "Post a list of rack type objects.",
+        "tags": [
+          "dcim"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "description": "Rack type objects to create.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WritableRackTypeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/RackType"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/dcim/rack-types/{id}/": {
+      "get": {
+        "operationId": "dcim_rack_types_read",
+        "description": "Get a rack type object.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "A unique integer value identifying this rack type.",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "tags": [
+          "dcim"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of rack type",
+            "schema": {
+              "$ref": "#/definitions/RackType"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "dcim_rack_types_update",
+        "description": "Put a rack type object.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "A unique integer value identifying this rack type.",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Rack type object to update.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WritableRackTypeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "dcim"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful update of rack type",
+            "schema": {
+              "$ref": "#/definitions/RackType"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "dcim_rack_types_delete",
+        "description": "Delete a rack type object.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "A unique integer value identifying this rack type.",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "tags": [
+          "dcim"
+        ],
+        "responses": {
+          "204": {
+            "description": "No response body"
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
     "/dcim/rear-port-templates/": {
       "get": {
         "operationId": "dcim_rear-port-templates_list",
@@ -81699,37 +81913,8 @@
         },
         "type": {
           "title": "Type",
-          "required": [
-            "label",
-            "value"
-          ],
-          "type": "object",
-          "properties": {
-            "label": {
-              "type": "string",
-              "enum": [
-                "2-post frame",
-                "4-post frame",
-                "4-post cabinet",
-                "Wall-mounted frame",
-                "Wall-mounted frame (vertical)",
-                "Wall-mounted cabinet",
-                "Wall-mounted cabinet (vertical)"
-              ]
-            },
-            "value": {
-              "type": "string",
-              "enum": [
-                "2-post-frame",
-                "4-post-frame",
-                "4-post-cabinet",
-                "wall-frame",
-                "wall-frame-vertical",
-                "wall-cabinet",
-                "wall-cabinet-vertical"
-              ]
-            }
-          }
+          "type": "integer",
+          "x-nullable": false
         },
         "width": {
           "title": "Width",
@@ -93809,6 +93994,361 @@
           "x-nullable": true
         }
       }
+    },
+    "RackType": {
+      "type": "object",
+      "description": "Adds support for custom fields and tags.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "readOnly": true
+        },
+        "display_url": {
+          "type": "string",
+          "format": "uri",
+          "readOnly": true
+        },
+        "display": {
+          "type": "string",
+          "readOnly": true
+        },
+        "manufacturer": {
+          "$ref": "#/definitions/NestedManufacturer"
+        },
+        "model": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "slug": {
+          "type": "string",
+          "maxLength": 100,
+          "pattern": "^[-a-zA-Z0-9_]+$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "form_factor": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "enum": [
+                "2-post-frame",
+                "4-post-frame",
+                "4-post-cabinet",
+                "wall-frame",
+                "wall-frame-vertical",
+                "wall-cabinet",
+                "wall-cabinet-vertical",
+                ""
+              ],
+              "type": "string",
+              "description": "* `2-post-frame` - 2-post frame\n* `4-post-frame` - 4-post frame\n* `4-post-cabinet` - 4-post cabinet\n* `wall-frame` - Wall-mounted frame\n* `wall-frame-vertical` - Wall-mounted frame (vertical)\n* `wall-cabinet` - Wall-mounted cabinet\n* `wall-cabinet-vertical` - Wall-mounted cabinet (vertical)"
+            },
+            "label": {
+              "type": "string",
+              "enum": [
+                "2-post frame",
+                "4-post frame",
+                "4-post cabinet",
+                "Wall-mounted frame",
+                "Wall-mounted frame (vertical)",
+                "Wall-mounted cabinet",
+                "Wall-mounted cabinet (vertical)"
+              ]
+            }
+          }
+        },
+        "width": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "enum": [
+                10,
+                19,
+                21,
+                23
+              ],
+              "type": "integer",
+              "description": "* `10` - 10 inches\n* `19` - 19 inches\n* `21` - 21 inches\n* `23` - 23 inches"
+            },
+            "label": {
+              "type": "string",
+              "enum": [
+                "10 inches",
+                "19 inches",
+                "21 inches",
+                "23 inches"
+              ]
+            }
+          }
+        },
+        "u_height": {
+          "type": "integer",
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Height (U)",
+          "description": "Height in rack units"
+        },
+        "starting_unit": {
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 1,
+          "description": "Starting unit for rack"
+        },
+        "desc_units": {
+          "type": "boolean",
+          "title": "Descending units",
+          "description": "Units are numbered top-to-bottom"
+        },
+        "outer_width": {
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 0,
+          "description": "Outer dimension of rack (width)"
+        },
+        "outer_depth": {
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 0,
+          "description": "Outer dimension of rack (depth)"
+        },
+        "outer_unit": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "enum": [
+                "mm",
+                "in",
+                ""
+              ],
+              "type": "string",
+              "description": "* `mm` - Millimeters\n* `in` - Inches"
+            },
+            "label": {
+              "type": "string",
+              "enum": [
+                "Millimeters",
+                "Inches"
+              ]
+            }
+          }
+        },
+        "weight": {
+          "type": "number",
+          "format": "double",
+          "maximum": 1000000,
+          "minimum": -1000000
+        },
+        "max_weight": {
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": 0,
+          "description": "Maximum load capacity for the rack"
+        },
+        "weight_unit": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "enum": [
+                "kg",
+                "g",
+                "lb",
+                "oz",
+                ""
+              ],
+              "type": "string",
+              "description": "* `kg` - Kilograms\n* `g` - Grams\n* `lb` - Pounds\n* `oz` - Ounces"
+            },
+            "label": {
+              "type": "string",
+              "enum": [
+                "Kilograms",
+                "Grams",
+                "Pounds",
+                "Ounces"
+              ]
+            }
+          }
+        },
+        "mounting_depth": {
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 0,
+          "description": "Maximum depth of a mounted device, in millimeters. For four-post racks, this is the distance between the front and rear rails."
+        },
+        "comments": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NestedTag"
+          }
+        },
+        "custom_fields": {
+          "type": "object",
+          "additionalProperties": {}
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "manufacturer",
+        "model",
+        "slug"
+      ]
+    },
+    "WritableRackTypeRequest": {
+      "type": "object",
+      "description": "Adds support for custom fields and tags.",
+      "properties": {
+        "manufacturer": {
+          "title": "Manufacturer",
+          "type": "integer"
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "slug": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[-a-zA-Z0-9_]+$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "form_factor": {
+          "type": "string",
+          "description": "* `2-post-frame` - 2-post frame\n* `4-post-frame` - 4-post frame\n* `4-post-cabinet` - 4-post cabinet\n* `wall-frame` - Wall-mounted frame\n* `wall-frame-vertical` - Wall-mounted frame (vertical)\n* `wall-cabinet` - Wall-mounted cabinet\n* `wall-cabinet-vertical` - Wall-mounted cabinet (vertical)",
+          "enum": [
+            "2-post-frame",
+            "4-post-frame",
+            "4-post-cabinet",
+            "wall-frame",
+            "wall-frame-vertical",
+            "wall-cabinet",
+            "wall-cabinet-vertical"
+          ]
+        },
+        "width": {
+          "type": "integer",
+          "description": "Rail-to-rail width\n\n* `10` - 10 inches\n* `19` - 19 inches\n* `21` - 21 inches\n* `23` - 23 inches",
+          "enum": [
+            10,
+            19,
+            21,
+            23
+          ],
+          "minimum": 0,
+          "maximum": 32767
+        },
+        "u_height": {
+          "type": "integer",
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Height (U)",
+          "description": "Height in rack units"
+        },
+        "starting_unit": {
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 1,
+          "description": "Starting unit for rack"
+        },
+        "desc_units": {
+          "type": "boolean",
+          "title": "Descending units",
+          "description": "Units are numbered top-to-bottom"
+        },
+        "outer_width": {
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 0,
+          "description": "Outer dimension of rack (width)"
+        },
+        "outer_depth": {
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 0,
+          "description": "Outer dimension of rack (depth)"
+        },
+        "outer_unit": {
+          "type": "string",
+          "description": "* `mm` - Millimeters\n* `in` - Inches",
+          "enum": [
+            "mm",
+            "in",
+            ""
+          ]
+        },
+        "weight": {
+          "type": "number",
+          "format": "double",
+          "maximum": 1000000,
+          "minimum": -1000000,
+          "description": "Weight of the rack"
+        },
+        "max_weight": {
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": 0,
+          "description": "Maximum load capacity for the rack"
+        },
+        "weight_unit": {
+          "type": "string",
+          "description": "* `kg` - Kilograms\n* `g` - Grams\n* `lb` - Pounds\n* `oz` - Ounces",
+          "enum": [
+            "kg",
+            "g",
+            "lb",
+            "oz",
+            ""
+          ]
+        },
+        "mounting_depth": {
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 0,
+          "description": "Maximum depth of a mounted device, in millimeters."
+        },
+        "comments": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NestedTag"
+          }
+        },
+        "custom_fields": {
+          "type": "object",
+          "additionalProperties": {}
+        }
+      },
+      "required": [
+        "form_factor",
+        "manufacturer",
+        "model",
+        "slug"
+      ]
     }
   }
 }
