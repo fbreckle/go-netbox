@@ -59,10 +59,9 @@ type NestedL2VPN struct {
 	// Pattern: ^[-a-zA-Z0-9_]+$
 	Slug *string `json:"slug"`
 
-	// Type
+	// type
 	// Required: true
-	// Enum: ["vpws","vpls","vxlan","vxlan-evpn","mpls-evpn","pbb-evpn","epl","evpl","ep-lan","evp-lan","ep-tree","evp-tree"]
-	Type *string `json:"type"`
+	Type *NestedL2VPNType `json:"type"`
 
 	// Url
 	// Read Only: true
@@ -134,74 +133,21 @@ func (m *NestedL2VPN) validateSlug(formats strfmt.Registry) error {
 	return nil
 }
 
-var nestedL2VPNTypeTypePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["vpws","vpls","vxlan","vxlan-evpn","mpls-evpn","pbb-evpn","epl","evpl","ep-lan","evp-lan","ep-tree","evp-tree"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		nestedL2VPNTypeTypePropEnum = append(nestedL2VPNTypeTypePropEnum, v)
-	}
-}
-
-const (
-
-	// NestedL2VPNTypeVpws captures enum value "vpws"
-	NestedL2VPNTypeVpws string = "vpws"
-
-	// NestedL2VPNTypeVpls captures enum value "vpls"
-	NestedL2VPNTypeVpls string = "vpls"
-
-	// NestedL2VPNTypeVxlan captures enum value "vxlan"
-	NestedL2VPNTypeVxlan string = "vxlan"
-
-	// NestedL2VPNTypeVxlanDashEvpn captures enum value "vxlan-evpn"
-	NestedL2VPNTypeVxlanDashEvpn string = "vxlan-evpn"
-
-	// NestedL2VPNTypeMplsDashEvpn captures enum value "mpls-evpn"
-	NestedL2VPNTypeMplsDashEvpn string = "mpls-evpn"
-
-	// NestedL2VPNTypePbbDashEvpn captures enum value "pbb-evpn"
-	NestedL2VPNTypePbbDashEvpn string = "pbb-evpn"
-
-	// NestedL2VPNTypeEpl captures enum value "epl"
-	NestedL2VPNTypeEpl string = "epl"
-
-	// NestedL2VPNTypeEvpl captures enum value "evpl"
-	NestedL2VPNTypeEvpl string = "evpl"
-
-	// NestedL2VPNTypeEpDashLan captures enum value "ep-lan"
-	NestedL2VPNTypeEpDashLan string = "ep-lan"
-
-	// NestedL2VPNTypeEvpDashLan captures enum value "evp-lan"
-	NestedL2VPNTypeEvpDashLan string = "evp-lan"
-
-	// NestedL2VPNTypeEpDashTree captures enum value "ep-tree"
-	NestedL2VPNTypeEpDashTree string = "ep-tree"
-
-	// NestedL2VPNTypeEvpDashTree captures enum value "evp-tree"
-	NestedL2VPNTypeEvpDashTree string = "evp-tree"
-)
-
-// prop value enum
-func (m *NestedL2VPN) validateTypeEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, nestedL2VPNTypeTypePropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (m *NestedL2VPN) validateType(formats strfmt.Registry) error {
 
 	if err := validate.Required("type", "body", m.Type); err != nil {
 		return err
 	}
 
-	// value enum
-	if err := m.validateTypeEnum("type", "body", *m.Type); err != nil {
-		return err
+	if m.Type != nil {
+		if err := m.Type.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("type")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -228,6 +174,10 @@ func (m *NestedL2VPN) ContextValidate(ctx context.Context, formats strfmt.Regist
 	}
 
 	if err := m.contextValidateID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateType(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -259,6 +209,23 @@ func (m *NestedL2VPN) contextValidateID(ctx context.Context, formats strfmt.Regi
 	return nil
 }
 
+func (m *NestedL2VPN) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Type != nil {
+
+		if err := m.Type.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *NestedL2VPN) contextValidateURL(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "url", "body", strfmt.URI(m.URL)); err != nil {
@@ -279,6 +246,211 @@ func (m *NestedL2VPN) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *NestedL2VPN) UnmarshalBinary(b []byte) error {
 	var res NestedL2VPN
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// NestedL2VPNType Type
+//
+// swagger:model NestedL2VPNType
+type NestedL2VPNType struct {
+
+	// label
+	// Enum: ["VPWS","VPLS","VXLAN","VXLAN-EVPN","MPLS EVPN","PBB EVPN","EVPN VPWS","EPL","EVPL","Ethernet Private LAN","Ethernet Virtual Private LAN","Ethernet Private Tree","Ethernet Virtual Private Tree"]
+	Label string `json:"label,omitempty"`
+
+	// value
+	// Enum: ["vpws","vpls","vxlan","vxlan-evpn","mpls-evpn","pbb-evpn","evpn-vpws","epl","evpl","ep-lan","evp-lan","ep-tree","evp-tree"]
+	Value string `json:"value,omitempty"`
+}
+
+// Validate validates this nested l2 v p n type
+func (m *NestedL2VPNType) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateLabel(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var nestedL2VPNTypeTypeLabelPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["VPWS","VPLS","VXLAN","VXLAN-EVPN","MPLS EVPN","PBB EVPN","EVPN VPWS","EPL","EVPL","Ethernet Private LAN","Ethernet Virtual Private LAN","Ethernet Private Tree","Ethernet Virtual Private Tree"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		nestedL2VPNTypeTypeLabelPropEnum = append(nestedL2VPNTypeTypeLabelPropEnum, v)
+	}
+}
+
+const (
+
+	// NestedL2VPNTypeLabelVPWS captures enum value "VPWS"
+	NestedL2VPNTypeLabelVPWS string = "VPWS"
+
+	// NestedL2VPNTypeLabelVPLS captures enum value "VPLS"
+	NestedL2VPNTypeLabelVPLS string = "VPLS"
+
+	// NestedL2VPNTypeLabelVXLAN captures enum value "VXLAN"
+	NestedL2VPNTypeLabelVXLAN string = "VXLAN"
+
+	// NestedL2VPNTypeLabelVXLANDashEVPN captures enum value "VXLAN-EVPN"
+	NestedL2VPNTypeLabelVXLANDashEVPN string = "VXLAN-EVPN"
+
+	// NestedL2VPNTypeLabelMPLSEVPN captures enum value "MPLS EVPN"
+	NestedL2VPNTypeLabelMPLSEVPN string = "MPLS EVPN"
+
+	// NestedL2VPNTypeLabelPBBEVPN captures enum value "PBB EVPN"
+	NestedL2VPNTypeLabelPBBEVPN string = "PBB EVPN"
+
+	// NestedL2VPNTypeLabelEVPNVPWS captures enum value "EVPN VPWS"
+	NestedL2VPNTypeLabelEVPNVPWS string = "EVPN VPWS"
+
+	// NestedL2VPNTypeLabelEPL captures enum value "EPL"
+	NestedL2VPNTypeLabelEPL string = "EPL"
+
+	// NestedL2VPNTypeLabelEVPL captures enum value "EVPL"
+	NestedL2VPNTypeLabelEVPL string = "EVPL"
+
+	// NestedL2VPNTypeLabelEthernetPrivateLAN captures enum value "Ethernet Private LAN"
+	NestedL2VPNTypeLabelEthernetPrivateLAN string = "Ethernet Private LAN"
+
+	// NestedL2VPNTypeLabelEthernetVirtualPrivateLAN captures enum value "Ethernet Virtual Private LAN"
+	NestedL2VPNTypeLabelEthernetVirtualPrivateLAN string = "Ethernet Virtual Private LAN"
+
+	// NestedL2VPNTypeLabelEthernetPrivateTree captures enum value "Ethernet Private Tree"
+	NestedL2VPNTypeLabelEthernetPrivateTree string = "Ethernet Private Tree"
+
+	// NestedL2VPNTypeLabelEthernetVirtualPrivateTree captures enum value "Ethernet Virtual Private Tree"
+	NestedL2VPNTypeLabelEthernetVirtualPrivateTree string = "Ethernet Virtual Private Tree"
+)
+
+// prop value enum
+func (m *NestedL2VPNType) validateLabelEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, nestedL2VPNTypeTypeLabelPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *NestedL2VPNType) validateLabel(formats strfmt.Registry) error {
+	if swag.IsZero(m.Label) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateLabelEnum("type"+"."+"label", "body", m.Label); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var nestedL2VPNTypeTypeValuePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["vpws","vpls","vxlan","vxlan-evpn","mpls-evpn","pbb-evpn","evpn-vpws","epl","evpl","ep-lan","evp-lan","ep-tree","evp-tree"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		nestedL2VPNTypeTypeValuePropEnum = append(nestedL2VPNTypeTypeValuePropEnum, v)
+	}
+}
+
+const (
+
+	// NestedL2VPNTypeValueVpws captures enum value "vpws"
+	NestedL2VPNTypeValueVpws string = "vpws"
+
+	// NestedL2VPNTypeValueVpls captures enum value "vpls"
+	NestedL2VPNTypeValueVpls string = "vpls"
+
+	// NestedL2VPNTypeValueVxlan captures enum value "vxlan"
+	NestedL2VPNTypeValueVxlan string = "vxlan"
+
+	// NestedL2VPNTypeValueVxlanDashEvpn captures enum value "vxlan-evpn"
+	NestedL2VPNTypeValueVxlanDashEvpn string = "vxlan-evpn"
+
+	// NestedL2VPNTypeValueMplsDashEvpn captures enum value "mpls-evpn"
+	NestedL2VPNTypeValueMplsDashEvpn string = "mpls-evpn"
+
+	// NestedL2VPNTypeValuePbbDashEvpn captures enum value "pbb-evpn"
+	NestedL2VPNTypeValuePbbDashEvpn string = "pbb-evpn"
+
+	// NestedL2VPNTypeValueEvpnDashVpws captures enum value "evpn-vpws"
+	NestedL2VPNTypeValueEvpnDashVpws string = "evpn-vpws"
+
+	// NestedL2VPNTypeValueEpl captures enum value "epl"
+	NestedL2VPNTypeValueEpl string = "epl"
+
+	// NestedL2VPNTypeValueEvpl captures enum value "evpl"
+	NestedL2VPNTypeValueEvpl string = "evpl"
+
+	// NestedL2VPNTypeValueEpDashLan captures enum value "ep-lan"
+	NestedL2VPNTypeValueEpDashLan string = "ep-lan"
+
+	// NestedL2VPNTypeValueEvpDashLan captures enum value "evp-lan"
+	NestedL2VPNTypeValueEvpDashLan string = "evp-lan"
+
+	// NestedL2VPNTypeValueEpDashTree captures enum value "ep-tree"
+	NestedL2VPNTypeValueEpDashTree string = "ep-tree"
+
+	// NestedL2VPNTypeValueEvpDashTree captures enum value "evp-tree"
+	NestedL2VPNTypeValueEvpDashTree string = "evp-tree"
+)
+
+// prop value enum
+func (m *NestedL2VPNType) validateValueEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, nestedL2VPNTypeTypeValuePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *NestedL2VPNType) validateValue(formats strfmt.Registry) error {
+	if swag.IsZero(m.Value) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateValueEnum("type"+"."+"value", "body", m.Value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this nested l2 v p n type based on context it is used
+func (m *NestedL2VPNType) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *NestedL2VPNType) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *NestedL2VPNType) UnmarshalBinary(b []byte) error {
+	var res NestedL2VPNType
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
