@@ -75068,21 +75068,45 @@
         },
         "type": {
           "title": "Type",
-          "type": "string",
-          "enum": [
-            "vpws",
-            "vpls",
-            "vxlan",
-            "vxlan-evpn",
-            "mpls-evpn",
-            "pbb-evpn",
-            "epl",
-            "evpl",
-            "ep-lan",
-            "evp-lan",
-            "ep-tree",
-            "evp-tree"
-          ]
+          "type": "object",
+          "properties":{
+            "label":{
+              "enum":[
+                "VPWS",
+                "VPLS",
+                "VXLAN",
+                "VXLAN-EVPN",
+                "MPLS EVPN",
+                "PBB EVPN",
+                "EVPN VPWS",
+                "EPL",
+                "EVPL",
+                "Ethernet Private LAN",
+                "Ethernet Virtual Private LAN",
+                "Ethernet Private Tree",
+                "Ethernet Virtual Private Tree"
+              ],
+              "type":"string"
+            },
+            "value":{
+              "enum":[
+                "vpws",
+                "vpls",
+                "vxlan",
+                "vxlan-evpn",
+                "mpls-evpn",
+                "pbb-evpn",
+                "evpn-vpws",
+                "epl",
+                "evpl",
+                "ep-lan",
+                "evp-lan",
+                "ep-tree",
+                "evp-tree"
+              ],
+              "type":"string"
+            }
+          }
         }
       }
     },
