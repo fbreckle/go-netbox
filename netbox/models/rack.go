@@ -74,6 +74,9 @@ type Rack struct {
 	// Max Length: 50
 	FacilityID *string `json:"facility_id,omitempty"`
 
+	// form factor
+	FormFactor *RackFormFactor `json:"form_factor,omitempty"`
+
 	// ID
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
@@ -147,8 +150,8 @@ type Rack struct {
 	// tenant
 	Tenant *NestedTenant `json:"tenant,omitempty"`
 
-	// type
-	Type *RackType `json:"type,omitempty"`
+	// Type
+	Type int64 `json:"type,omitempty"`
 
 	// Height (U)
 	//
@@ -189,6 +192,10 @@ func (m *Rack) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateFacilityID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFormFactor(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -245,10 +252,6 @@ func (m *Rack) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTenant(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -317,6 +320,25 @@ func (m *Rack) validateFacilityID(formats strfmt.Registry) error {
 
 	if err := validate.MaxLength("facility_id", "body", *m.FacilityID, 50); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Rack) validateFormFactor(formats strfmt.Registry) error {
+	if swag.IsZero(m.FormFactor) { // not required
+		return nil
+	}
+
+	if m.FormFactor != nil {
+		if err := m.FormFactor.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("form_factor")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("form_factor")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -568,25 +590,6 @@ func (m *Rack) validateTenant(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Rack) validateType(formats strfmt.Registry) error {
-	if swag.IsZero(m.Type) { // not required
-		return nil
-	}
-
-	if m.Type != nil {
-		if err := m.Type.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("type")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("type")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 func (m *Rack) validateUHeight(formats strfmt.Registry) error {
 	if swag.IsZero(m.UHeight) { // not required
 		return nil
@@ -669,6 +672,10 @@ func (m *Rack) ContextValidate(ctx context.Context, formats strfmt.Registry) err
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateFormFactor(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateID(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -706,10 +713,6 @@ func (m *Rack) ContextValidate(ctx context.Context, formats strfmt.Registry) err
 	}
 
 	if err := m.contextValidateTenant(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateType(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -753,6 +756,27 @@ func (m *Rack) contextValidateDisplay(ctx context.Context, formats strfmt.Regist
 
 	if err := validate.ReadOnly(ctx, "display", "body", string(m.Display)); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Rack) contextValidateFormFactor(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.FormFactor != nil {
+
+		if swag.IsZero(m.FormFactor) { // not required
+			return nil
+		}
+
+		if err := m.FormFactor.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("form_factor")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("form_factor")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -932,27 +956,6 @@ func (m *Rack) contextValidateTenant(ctx context.Context, formats strfmt.Registr
 	return nil
 }
 
-func (m *Rack) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Type != nil {
-
-		if swag.IsZero(m.Type) { // not required
-			return nil
-		}
-
-		if err := m.Type.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("type")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("type")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 func (m *Rack) contextValidateURL(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "url", "body", strfmt.URI(m.URL)); err != nil {
@@ -1015,6 +1018,184 @@ func (m *Rack) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *Rack) UnmarshalBinary(b []byte) error {
 	var res Rack
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// RackFormFactor rack form factor
+//
+// swagger:model RackFormFactor
+type RackFormFactor struct {
+
+	// label
+	// Enum: ["2-post frame","4-post frame","4-post cabinet","Wall-mounted frame","Wall-mounted frame (vertical)","Wall-mounted cabinet","Wall-mounted cabinet (vertical)"]
+	Label string `json:"label,omitempty"`
+
+	// * `2-post-frame` - 2-post frame
+	// * `4-post-frame` - 4-post frame
+	// * `4-post-cabinet` - 4-post cabinet
+	// * `wall-frame` - Wall-mounted frame
+	// * `wall-frame-vertical` - Wall-mounted frame (vertical)
+	// * `wall-cabinet` - Wall-mounted cabinet
+	// * `wall-cabinet-vertical` - Wall-mounted cabinet (vertical)
+	// Enum: ["2-post-frame","4-post-frame","4-post-cabinet","wall-frame","wall-frame-vertical","wall-cabinet","wall-cabinet-vertical",""]
+	Value string `json:"value,omitempty"`
+}
+
+// Validate validates this rack form factor
+func (m *RackFormFactor) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateLabel(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var rackFormFactorTypeLabelPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["2-post frame","4-post frame","4-post cabinet","Wall-mounted frame","Wall-mounted frame (vertical)","Wall-mounted cabinet","Wall-mounted cabinet (vertical)"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		rackFormFactorTypeLabelPropEnum = append(rackFormFactorTypeLabelPropEnum, v)
+	}
+}
+
+const (
+
+	// RackFormFactorLabelNr2DashPostFrame captures enum value "2-post frame"
+	RackFormFactorLabelNr2DashPostFrame string = "2-post frame"
+
+	// RackFormFactorLabelNr4DashPostFrame captures enum value "4-post frame"
+	RackFormFactorLabelNr4DashPostFrame string = "4-post frame"
+
+	// RackFormFactorLabelNr4DashPostCabinet captures enum value "4-post cabinet"
+	RackFormFactorLabelNr4DashPostCabinet string = "4-post cabinet"
+
+	// RackFormFactorLabelWallDashMountedFrame captures enum value "Wall-mounted frame"
+	RackFormFactorLabelWallDashMountedFrame string = "Wall-mounted frame"
+
+	// RackFormFactorLabelWallDashMountedFrameVertical captures enum value "Wall-mounted frame (vertical)"
+	RackFormFactorLabelWallDashMountedFrameVertical string = "Wall-mounted frame (vertical)"
+
+	// RackFormFactorLabelWallDashMountedCabinet captures enum value "Wall-mounted cabinet"
+	RackFormFactorLabelWallDashMountedCabinet string = "Wall-mounted cabinet"
+
+	// RackFormFactorLabelWallDashMountedCabinetVertical captures enum value "Wall-mounted cabinet (vertical)"
+	RackFormFactorLabelWallDashMountedCabinetVertical string = "Wall-mounted cabinet (vertical)"
+)
+
+// prop value enum
+func (m *RackFormFactor) validateLabelEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, rackFormFactorTypeLabelPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *RackFormFactor) validateLabel(formats strfmt.Registry) error {
+	if swag.IsZero(m.Label) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateLabelEnum("form_factor"+"."+"label", "body", m.Label); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var rackFormFactorTypeValuePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["2-post-frame","4-post-frame","4-post-cabinet","wall-frame","wall-frame-vertical","wall-cabinet","wall-cabinet-vertical",""]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		rackFormFactorTypeValuePropEnum = append(rackFormFactorTypeValuePropEnum, v)
+	}
+}
+
+const (
+
+	// RackFormFactorValueNr2DashPostDashFrame captures enum value "2-post-frame"
+	RackFormFactorValueNr2DashPostDashFrame string = "2-post-frame"
+
+	// RackFormFactorValueNr4DashPostDashFrame captures enum value "4-post-frame"
+	RackFormFactorValueNr4DashPostDashFrame string = "4-post-frame"
+
+	// RackFormFactorValueNr4DashPostDashCabinet captures enum value "4-post-cabinet"
+	RackFormFactorValueNr4DashPostDashCabinet string = "4-post-cabinet"
+
+	// RackFormFactorValueWallDashFrame captures enum value "wall-frame"
+	RackFormFactorValueWallDashFrame string = "wall-frame"
+
+	// RackFormFactorValueWallDashFrameDashVertical captures enum value "wall-frame-vertical"
+	RackFormFactorValueWallDashFrameDashVertical string = "wall-frame-vertical"
+
+	// RackFormFactorValueWallDashCabinet captures enum value "wall-cabinet"
+	RackFormFactorValueWallDashCabinet string = "wall-cabinet"
+
+	// RackFormFactorValueWallDashCabinetDashVertical captures enum value "wall-cabinet-vertical"
+	RackFormFactorValueWallDashCabinetDashVertical string = "wall-cabinet-vertical"
+
+	// RackFormFactorValueEmpty captures enum value ""
+	RackFormFactorValueEmpty string = ""
+)
+
+// prop value enum
+func (m *RackFormFactor) validateValueEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, rackFormFactorTypeValuePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *RackFormFactor) validateValue(formats strfmt.Registry) error {
+	if swag.IsZero(m.Value) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateValueEnum("form_factor"+"."+"value", "body", m.Value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this rack form factor based on context it is used
+func (m *RackFormFactor) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *RackFormFactor) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *RackFormFactor) UnmarshalBinary(b []byte) error {
+	var res RackFormFactor
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
@@ -1319,179 +1500,6 @@ func (m *RackStatus) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *RackStatus) UnmarshalBinary(b []byte) error {
 	var res RackStatus
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// RackType Type
-//
-// swagger:model RackType
-type RackType struct {
-
-	// label
-	// Required: true
-	// Enum: ["2-post frame","4-post frame","4-post cabinet","Wall-mounted frame","Wall-mounted frame (vertical)","Wall-mounted cabinet","Wall-mounted cabinet (vertical)"]
-	Label *string `json:"label"`
-
-	// value
-	// Required: true
-	// Enum: ["2-post-frame","4-post-frame","4-post-cabinet","wall-frame","wall-frame-vertical","wall-cabinet","wall-cabinet-vertical"]
-	Value *string `json:"value"`
-}
-
-// Validate validates this rack type
-func (m *RackType) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateLabel(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateValue(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-var rackTypeTypeLabelPropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["2-post frame","4-post frame","4-post cabinet","Wall-mounted frame","Wall-mounted frame (vertical)","Wall-mounted cabinet","Wall-mounted cabinet (vertical)"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		rackTypeTypeLabelPropEnum = append(rackTypeTypeLabelPropEnum, v)
-	}
-}
-
-const (
-
-	// RackTypeLabelNr2DashPostFrame captures enum value "2-post frame"
-	RackTypeLabelNr2DashPostFrame string = "2-post frame"
-
-	// RackTypeLabelNr4DashPostFrame captures enum value "4-post frame"
-	RackTypeLabelNr4DashPostFrame string = "4-post frame"
-
-	// RackTypeLabelNr4DashPostCabinet captures enum value "4-post cabinet"
-	RackTypeLabelNr4DashPostCabinet string = "4-post cabinet"
-
-	// RackTypeLabelWallDashMountedFrame captures enum value "Wall-mounted frame"
-	RackTypeLabelWallDashMountedFrame string = "Wall-mounted frame"
-
-	// RackTypeLabelWallDashMountedFrameVertical captures enum value "Wall-mounted frame (vertical)"
-	RackTypeLabelWallDashMountedFrameVertical string = "Wall-mounted frame (vertical)"
-
-	// RackTypeLabelWallDashMountedCabinet captures enum value "Wall-mounted cabinet"
-	RackTypeLabelWallDashMountedCabinet string = "Wall-mounted cabinet"
-
-	// RackTypeLabelWallDashMountedCabinetVertical captures enum value "Wall-mounted cabinet (vertical)"
-	RackTypeLabelWallDashMountedCabinetVertical string = "Wall-mounted cabinet (vertical)"
-)
-
-// prop value enum
-func (m *RackType) validateLabelEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, rackTypeTypeLabelPropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (m *RackType) validateLabel(formats strfmt.Registry) error {
-
-	if err := validate.Required("type"+"."+"label", "body", m.Label); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateLabelEnum("type"+"."+"label", "body", *m.Label); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-var rackTypeTypeValuePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["2-post-frame","4-post-frame","4-post-cabinet","wall-frame","wall-frame-vertical","wall-cabinet","wall-cabinet-vertical"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		rackTypeTypeValuePropEnum = append(rackTypeTypeValuePropEnum, v)
-	}
-}
-
-const (
-
-	// RackTypeValueNr2DashPostDashFrame captures enum value "2-post-frame"
-	RackTypeValueNr2DashPostDashFrame string = "2-post-frame"
-
-	// RackTypeValueNr4DashPostDashFrame captures enum value "4-post-frame"
-	RackTypeValueNr4DashPostDashFrame string = "4-post-frame"
-
-	// RackTypeValueNr4DashPostDashCabinet captures enum value "4-post-cabinet"
-	RackTypeValueNr4DashPostDashCabinet string = "4-post-cabinet"
-
-	// RackTypeValueWallDashFrame captures enum value "wall-frame"
-	RackTypeValueWallDashFrame string = "wall-frame"
-
-	// RackTypeValueWallDashFrameDashVertical captures enum value "wall-frame-vertical"
-	RackTypeValueWallDashFrameDashVertical string = "wall-frame-vertical"
-
-	// RackTypeValueWallDashCabinet captures enum value "wall-cabinet"
-	RackTypeValueWallDashCabinet string = "wall-cabinet"
-
-	// RackTypeValueWallDashCabinetDashVertical captures enum value "wall-cabinet-vertical"
-	RackTypeValueWallDashCabinetDashVertical string = "wall-cabinet-vertical"
-)
-
-// prop value enum
-func (m *RackType) validateValueEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, rackTypeTypeValuePropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (m *RackType) validateValue(formats strfmt.Registry) error {
-
-	if err := validate.Required("type"+"."+"value", "body", m.Value); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateValueEnum("type"+"."+"value", "body", *m.Value); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validates this rack type based on context it is used
-func (m *RackType) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *RackType) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *RackType) UnmarshalBinary(b []byte) error {
-	var res RackType
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -74,6 +74,16 @@ type WritableRack struct {
 	// Max Length: 50
 	FacilityID *string `json:"facility_id"`
 
+	// * `2-post-frame` - 2-post frame
+	// * `4-post-frame` - 4-post frame
+	// * `4-post-cabinet` - 4-post cabinet
+	// * `wall-frame` - wall-mounted frame
+	// * `wall-frame-vertical` - wall-mounted frame (vertical)
+	// * `wall-cabinet` - wall-mounted cabinet
+	// * `wall-cabinet-vertical` - wall-mounted cabinet (vertical)
+	// Enum: ["2-post-frame","4-post-frame","4-post-cabinet","wall-frame","wall-frame-vertical","wall-cabinet","wall-cabinet-vertical",""]
+	FormFactor string `json:"form_factor"`
+
 	// ID
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
@@ -151,10 +161,6 @@ type WritableRack struct {
 	// Tenant
 	Tenant *int64 `json:"tenant"`
 
-	// Type
-	// Enum: ["2-post-frame","4-post-frame","4-post-cabinet","wall-frame","wall-frame-vertical","wall-cabinet","wall-cabinet-vertical"]
-	Type string `json:"type"`
-
 	// Height (U)
 	//
 	// Height in rack units
@@ -201,6 +207,10 @@ func (m *WritableRack) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateFormFactor(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateLastUpdated(formats); err != nil {
 		res = append(res, err)
 	}
@@ -242,10 +252,6 @@ func (m *WritableRack) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTags(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -313,6 +319,66 @@ func (m *WritableRack) validateFacilityID(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaxLength("facility_id", "body", *m.FacilityID, 50); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var writableRackTypeFormFactorPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["2-post-frame","4-post-frame","4-post-cabinet","wall-frame","wall-frame-vertical","wall-cabinet","wall-cabinet-vertical",""]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		writableRackTypeFormFactorPropEnum = append(writableRackTypeFormFactorPropEnum, v)
+	}
+}
+
+const (
+
+	// WritableRackFormFactorNr2DashPostDashFrame captures enum value "2-post-frame"
+	WritableRackFormFactorNr2DashPostDashFrame string = "2-post-frame"
+
+	// WritableRackFormFactorNr4DashPostDashFrame captures enum value "4-post-frame"
+	WritableRackFormFactorNr4DashPostDashFrame string = "4-post-frame"
+
+	// WritableRackFormFactorNr4DashPostDashCabinet captures enum value "4-post-cabinet"
+	WritableRackFormFactorNr4DashPostDashCabinet string = "4-post-cabinet"
+
+	// WritableRackFormFactorWallDashFrame captures enum value "wall-frame"
+	WritableRackFormFactorWallDashFrame string = "wall-frame"
+
+	// WritableRackFormFactorWallDashFrameDashVertical captures enum value "wall-frame-vertical"
+	WritableRackFormFactorWallDashFrameDashVertical string = "wall-frame-vertical"
+
+	// WritableRackFormFactorWallDashCabinet captures enum value "wall-cabinet"
+	WritableRackFormFactorWallDashCabinet string = "wall-cabinet"
+
+	// WritableRackFormFactorWallDashCabinetDashVertical captures enum value "wall-cabinet-vertical"
+	WritableRackFormFactorWallDashCabinetDashVertical string = "wall-cabinet-vertical"
+
+	// WritableRackFormFactorEmpty captures enum value ""
+	WritableRackFormFactorEmpty string = ""
+)
+
+// prop value enum
+func (m *WritableRack) validateFormFactorEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, writableRackTypeFormFactorPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *WritableRack) validateFormFactor(formats strfmt.Registry) error {
+	if swag.IsZero(m.FormFactor) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateFormFactorEnum("form_factor", "body", m.FormFactor); err != nil {
 		return err
 	}
 
@@ -547,63 +613,6 @@ func (m *WritableRack) validateTags(formats strfmt.Registry) error {
 			}
 		}
 
-	}
-
-	return nil
-}
-
-var writableRackTypeTypePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["2-post-frame","4-post-frame","4-post-cabinet","wall-frame","wall-frame-vertical","wall-cabinet","wall-cabinet-vertical"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		writableRackTypeTypePropEnum = append(writableRackTypeTypePropEnum, v)
-	}
-}
-
-const (
-
-	// WritableRackTypeNr2DashPostDashFrame captures enum value "2-post-frame"
-	WritableRackTypeNr2DashPostDashFrame string = "2-post-frame"
-
-	// WritableRackTypeNr4DashPostDashFrame captures enum value "4-post-frame"
-	WritableRackTypeNr4DashPostDashFrame string = "4-post-frame"
-
-	// WritableRackTypeNr4DashPostDashCabinet captures enum value "4-post-cabinet"
-	WritableRackTypeNr4DashPostDashCabinet string = "4-post-cabinet"
-
-	// WritableRackTypeWallDashFrame captures enum value "wall-frame"
-	WritableRackTypeWallDashFrame string = "wall-frame"
-
-	// WritableRackTypeWallDashFrameDashVertical captures enum value "wall-frame-vertical"
-	WritableRackTypeWallDashFrameDashVertical string = "wall-frame-vertical"
-
-	// WritableRackTypeWallDashCabinet captures enum value "wall-cabinet"
-	WritableRackTypeWallDashCabinet string = "wall-cabinet"
-
-	// WritableRackTypeWallDashCabinetDashVertical captures enum value "wall-cabinet-vertical"
-	WritableRackTypeWallDashCabinetDashVertical string = "wall-cabinet-vertical"
-)
-
-// prop value enum
-func (m *WritableRack) validateTypeEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, writableRackTypeTypePropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (m *WritableRack) validateType(formats strfmt.Registry) error {
-	if swag.IsZero(m.Type) { // not required
-		return nil
-	}
-
-	// value enum
-	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
-		return err
 	}
 
 	return nil

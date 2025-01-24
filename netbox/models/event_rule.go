@@ -82,6 +82,9 @@ type EventRule struct {
 	// Enabled
 	Enabled bool `json:"enabled,omitempty"`
 
+	// The types of event which will trigger this rule.
+	EventTypes []string `json:"event_types"`
+
 	// id
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
@@ -106,31 +109,6 @@ type EventRule struct {
 
 	// Tenant
 	Tenant *int64 `json:"tenant,omitempty"`
-
-	// Type create
-	//
-	// Call this webhook when a matching object is created.
-	TypeCreate bool `json:"type_create,omitempty"`
-
-	// Type delete
-	//
-	// Call this webhook when a matching object is deleted.
-	TypeDelete bool `json:"type_delete,omitempty"`
-
-	// Type job_end
-	//
-	// Call this webhook when a matching job ends.
-	TypeJobEnd bool `json:"type_job_end,omitempty"`
-
-	// Type job_start
-	//
-	// Call this webhook when a matching job is started.
-	TypeJobStart bool `json:"type_job_start,omitempty"`
-
-	// Type update
-	//
-	// Call this webhook when a matching object is updated.
-	TypeUpdate bool `json:"type_update,omitempty"`
 
 	// url
 	// Read Only: true
@@ -159,6 +137,10 @@ func (m *EventRule) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEventTypes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -248,6 +230,42 @@ func (m *EventRule) validateDescription(formats strfmt.Registry) error {
 
 	if err := validate.MaxLength("description", "body", m.Description, 200); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+var eventRuleEventTypesItemsEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["object_created","object_updated","object_deleted","job_started","job_completed","job_failed","job_errored"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		eventRuleEventTypesItemsEnum = append(eventRuleEventTypesItemsEnum, v)
+	}
+}
+
+func (m *EventRule) validateEventTypesItemsEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, eventRuleEventTypesItemsEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *EventRule) validateEventTypes(formats strfmt.Registry) error {
+	if swag.IsZero(m.EventTypes) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.EventTypes); i++ {
+
+		// value enum
+		if err := m.validateEventTypesItemsEnum("event_types"+"."+strconv.Itoa(i), "body", m.EventTypes[i]); err != nil {
+			return err
+		}
+
 	}
 
 	return nil

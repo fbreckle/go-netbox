@@ -483,6 +483,16 @@ type ClientService interface {
 
 	DcimRackRolesUpdate(params *DcimRackRolesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackRolesUpdateOK, error)
 
+	DcimRackTypesCreate(params *DcimRackTypesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackTypesCreateCreated, error)
+
+	DcimRackTypesDelete(params *DcimRackTypesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackTypesDeleteNoContent, error)
+
+	DcimRackTypesList(params *DcimRackTypesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackTypesListOK, error)
+
+	DcimRackTypesRead(params *DcimRackTypesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackTypesReadOK, error)
+
+	DcimRackTypesUpdate(params *DcimRackTypesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackTypesUpdateOK, error)
+
 	DcimRacksCreate(params *DcimRacksCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRacksCreateCreated, error)
 
 	DcimRacksDelete(params *DcimRacksDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRacksDeleteNoContent, error)
@@ -8455,6 +8465,196 @@ func (a *Client) DcimRackRolesUpdate(params *DcimRackRolesUpdateParams, authInfo
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*DcimRackRolesUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimRackTypesCreate Post a list of rack type objects.
+*/
+func (a *Client) DcimRackTypesCreate(params *DcimRackTypesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackTypesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackTypesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_rack_types_create",
+		Method:             "POST",
+		PathPattern:        "/dcim/rack-types/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackTypesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackTypesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimRackTypesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimRackTypesDelete Delete a rack type object.
+*/
+func (a *Client) DcimRackTypesDelete(params *DcimRackTypesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackTypesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackTypesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_rack_types_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/rack-types/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackTypesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackTypesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimRackTypesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimRackTypesList Get a list of rack type objects.
+*/
+func (a *Client) DcimRackTypesList(params *DcimRackTypesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackTypesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackTypesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_rack_types_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/rack-types/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackTypesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackTypesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimRackTypesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimRackTypesRead Get a rack type object.
+*/
+func (a *Client) DcimRackTypesRead(params *DcimRackTypesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackTypesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackTypesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_rack_types_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/rack-types/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackTypesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackTypesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimRackTypesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimRackTypesUpdate Put a rack type object.
+*/
+func (a *Client) DcimRackTypesUpdate(params *DcimRackTypesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackTypesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackTypesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_rack_types_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/rack-types/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackTypesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackTypesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimRackTypesUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
