@@ -91677,6 +91677,11 @@
           "maxLength": 150,
           "minLength": 1
         },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "maxLength": 200
+        },
         "user_count": {
           "title": "User count",
           "type": "integer",
