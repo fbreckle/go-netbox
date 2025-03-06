@@ -34,6 +34,10 @@ import (
 // swagger:model Group
 type Group struct {
 
+	// Description
+	// Max Length: 200
+	Description string `json:"description,omitempty"`
+
 	// Display
 	// Read Only: true
 	Display string `json:"display,omitempty"`
@@ -62,6 +66,10 @@ type Group struct {
 func (m *Group) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
@@ -73,6 +81,18 @@ func (m *Group) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Group) validateDescription(formats strfmt.Registry) error {
+	if swag.IsZero(m.Description) { // not required
+		return nil
+	}
+
+	if err := validate.MaxLength("description", "body", m.Description, 200); err != nil {
+		return err
+	}
+
 	return nil
 }
 
