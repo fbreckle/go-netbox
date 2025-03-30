@@ -102,6 +102,9 @@ type WritableDeviceWithConfigContext struct {
 	// Max Length: 64
 	Name *string `json:"name,omitempty"`
 
+	// oob ip
+	OobIp *int64 `json:"oob_ip,omitempty"`
+
 	// parent device
 	ParentDevice *NestedDevice `json:"parent_device,omitempty"`
 
