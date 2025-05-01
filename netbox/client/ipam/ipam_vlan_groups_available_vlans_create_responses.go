@@ -68,7 +68,7 @@ IpamVlanGroupsAvailableVlansCreateCreated describes a response with status code 
 IpamVlanGroupsAvailableVlansCreateCreated ipam vlan groups available vlans create created
 */
 type IpamVlanGroupsAvailableVlansCreateCreated struct {
-	Payload []*models.VLAN
+	Payload *models.VLAN
 }
 
 // IsSuccess returns true when this ipam vlan groups available vlans create created response has a 2xx status code
@@ -111,7 +111,7 @@ func (o *IpamVlanGroupsAvailableVlansCreateCreated) String() string {
 	return fmt.Sprintf("[POST /ipam/vlan-groups/{id}/available-vlans/][%d] ipamVlanGroupsAvailableVlansCreateCreated %s", 201, payload)
 }
 
-func (o *IpamVlanGroupsAvailableVlansCreateCreated) GetPayload() []*models.VLAN {
+func (o *IpamVlanGroupsAvailableVlansCreateCreated) GetPayload() *models.VLAN {
 	return o.Payload
 }
 
