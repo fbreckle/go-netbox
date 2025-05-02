@@ -52230,10 +52230,7 @@
           "201": {
             "description": "",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/VLAN"
-              }
+              "$ref": "#/definitions/VLAN"
             }
           },
           "default": {
