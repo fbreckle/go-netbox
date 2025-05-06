@@ -1,4 +1,4 @@
-go-netbox 
+go-netbox
 =========
 
 [![GoDoc](http://godoc.org/github.com/fbreckle/go-netbox?status.svg)](http://godoc.org/github.com/fbreckle/go-netbox) [![Build Status](https://github.com/fbreckle/go-netbox/workflows/main/badge.svg?branch=master)](https://github.com/fbreckle/go-netbox/actions) [![Report Card](https://goreportcard.com/badge/github.com/fbreckle/go-netbox)](https://goreportcard.com/report/github.com/fbreckle/go-netbox)
@@ -41,31 +41,13 @@ Versioning
 
 tbd. Meanwhile, look at branches and tags.
 
-
-Changes in this fork
-====================
-
-NOTE: The list of changes is becoming too inconvenient to list here. See `preprocess.py` for all changes. The list below is incomplete at best or flat-out wrong!
-
-Change `models.ip_address.AssignedObject` type to prevent json marshalling errors since [this change](https://github.com/netbox-community/netbox/pull/4781)
-
-Add `x-omitempty: false` to some attributes, allowing them to be set to their empty value. [issue](https://github.com/netbox-community/go-netbox/issues/107)
-
-Change ConfigContext type for VMs and Devices [#2](https://github.com/fbreckle/go-netbox/pull/2)
-
-Fix LocalConfigContext to support arbitrary JSON object [#4](https://github.com/fbreckle/go-netbox/pull/4)
-
-Changes to allow `available_ips` to be created. (2b418d0d6d13d1edd0320d9424096f8f7d2cbbec)
-1. model returned by paths /*/available-ips/ from AvailableIP to IPAddress
-2. model IPAddress's assigned_object property from string to object otherwise it fails to unmarshal
-
-
 Using the client
 ================
 
 The `github.com/fbreckle/go-netbox/netbox` package has some convenience functions for creating clients with the most common
 configurations you are likely to need while connecting to NetBox. `NewNetboxAt` allows you to specify a hostname
 (including port, if you need it), and `NewNetboxWithAPIKey` allows you to specify both a hostname:port and API token.
+
 ```golang
 import (
     "github.com/fbreckle/go-netbox/netbox"
@@ -78,11 +60,13 @@ import (
 
 If you specify the API key, you do not need to pass an additional `authInfo` to operations that need authentication, and
 can pass `nil`:
+
 ```golang
     c.Dcim.DcimDeviceTypesCreate(createRequest, nil)
 ```
 
 If you connect to netbox via HTTPS you have to create an HTTPS configured transport:
+
 ```
 package main
 
@@ -144,10 +128,9 @@ it is so useful: setting the `DEBUG` environment variable will dump all requests
 Regenerating the client
 =======================
 
-To regenerate the client with a new or different swagger schema, first clean the existing client, then replace
-swagger.json, run the json preprocessor (requires python3) and finally re-generate:
+To regenerate the client with a new or different swagger schema, first clean the existing client, then re-generate:
+
 ```
 make clean
-make preprocess
 make generate
 ```
