@@ -3,9 +3,6 @@ generate:
 	mkdir -p netbox
 	$(swagger) generate client --target=./netbox --spec=./swagger.processed.json --copyright-file=./copyright_header.txt --skip-validation
 
-preprocess:
-	python3 preprocess.py
-
 clean:
 	rm -rf netbox/
 
