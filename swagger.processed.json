@@ -29535,10 +29535,7 @@
               "additionalProperties": true
             }
           }
-        },
-        "tags": [
-          "dcim"
-        ]
+        }
       },
       "post": {
         "operationId": "dcim_rack_types_create",
@@ -77437,6 +77434,11 @@
           "type": "string",
           "maxLength": 200
         },
+        "facility": {
+          "title": "Facility",
+          "type": "string",
+          "maxLength": 50
+        },
         "tags": {
           "type": "array",
           "items": {
@@ -77547,6 +77549,11 @@
           "title": "Description",
           "type": "string",
           "maxLength": 200
+        },
+        "facility": {
+          "title": "Facility",
+          "type": "string",
+          "maxLength": 50
         },
         "tags": {
           "type": "array",
@@ -82142,7 +82149,6 @@
             }
           }
         }
-
       }
     },
     "WritableRack": {
