@@ -60,6 +60,10 @@ type WritableLocation struct {
 	// Read Only: true
 	Display string `json:"display,omitempty"`
 
+	// Facility
+	// Max Length: 50
+	Facility string `json:"facility,omitempty"`
+
 	// ID
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
@@ -121,6 +125,10 @@ func (m *WritableLocation) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateFacility(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateLastUpdated(formats); err != nil {
 		res = append(res, err)
 	}
@@ -173,6 +181,18 @@ func (m *WritableLocation) validateDescription(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaxLength("description", "body", m.Description, 200); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *WritableLocation) validateFacility(formats strfmt.Registry) error {
+	if swag.IsZero(m.Facility) { // not required
+		return nil
+	}
+
+	if err := validate.MaxLength("facility", "body", m.Facility, 50); err != nil {
 		return err
 	}
 
