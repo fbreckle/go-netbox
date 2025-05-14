@@ -25,7 +25,7 @@ With NetBox 3.5, the NetBox authors decided to change the api documentation from
 
 Switching the code generator will also induce the need to change every single api call in the terraform provider. Furthermore, I am no expert whatsoever on openapi (or even Go), so evaluating the different available openapi generators and then choosing one to use is not an endeavour I can pursue right now. This means we cannot re-generate the client with newer api specs right now or in the immediate future.
 
-In conclusion, at the time of writing this, NetBox 3.5 is out quite some time already with NetBox 3.6 around the corner, so I decided that the show must go on and manual adjustments to this client are now the fastest way to allow the terraform provider to support newer NetBox versions. Changes to the swagger file or preprocessor still are the preferred way to implement things, however.
+In conclusion, at the time of writing this, NetBox 3.5 is out quite some time already with NetBox 3.6 around the corner, so I decided that the show must go on and manual adjustments to the swaggerfile in this repository are now the fastest way to allow the terraform provider to support newer NetBox versions.
 
 This will be re-evaluated if the list of to-dos in the netbox provider gets smaller (e.g. all newish versions are supported, custom fields are solved globally).
 
