@@ -338,6 +338,12 @@ type DcimDevicesListParams struct {
 	*/
 	Offset *int64
 
+	// OobIpID.
+	OobIpID *string
+
+	// OobIpIDn.
+	OobIpIDn *string
+
 	/* Ordering.
 
 	   Which field to use when ordering the results.
