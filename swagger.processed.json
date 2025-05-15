@@ -10687,6 +10687,13 @@
             "type": "string"
           },
           {
+            "name": "has_oob_ip",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "virtual_chassis_id",
             "in": "query",
             "description": "",
@@ -10772,6 +10779,13 @@
           },
           {
             "name": "primary_ip6_id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "oob_ip_id",
             "in": "query",
             "description": "",
             "required": false,
@@ -11486,6 +11500,13 @@
           },
           {
             "name": "primary_ip6_id__n",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "oob_ip_id__n",
             "in": "query",
             "description": "",
             "required": false,
@@ -70932,6 +70953,9 @@
         "primary_ip6": {
           "$ref": "#/definitions/NestedIPAddress"
         },
+        "oob_ip": {
+          "$ref": "#/definitions/NestedIPAddress"
+        },
         "cluster": {
           "$ref": "#/definitions/NestedCluster"
         },
@@ -73147,6 +73171,9 @@
         "primary_ip6": {
           "$ref": "#/definitions/NestedIPAddress"
         },
+        "oob_ip": {
+          "$ref": "#/definitions/NestedIPAddress"
+        },
         "cluster": {
           "$ref": "#/definitions/NestedCluster"
         },
@@ -73348,6 +73375,11 @@
           "title": "Primary IPv6",
           "type": "integer",
           "x-nullable": true
+        },
+        "oob_ip": {
+          "title": "OOB ip",
+          "type": "string",
+          "readOnly": true
         },
         "cluster": {
           "title": "Cluster",
