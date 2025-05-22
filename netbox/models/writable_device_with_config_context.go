@@ -102,6 +102,10 @@ type WritableDeviceWithConfigContext struct {
 	// Max Length: 64
 	Name *string `json:"name,omitempty"`
 
+	// OOB ip
+	// Read Only: true
+	OobIP string `json:"oob_ip,omitempty"`
+
 	// parent device
 	ParentDevice *NestedDevice `json:"parent_device,omitempty"`
 
@@ -624,6 +628,10 @@ func (m *WritableDeviceWithConfigContext) ContextValidate(ctx context.Context, f
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateOobIP(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateParentDevice(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -676,6 +684,15 @@ func (m *WritableDeviceWithConfigContext) contextValidateID(ctx context.Context,
 func (m *WritableDeviceWithConfigContext) contextValidateLastUpdated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "last_updated", "body", m.LastUpdated); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *WritableDeviceWithConfigContext) contextValidateOobIP(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "oob_ip", "body", string(m.OobIP)); err != nil {
 		return err
 	}
 

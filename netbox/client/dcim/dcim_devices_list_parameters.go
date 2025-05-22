@@ -188,6 +188,9 @@ type DcimDevicesListParams struct {
 	// Facen.
 	Facen *string
 
+	// HasOobIP.
+	HasOobIP *string
+
 	// HasPrimaryIP.
 	HasPrimaryIP *string
 
@@ -337,6 +340,12 @@ type DcimDevicesListParams struct {
 	   The initial index from which to return the results.
 	*/
 	Offset *int64
+
+	// OobIPID.
+	OobIPID *string
+
+	// OobIPIDn.
+	OobIPIDn *string
 
 	/* Ordering.
 
@@ -1032,6 +1041,17 @@ func (o *DcimDevicesListParams) SetFacen(facen *string) {
 	o.Facen = facen
 }
 
+// WithHasOobIP adds the hasOobIP to the dcim devices list params
+func (o *DcimDevicesListParams) WithHasOobIP(hasOobIP *string) *DcimDevicesListParams {
+	o.SetHasOobIP(hasOobIP)
+	return o
+}
+
+// SetHasOobIP adds the hasOobIp to the dcim devices list params
+func (o *DcimDevicesListParams) SetHasOobIP(hasOobIP *string) {
+	o.HasOobIP = hasOobIP
+}
+
 // WithHasPrimaryIP adds the hasPrimaryIP to the dcim devices list params
 func (o *DcimDevicesListParams) WithHasPrimaryIP(hasPrimaryIP *string) *DcimDevicesListParams {
 	o.SetHasPrimaryIP(hasPrimaryIP)
@@ -1558,6 +1578,28 @@ func (o *DcimDevicesListParams) WithOffset(offset *int64) *DcimDevicesListParams
 // SetOffset adds the offset to the dcim devices list params
 func (o *DcimDevicesListParams) SetOffset(offset *int64) {
 	o.Offset = offset
+}
+
+// WithOobIPID adds the oobIPID to the dcim devices list params
+func (o *DcimDevicesListParams) WithOobIPID(oobIPID *string) *DcimDevicesListParams {
+	o.SetOobIPID(oobIPID)
+	return o
+}
+
+// SetOobIPID adds the oobIpId to the dcim devices list params
+func (o *DcimDevicesListParams) SetOobIPID(oobIPID *string) {
+	o.OobIPID = oobIPID
+}
+
+// WithOobIPIDn adds the oobIPIDn to the dcim devices list params
+func (o *DcimDevicesListParams) WithOobIPIDn(oobIPIDn *string) *DcimDevicesListParams {
+	o.SetOobIPIDn(oobIPIDn)
+	return o
+}
+
+// SetOobIPIDn adds the oobIpIdN to the dcim devices list params
+func (o *DcimDevicesListParams) SetOobIPIDn(oobIPIDn *string) {
+	o.OobIPIDn = oobIPIDn
 }
 
 // WithOrdering adds the ordering to the dcim devices list params
@@ -3044,6 +3086,23 @@ func (o *DcimDevicesListParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		}
 	}
 
+	if o.HasOobIP != nil {
+
+		// query param has_oob_ip
+		var qrHasOobIP string
+
+		if o.HasOobIP != nil {
+			qrHasOobIP = *o.HasOobIP
+		}
+		qHasOobIP := qrHasOobIP
+		if qHasOobIP != "" {
+
+			if err := r.SetQueryParam("has_oob_ip", qHasOobIP); err != nil {
+				return err
+			}
+		}
+	}
+
 	if o.HasPrimaryIP != nil {
 
 		// query param has_primary_ip
@@ -3855,6 +3914,40 @@ func (o *DcimDevicesListParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		if qOffset != "" {
 
 			if err := r.SetQueryParam("offset", qOffset); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.OobIPID != nil {
+
+		// query param oob_ip_id
+		var qrOobIPID string
+
+		if o.OobIPID != nil {
+			qrOobIPID = *o.OobIPID
+		}
+		qOobIPID := qrOobIPID
+		if qOobIPID != "" {
+
+			if err := r.SetQueryParam("oob_ip_id", qOobIPID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.OobIPIDn != nil {
+
+		// query param oob_ip_id__n
+		var qrOobIPIDn string
+
+		if o.OobIPIDn != nil {
+			qrOobIPIDn = *o.OobIPIDn
+		}
+		qOobIPIDn := qrOobIPIDn
+		if qOobIPIDn != "" {
+
+			if err := r.SetQueryParam("oob_ip_id__n", qOobIPIDn); err != nil {
 				return err
 			}
 		}
