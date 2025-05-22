@@ -101,7 +101,7 @@ type DeviceWithConfigContext struct {
 	Name *string `json:"name,omitempty"`
 
 	// oob ip
-	OobIp *NestedIPAddress `json:"oob_ip,omitempty"`
+	OobIP *NestedIPAddress `json:"oob_ip,omitempty"`
 
 	// parent device
 	ParentDevice *NestedDevice `json:"parent_device,omitempty"`
@@ -210,6 +210,10 @@ func (m *DeviceWithConfigContext) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOobIP(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -457,6 +461,25 @@ func (m *DeviceWithConfigContext) validateName(formats strfmt.Registry) error {
 
 	if err := validate.MaxLength("name", "body", *m.Name, 64); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DeviceWithConfigContext) validateOobIP(formats strfmt.Registry) error {
+	if swag.IsZero(m.OobIP) { // not required
+		return nil
+	}
+
+	if m.OobIP != nil {
+		if err := m.OobIP.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("oob_ip")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("oob_ip")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -811,6 +834,10 @@ func (m *DeviceWithConfigContext) ContextValidate(ctx context.Context, formats s
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateOobIP(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateParentDevice(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -1019,6 +1046,27 @@ func (m *DeviceWithConfigContext) contextValidateLocation(ctx context.Context, f
 				return ve.ValidateName("location")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("location")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeviceWithConfigContext) contextValidateOobIP(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.OobIP != nil {
+
+		if swag.IsZero(m.OobIP) { // not required
+			return nil
+		}
+
+		if err := m.OobIP.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("oob_ip")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("oob_ip")
 			}
 			return err
 		}
