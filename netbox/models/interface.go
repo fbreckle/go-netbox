@@ -130,8 +130,9 @@ type Interface struct {
 	// Read Only: true
 	LinkPeersType string `json:"link_peers_type,omitempty"`
 
-	// MAC Address
-	MacAddress *string `json:"mac_address,omitempty"`
+	// mac addresses
+	// Read Only: true
+	MacAddresses []*BriefMACAddress `json:"mac_addresses"`
 
 	// Mark connected
 	//
@@ -275,6 +276,10 @@ func (m *Interface) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateLastUpdated(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMacAddresses(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -534,6 +539,32 @@ func (m *Interface) validateLastUpdated(formats strfmt.Registry) error {
 
 	if err := validate.FormatOf("last_updated", "body", "date-time", m.LastUpdated.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Interface) validateMacAddresses(formats strfmt.Registry) error {
+	if swag.IsZero(m.MacAddresses) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.MacAddresses); i++ {
+		if swag.IsZero(m.MacAddresses[i]) { // not required
+			continue
+		}
+
+		if m.MacAddresses[i] != nil {
+			if err := m.MacAddresses[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("mac_addresses" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("mac_addresses" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -1022,6 +1053,10 @@ func (m *Interface) ContextValidate(ctx context.Context, formats strfmt.Registry
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateMacAddresses(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateMode(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -1326,6 +1361,35 @@ func (m *Interface) contextValidateLinkPeersType(ctx context.Context, formats st
 
 	if err := validate.ReadOnly(ctx, "link_peers_type", "body", string(m.LinkPeersType)); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Interface) contextValidateMacAddresses(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "mac_addresses", "body", []*BriefMACAddress(m.MacAddresses)); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.MacAddresses); i++ {
+
+		if m.MacAddresses[i] != nil {
+
+			if swag.IsZero(m.MacAddresses[i]) { // not required
+				return nil
+			}
+
+			if err := m.MacAddresses[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("mac_addresses" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("mac_addresses" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

@@ -68605,6 +68605,228 @@
           "type": "integer"
         }
       ]
+    },
+    "/dcim/mac-addresses/": {
+      "get": {
+        "operationId": "dcim_mac-addresses_list",
+        "description": "Get a list of MAC address objects.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/MACAddress"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "dcim"
+        ]
+      },
+      "post": {
+        "operationId": "dcim_mac-addresses_create",
+        "description": "Post a list of MAC address objects.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MACAddress"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/MACAddress"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "dcim"
+        ]
+      }
+    },
+    "/dcim/mac-addresses/{id}/": {
+      "get": {
+        "operationId": "dcim_mac-addresses_read",
+        "description": "Get a MAC address object.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/MACAddress"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "dcim"
+        ]
+      },
+      "put": {
+        "operationId": "dcim_mac-addresses_update",
+        "description": "Put a MAC address object.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MACAddress"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/MACAddress"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "dcim"
+        ]
+      },
+      "patch": {
+        "operationId": "dcim_mac-addresses_partial_update",
+        "description": "Patch a MAC address object.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MACAddress"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/MACAddress"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "dcim"
+        ]
+      },
+      "delete": {
+        "operationId": "dcim_mac-addresses_delete",
+        "description": "Delete a MAC address object.",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "dcim"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A unique integer value identifying this MAC address.",
+          "required": true,
+          "type": "integer"
+        }
+      ]
     }
   },
   "definitions": {
@@ -75430,9 +75652,12 @@
           "minimum": 1,
           "x-nullable": true
         },
-        "mac_address": {
-          "title": "MAC Address",
-          "type": "string",
+         "mac_addresses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BriefMACAddress"
+          },
+          "readOnly": true,
           "x-nullable": true
         },
         "speed": {
@@ -94431,6 +94656,104 @@
         "manufacturer",
         "model",
         "slug"
+      ]
+    },
+    "MACAddress": {
+      "type": "object",
+      "description": "Adds support for custom fields and tags.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "readOnly": true
+        },
+        "display_url": {
+          "type": "string",
+          "format": "uri",
+          "readOnly": true
+        },
+        "display": {
+          "type": "string",
+          "readOnly": true
+        },
+        "mac_address": {
+          "type": "string"
+        },
+        "assigned_object_type": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "assigned_object_id": {
+          "title": "Assigned object id",
+          "type": "integer",
+          "minimum": 0,
+          "x-nullable": true,
+          "x-omitempty": false
+        },
+        "assigned_object": {
+          "readOnly": true
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 200,
+          "x-nullable": true,
+          "x-omitempty": false
+        },
+        "comments": {
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": false
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NestedTag"
+          }
+        },
+        "custom_fields": {
+          "title": "Custom fields",
+          "type": "object",
+          "default": {}
+        }
+      },
+      "required": [
+        "mac_address"
+      ]
+    },
+    "BriefMACAddress": {
+      "type": "object",
+      "description": "Adds support for custom fields and tags.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "readOnly": true
+        },
+        "display": {
+          "type": "string",
+          "readOnly": true
+        },
+        "mac_address": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 200
+        }
+      },
+      "required": [
+        "display",
+        "id",
+        "mac_address",
+        "url"
       ]
     }
   }

@@ -309,6 +309,18 @@ type ClientService interface {
 
 	DcimLocationsUpdate(params *DcimLocationsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimLocationsUpdateOK, error)
 
+	DcimMacAddressesCreate(params *DcimMacAddressesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimMacAddressesCreateCreated, error)
+
+	DcimMacAddressesDelete(params *DcimMacAddressesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimMacAddressesDeleteNoContent, error)
+
+	DcimMacAddressesList(params *DcimMacAddressesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimMacAddressesListOK, error)
+
+	DcimMacAddressesPartialUpdate(params *DcimMacAddressesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimMacAddressesPartialUpdateOK, error)
+
+	DcimMacAddressesRead(params *DcimMacAddressesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimMacAddressesReadOK, error)
+
+	DcimMacAddressesUpdate(params *DcimMacAddressesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimMacAddressesUpdateOK, error)
+
 	DcimManufacturersCreate(params *DcimManufacturersCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimManufacturersCreateCreated, error)
 
 	DcimManufacturersDelete(params *DcimManufacturersDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimManufacturersDeleteNoContent, error)
@@ -5159,6 +5171,234 @@ func (a *Client) DcimLocationsUpdate(params *DcimLocationsUpdateParams, authInfo
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*DcimLocationsUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimMacAddressesCreate Post a list of MAC address objects.
+*/
+func (a *Client) DcimMacAddressesCreate(params *DcimMacAddressesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimMacAddressesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimMacAddressesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_mac-addresses_create",
+		Method:             "POST",
+		PathPattern:        "/dcim/mac-addresses/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimMacAddressesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimMacAddressesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimMacAddressesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimMacAddressesDelete Delete a MAC address object.
+*/
+func (a *Client) DcimMacAddressesDelete(params *DcimMacAddressesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimMacAddressesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimMacAddressesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_mac-addresses_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/mac-addresses/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimMacAddressesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimMacAddressesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimMacAddressesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimMacAddressesList Get a list of MAC address objects.
+*/
+func (a *Client) DcimMacAddressesList(params *DcimMacAddressesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimMacAddressesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimMacAddressesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_mac-addresses_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/mac-addresses/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimMacAddressesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimMacAddressesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimMacAddressesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimMacAddressesPartialUpdate Patch a MAC address object.
+*/
+func (a *Client) DcimMacAddressesPartialUpdate(params *DcimMacAddressesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimMacAddressesPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimMacAddressesPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_mac-addresses_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/dcim/mac-addresses/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimMacAddressesPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimMacAddressesPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimMacAddressesPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimMacAddressesRead Get a MAC address object.
+*/
+func (a *Client) DcimMacAddressesRead(params *DcimMacAddressesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimMacAddressesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimMacAddressesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_mac-addresses_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/mac-addresses/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimMacAddressesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimMacAddressesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimMacAddressesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimMacAddressesUpdate Put a MAC address object.
+*/
+func (a *Client) DcimMacAddressesUpdate(params *DcimMacAddressesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimMacAddressesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimMacAddressesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_mac-addresses_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/mac-addresses/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimMacAddressesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimMacAddressesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimMacAddressesUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
