@@ -91617,8 +91617,20 @@
         "tenant": {
           "$ref": "#/definitions/NestedTenant"
         },
-        "site": {
-          "$ref": "#/definitions/NestedSite"
+        "scope_type": {
+          "title": "Scope type",
+          "type": "string",
+          "x-nullable": true
+        },
+        "scope_id": {
+          "title": "Scope id",
+          "type": "integer",
+          "x-nullable": true
+        },
+        "scope": {
+          "title": "Scope",
+          "type": "object",
+          "readOnly": true
         },
         "description": {
           "title": "Description",
@@ -91720,8 +91732,14 @@
           "type": "integer",
           "x-nullable": true
         },
-        "site": {
-          "title": "Site",
+        "scope_type": {
+          "title": "Scope type",
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": false
+        },
+        "scope_id": {
+          "title": "Scope id",
           "type": "integer",
           "x-nullable": true,
           "x-omitempty": false

@@ -77,8 +77,15 @@ type Cluster struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
-	// site
-	Site *NestedSite `json:"site,omitempty"`
+	// Scope
+	// Read Only: true
+	Scope interface{} `json:"scope,omitempty"`
+
+	// Scope id
+	ScopeID *int64 `json:"scope_id,omitempty"`
+
+	// Scope type
+	ScopeType *string `json:"scope_type,omitempty"`
 
 	// status
 	Status *ClusterStatus `json:"status,omitempty"`
@@ -124,10 +131,6 @@ func (m *Cluster) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSite(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -224,25 +227,6 @@ func (m *Cluster) validateName(formats strfmt.Registry) error {
 
 	if err := validate.MaxLength("name", "body", *m.Name, 100); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-func (m *Cluster) validateSite(formats strfmt.Registry) error {
-	if swag.IsZero(m.Site) { // not required
-		return nil
-	}
-
-	if m.Site != nil {
-		if err := m.Site.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("site")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("site")
-			}
-			return err
-		}
 	}
 
 	return nil
@@ -372,10 +356,6 @@ func (m *Cluster) ContextValidate(ctx context.Context, formats strfmt.Registry) 
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateSite(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateStatus(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -467,27 +447,6 @@ func (m *Cluster) contextValidateLastUpdated(ctx context.Context, formats strfmt
 
 	if err := validate.ReadOnly(ctx, "last_updated", "body", m.LastUpdated); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-func (m *Cluster) contextValidateSite(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Site != nil {
-
-		if swag.IsZero(m.Site) { // not required
-			return nil
-		}
-
-		if err := m.Site.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("site")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("site")
-			}
-			return err
-		}
 	}
 
 	return nil

@@ -77,8 +77,11 @@ type WritableCluster struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
-	// Site
-	Site *int64 `json:"site"`
+	// Scope id
+	ScopeID *int64 `json:"scope_id"`
+
+	// Scope type
+	ScopeType *string `json:"scope_type"`
 
 	// Status
 	// Enum: ["planned","staging","active","decommissioning","offline"]
