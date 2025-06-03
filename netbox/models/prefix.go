@@ -94,8 +94,15 @@ type Prefix struct {
 	// role
 	Role *NestedRole `json:"role,omitempty"`
 
-	// site
-	Site *NestedSite `json:"site,omitempty"`
+	// Scope
+	// Read Only: true
+	Scope interface{} `json:"scope,omitempty"`
+
+	// Scope id
+	ScopeID *int64 `json:"scope_id,omitempty"`
+
+	// Scope type
+	ScopeType *string `json:"scope_type,omitempty"`
 
 	// status
 	Status *PrefixStatus `json:"status,omitempty"`
@@ -143,10 +150,6 @@ func (m *Prefix) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRole(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSite(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -255,25 +258,6 @@ func (m *Prefix) validateRole(formats strfmt.Registry) error {
 				return ve.ValidateName("role")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("role")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *Prefix) validateSite(formats strfmt.Registry) error {
-	if swag.IsZero(m.Site) { // not required
-		return nil
-	}
-
-	if m.Site != nil {
-		if err := m.Site.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("site")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("site")
 			}
 			return err
 		}
@@ -432,10 +416,6 @@ func (m *Prefix) ContextValidate(ctx context.Context, formats strfmt.Registry) e
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateSite(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateStatus(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -554,27 +534,6 @@ func (m *Prefix) contextValidateRole(ctx context.Context, formats strfmt.Registr
 				return ve.ValidateName("role")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("role")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *Prefix) contextValidateSite(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Site != nil {
-
-		if swag.IsZero(m.Site) { // not required
-			return nil
-		}
-
-		if err := m.Site.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("site")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("site")
 			}
 			return err
 		}

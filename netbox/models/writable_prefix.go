@@ -97,8 +97,11 @@ type WritablePrefix struct {
 	// The primary function of this prefix
 	Role *int64 `json:"role"`
 
-	// Site
-	Site *int64 `json:"site"`
+	// Scope id
+	ScopeID *int64 `json:"scope_id"`
+
+	// Scope type
+	ScopeType *string `json:"scope_type"`
 
 	// Status
 	//
