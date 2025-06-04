@@ -101,12 +101,6 @@ type WritableCircuitTermination struct {
 	// Max Length: 100
 	PpInfo string `json:"pp_info,omitempty"`
 
-	// Provider network
-	ProviderNetwork *int64 `json:"provider_network,omitempty"`
-
-	// Site
-	Site *int64 `json:"site,omitempty"`
-
 	// tags
 	Tags []*NestedTag `json:"tags"`
 
@@ -114,6 +108,12 @@ type WritableCircuitTermination struct {
 	// Required: true
 	// Enum: ["A","Z"]
 	TermSide *string `json:"term_side"`
+
+	// Termination id
+	TerminationID *int64 `json:"termination_id"`
+
+	// Termination type
+	TerminationType *string `json:"termination_type"`
 
 	// Upstream speed (Kbps)
 	//

@@ -104,9 +104,6 @@ type CircuitTermination struct {
 	// provider network
 	ProviderNetwork *NestedProviderNetwork `json:"provider_network,omitempty"`
 
-	// site
-	Site *NestedSite `json:"site,omitempty"`
-
 	// tags
 	Tags []*NestedTag `json:"tags"`
 
@@ -114,6 +111,12 @@ type CircuitTermination struct {
 	// Required: true
 	// Enum: ["A","Z"]
 	TermSide *string `json:"term_side"`
+
+	// Termination id
+	TerminationID *int64 `json:"termination_id,omitempty"`
+
+	// Termination type
+	TerminationType *string `json:"termination_type,omitempty"`
 
 	// Upstream speed (Kbps)
 	//
@@ -169,10 +172,6 @@ func (m *CircuitTermination) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateProviderNetwork(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSite(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -328,25 +327,6 @@ func (m *CircuitTermination) validateProviderNetwork(formats strfmt.Registry) er
 				return ve.ValidateName("provider_network")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("provider_network")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *CircuitTermination) validateSite(formats strfmt.Registry) error {
-	if swag.IsZero(m.Site) { // not required
-		return nil
-	}
-
-	if m.Site != nil {
-		if err := m.Site.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("site")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("site")
 			}
 			return err
 		}
@@ -512,10 +492,6 @@ func (m *CircuitTermination) ContextValidate(ctx context.Context, formats strfmt
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateSite(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateTags(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -653,27 +629,6 @@ func (m *CircuitTermination) contextValidateProviderNetwork(ctx context.Context,
 				return ve.ValidateName("provider_network")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("provider_network")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *CircuitTermination) contextValidateSite(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Site != nil {
-
-		if swag.IsZero(m.Site) { // not required
-			return nil
-		}
-
-		if err := m.Site.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("site")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("site")
 			}
 			return err
 		}

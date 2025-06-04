@@ -69036,8 +69036,15 @@
             "Z"
           ]
         },
-        "site": {
-          "$ref": "#/definitions/NestedSite"
+        "termination_type": {
+          "title": "Termination type",
+          "type": "string",
+          "x-nullable": true
+        },
+        "termination_id": {
+          "title": "Termination id",
+          "type": "integer",
+          "x-nullable": true
         },
         "provider_network": {
           "$ref": "#/definitions/NestedProviderNetwork"
@@ -69167,15 +69174,17 @@
             "Z"
           ]
         },
-        "site": {
-          "title": "Site",
-          "type": "integer",
-          "x-nullable": true
+        "termination_type": {
+          "title": "Termination type",
+          "type": "string",
+          "x-nullable": true,
+          "x-omitempty": false
         },
-        "provider_network": {
-          "title": "Provider network",
+        "termination_id": {
+          "title": "Termination id",
           "type": "integer",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": false
         },
         "port_speed": {
           "title": "Port speed (Kbps)",
