@@ -76574,6 +76574,14 @@
           "type": "string",
           "x-nullable": true
         },
+        "primary_mac_address":{
+          "type": "object",
+          "properties": {
+            "mac_address": {
+              "type": "string"
+            }
+          }
+        },
         "speed": {
           "title": "Speed (Kbps)",
           "type": "integer",
