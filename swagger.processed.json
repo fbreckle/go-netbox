@@ -89186,6 +89186,20 @@
           "type": "string",
           "readOnly": true
         },
+        "parent_object_type": {
+          "title": "Parent object type",
+          "type": "string"
+        },
+        "parent_object_id": {
+          "title": "Parent object id",
+          "type": "integer",
+          "minimum": 0
+        },
+        "parent": {
+          "type": "object",
+          "readOnly": true,
+          "x-nullable": true
+        },
         "device": {
           "$ref": "#/definitions/NestedDevice"
         },
@@ -89280,7 +89294,9 @@
       "required": [
         "name",
         "ports",
-        "protocol"
+        "protocol",
+        "parent_object_type",
+        "parent_object_id"
       ],
       "type": "object",
       "properties": {
@@ -89300,15 +89316,14 @@
           "type": "string",
           "readOnly": true
         },
-        "device": {
-          "title": "Device",
-          "type": "integer",
-          "x-nullable": true
+        "parent_object_type": {
+          "title": "Parent object type",
+          "type": "string"
         },
-        "virtual_machine": {
-          "title": "Virtual machine",
+        "parent_object_id": {
+          "title": "Parent object id",
           "type": "integer",
-          "x-nullable": true
+          "minimum": 0
         },
         "name": {
           "title": "Name",

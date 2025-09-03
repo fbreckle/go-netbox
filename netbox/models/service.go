@@ -77,6 +77,17 @@ type Service struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
+	// parent
+	// Read Only: true
+	Parent interface{} `json:"parent,omitempty"`
+
+	// Parent object id
+	// Minimum: 0
+	ParentObjectID *int64 `json:"parent_object_id,omitempty"`
+
+	// Parent object type
+	ParentObjectType string `json:"parent_object_type,omitempty"`
+
 	// ports
 	// Required: true
 	Ports []int64 `json:"ports"`
@@ -121,6 +132,10 @@ func (m *Service) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateParentObjectID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -246,6 +261,18 @@ func (m *Service) validateName(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaxLength("name", "body", *m.Name, 100); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Service) validateParentObjectID(formats strfmt.Registry) error {
+	if swag.IsZero(m.ParentObjectID) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("parent_object_id", "body", *m.ParentObjectID, 0, false); err != nil {
 		return err
 	}
 
