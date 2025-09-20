@@ -161,6 +161,11 @@ type WritableRack struct {
 	// Tenant
 	Tenant *int64 `json:"tenant"`
 
+	// Type
+	//
+	// Rack type
+	Type *int64 `json:"type"`
+
 	// Height (U)
 	//
 	// Height in rack units
