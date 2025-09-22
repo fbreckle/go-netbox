@@ -64750,6 +64750,20 @@
             "type": "string"
           },
           {
+            "name": "virtual_machine_id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "virtual_machine",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "id__n",
             "in": "query",
             "description": "",
