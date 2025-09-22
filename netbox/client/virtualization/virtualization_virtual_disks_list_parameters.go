@@ -221,8 +221,14 @@ type VirtualizationVirtualDisksListParams struct {
 	// TenantID.
 	TenantID *string
 
+	// VirtualMachine.
+	VirtualMachine *string
+
 	// VirtualMachinen.
 	VirtualMachinen *string
+
+	// VirtualMachineID.
+	VirtualMachineID *string
 
 	// VirtualMachineIDn.
 	VirtualMachineIDn *string
@@ -775,6 +781,17 @@ func (o *VirtualizationVirtualDisksListParams) SetTenantID(tenantID *string) {
 	o.TenantID = tenantID
 }
 
+// WithVirtualMachine adds the virtualMachine to the virtualization virtual disks list params
+func (o *VirtualizationVirtualDisksListParams) WithVirtualMachine(virtualMachine *string) *VirtualizationVirtualDisksListParams {
+	o.SetVirtualMachine(virtualMachine)
+	return o
+}
+
+// SetVirtualMachine adds the virtualMachine to the virtualization virtual disks list params
+func (o *VirtualizationVirtualDisksListParams) SetVirtualMachine(virtualMachine *string) {
+	o.VirtualMachine = virtualMachine
+}
+
 // WithVirtualMachinen adds the virtualMachinen to the virtualization virtual disks list params
 func (o *VirtualizationVirtualDisksListParams) WithVirtualMachinen(virtualMachinen *string) *VirtualizationVirtualDisksListParams {
 	o.SetVirtualMachinen(virtualMachinen)
@@ -784,6 +801,17 @@ func (o *VirtualizationVirtualDisksListParams) WithVirtualMachinen(virtualMachin
 // SetVirtualMachinen adds the virtualMachineN to the virtualization virtual disks list params
 func (o *VirtualizationVirtualDisksListParams) SetVirtualMachinen(virtualMachinen *string) {
 	o.VirtualMachinen = virtualMachinen
+}
+
+// WithVirtualMachineID adds the virtualMachineID to the virtualization virtual disks list params
+func (o *VirtualizationVirtualDisksListParams) WithVirtualMachineID(virtualMachineID *string) *VirtualizationVirtualDisksListParams {
+	o.SetVirtualMachineID(virtualMachineID)
+	return o
+}
+
+// SetVirtualMachineID adds the virtualMachineId to the virtualization virtual disks list params
+func (o *VirtualizationVirtualDisksListParams) SetVirtualMachineID(virtualMachineID *string) {
+	o.VirtualMachineID = virtualMachineID
 }
 
 // WithVirtualMachineIDn adds the virtualMachineIDn to the virtualization virtual disks list params
@@ -1564,6 +1592,23 @@ func (o *VirtualizationVirtualDisksListParams) WriteToRequest(r runtime.ClientRe
 		}
 	}
 
+	if o.VirtualMachine != nil {
+
+		// query param virtual_machine
+		var qrVirtualMachine string
+
+		if o.VirtualMachine != nil {
+			qrVirtualMachine = *o.VirtualMachine
+		}
+		qVirtualMachine := qrVirtualMachine
+		if qVirtualMachine != "" {
+
+			if err := r.SetQueryParam("virtual_machine", qVirtualMachine); err != nil {
+				return err
+			}
+		}
+	}
+
 	if o.VirtualMachinen != nil {
 
 		// query param virtual_machine__n
@@ -1576,6 +1621,23 @@ func (o *VirtualizationVirtualDisksListParams) WriteToRequest(r runtime.ClientRe
 		if qVirtualMachinen != "" {
 
 			if err := r.SetQueryParam("virtual_machine__n", qVirtualMachinen); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.VirtualMachineID != nil {
+
+		// query param virtual_machine_id
+		var qrVirtualMachineID string
+
+		if o.VirtualMachineID != nil {
+			qrVirtualMachineID = *o.VirtualMachineID
+		}
+		qVirtualMachineID := qrVirtualMachineID
+		if qVirtualMachineID != "" {
+
+			if err := r.SetQueryParam("virtual_machine_id", qVirtualMachineID); err != nil {
 				return err
 			}
 		}
