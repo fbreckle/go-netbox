@@ -77,6 +77,12 @@ type WritableService struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
+	// Parent object id
+	ParentObjectID *int64 `json:"parent_object_id,omitempty"`
+
+	// Parent object type
+	ParentObjectType *string `json:"parent_object_type,omitempty"`
+
 	// ports
 	// Required: true
 	Ports []int64 `json:"ports"`
