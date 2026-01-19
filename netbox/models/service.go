@@ -77,6 +77,14 @@ type Service struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
+	// Parent object id
+	// Read Only: true
+	ParentObjectID *int64 `json:"parent_object_id,omitempty"`
+
+	// Parent object type
+	// Read Only: true
+	ParentObjectType string `json:"parent_object_type,omitempty"`
+
 	// ports
 	// Required: true
 	Ports []int64 `json:"ports"`
@@ -377,6 +385,14 @@ func (m *Service) ContextValidate(ctx context.Context, formats strfmt.Registry) 
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateParentObjectID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateParentObjectType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateProtocol(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -475,6 +491,24 @@ func (m *Service) contextValidateIpaddresses(ctx context.Context, formats strfmt
 func (m *Service) contextValidateLastUpdated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "last_updated", "body", m.LastUpdated); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Service) contextValidateParentObjectID(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "parent_object_id", "body", m.ParentObjectID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Service) contextValidateParentObjectType(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "parent_object_type", "body", string(m.ParentObjectType)); err != nil {
 		return err
 	}
 

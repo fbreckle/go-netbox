@@ -11771,6 +11771,39 @@
         }
       ]
     },
+    "/dcim/devices/{id}/render-config/": {
+      "post": {
+        "operationId": "dcim_devices_render_config",
+        "description": "Render the configuration template assigned to a device using the device's config context.",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DeviceRenderConfig"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "dcim"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A unique integer value identifying this device.",
+          "required": true,
+          "type": "integer"
+        }
+      ]
+    },
     "/dcim/front-port-templates/": {
       "get": {
         "operationId": "dcim_front-port-templates_list",
@@ -73693,6 +73726,49 @@
         }
       }
     },
+    "DeviceRenderConfig": {
+      "type": "object",
+      "properties": {
+        "configtemplate": {
+          "title": "Config template",
+          "type": "object",
+          "readOnly": true,
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "integer",
+              "readOnly": true
+            },
+            "url": {
+              "title": "Url",
+              "type": "string",
+              "format": "uri",
+              "readOnly": true
+            },
+            "display": {
+              "title": "Display",
+              "type": "string",
+              "readOnly": true
+            },
+            "name": {
+              "title": "Name",
+              "type": "string",
+              "readOnly": true
+            },
+            "description": {
+              "title": "Description",
+              "type": "string",
+              "readOnly": true
+            }
+          }
+        },
+        "content": {
+          "title": "Content",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
     "NestedRearPortTemplate": {
       "required": [
         "name"
@@ -89273,6 +89349,17 @@
           "format": "date-time",
           "readOnly": true,
           "x-nullable": true
+        },
+        "parent_object_type": {
+          "title": "Parent object type",
+          "type": "string",
+          "readOnly": true
+        },
+        "parent_object_id": {
+          "title": "Parent object id",
+          "type": "integer",
+          "readOnly": true,
+          "x-nullable": true
         }
       }
     },
@@ -89374,6 +89461,16 @@
           "type": "string",
           "format": "date-time",
           "readOnly": true,
+          "x-nullable": true
+        },
+        "parent_object_type": {
+          "title": "Parent object type",
+          "type": "string",
+          "x-nullable": true
+        },
+        "parent_object_id": {
+          "title": "Parent object id",
+          "type": "integer",
           "x-nullable": true
         }
       }

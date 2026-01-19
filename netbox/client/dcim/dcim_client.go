@@ -207,6 +207,8 @@ type ClientService interface {
 
 	DcimDevicesRead(params *DcimDevicesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimDevicesReadOK, error)
 
+	DcimDevicesRenderConfig(params *DcimDevicesRenderConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimDevicesRenderConfigOK, error)
+
 	DcimDevicesUpdate(params *DcimDevicesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimDevicesUpdateOK, error)
 
 	DcimFrontPortTemplatesCreate(params *DcimFrontPortTemplatesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimFrontPortTemplatesCreateCreated, error)
@@ -3233,6 +3235,44 @@ func (a *Client) DcimDevicesRead(params *DcimDevicesReadParams, authInfo runtime
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*DcimDevicesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimDevicesRenderConfig Render the configuration template assigned to a device using the device's config context.
+*/
+func (a *Client) DcimDevicesRenderConfig(params *DcimDevicesRenderConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimDevicesRenderConfigOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimDevicesRenderConfigParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_devices_render_config",
+		Method:             "POST",
+		PathPattern:        "/dcim/devices/{id}/render-config/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimDevicesRenderConfigReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimDevicesRenderConfigOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimDevicesRenderConfigDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
