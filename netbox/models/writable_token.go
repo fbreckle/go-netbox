@@ -52,7 +52,7 @@ type WritableToken struct {
 
 	// Expires
 	// Format: date-time
-	Expires *strfmt.DateTime `json:"expires,omitempty"`
+	Expires *strfmt.DateTime `json:"expires"`
 
 	// ID
 	// Read Only: true

@@ -91592,7 +91592,8 @@
           "title": "Expires",
           "type": "string",
           "format": "date-time",
-          "x-nullable": true
+          "x-nullable": true,
+          "x-omitempty": false
         },
         "last_used": {
           "title": "Last used",
