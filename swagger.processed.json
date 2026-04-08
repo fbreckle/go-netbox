@@ -91534,8 +91534,8 @@
         "key": {
           "title": "Key",
           "type": "string",
-          "maxLength": 40,
-          "minLength": 40
+          "maxLength": 12,
+          "minLength": 12
         },
         "write_enabled": {
           "title": "Write enabled",
@@ -91603,8 +91603,8 @@
         "key": {
           "title": "Key",
           "type": "string",
-          "maxLength": 40,
-          "minLength": 40
+          "maxLength": 12,
+          "minLength": 12
         },
         "write_enabled": {
           "title": "Write enabled",

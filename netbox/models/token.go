@@ -59,8 +59,8 @@ type Token struct {
 	ID int64 `json:"id,omitempty"`
 
 	// Key
-	// Max Length: 40
-	// Min Length: 40
+	// Max Length: 12
+	// Min Length: 12
 	Key string `json:"key,omitempty"`
 
 	// Last used
@@ -161,11 +161,11 @@ func (m *Token) validateKey(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MinLength("key", "body", m.Key, 40); err != nil {
+	if err := validate.MinLength("key", "body", m.Key, 12); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("key", "body", m.Key, 40); err != nil {
+	if err := validate.MaxLength("key", "body", m.Key, 12); err != nil {
 		return err
 	}
 
