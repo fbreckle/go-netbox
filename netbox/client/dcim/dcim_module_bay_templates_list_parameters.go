@@ -750,7 +750,7 @@ func (o *DcimModuleBayTemplatesListParams) WriteToRequest(r runtime.ClientReques
 		qDevicetypeID := qrDevicetypeID
 		if qDevicetypeID != "" {
 
-			if err := r.SetQueryParam("devicetype_id", qDevicetypeID); err != nil {
+			if err := r.SetQueryParam("device_type_id", qDevicetypeID); err != nil {
 				return err
 			}
 		}
@@ -767,7 +767,7 @@ func (o *DcimModuleBayTemplatesListParams) WriteToRequest(r runtime.ClientReques
 		qDevicetypeIDn := qrDevicetypeIDn
 		if qDevicetypeIDn != "" {
 
-			if err := r.SetQueryParam("devicetype_id__n", qDevicetypeIDn); err != nil {
+			if err := r.SetQueryParam("device_type_id__n", qDevicetypeIDn); err != nil {
 				return err
 			}
 		}
