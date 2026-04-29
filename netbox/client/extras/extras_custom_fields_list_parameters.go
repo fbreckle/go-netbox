@@ -269,6 +269,9 @@ type ExtrasCustomFieldsListParams struct {
 	// Q.
 	Q *string
 
+	// RelatedObjectType.
+	RelatedObjectType *string
+
 	// Required.
 	Required *string
 
@@ -1042,6 +1045,17 @@ func (o *ExtrasCustomFieldsListParams) WithQ(q *string) *ExtrasCustomFieldsListP
 // SetQ adds the q to the extras custom fields list params
 func (o *ExtrasCustomFieldsListParams) SetQ(q *string) {
 	o.Q = q
+}
+
+// WithRelatedObjectType adds the relatedObjectType to the extras custom fields list params
+func (o *ExtrasCustomFieldsListParams) WithRelatedObjectType(relatedObjectType *string) *ExtrasCustomFieldsListParams {
+	o.SetRelatedObjectType(relatedObjectType)
+	return o
+}
+
+// SetRelatedObjectType adds the relatedObjectType to the extras custom fields list params
+func (o *ExtrasCustomFieldsListParams) SetRelatedObjectType(relatedObjectType *string) {
+	o.RelatedObjectType = relatedObjectType
 }
 
 // WithRequired adds the required to the extras custom fields list params
@@ -2271,6 +2285,23 @@ func (o *ExtrasCustomFieldsListParams) WriteToRequest(r runtime.ClientRequest, r
 		if qQ != "" {
 
 			if err := r.SetQueryParam("q", qQ); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.RelatedObjectType != nil {
+
+		// query param related_object_type
+		var qrRelatedObjectType string
+
+		if o.RelatedObjectType != nil {
+			qrRelatedObjectType = *o.RelatedObjectType
+		}
+		qRelatedObjectType := qrRelatedObjectType
+		if qRelatedObjectType != "" {
+
+			if err := r.SetQueryParam("related_object_type", qRelatedObjectType); err != nil {
 				return err
 			}
 		}

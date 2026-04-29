@@ -36930,6 +36930,13 @@
             "type": "string"
           },
           {
+            "name": "related_object_type",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "content_type_id",
             "in": "query",
             "description": "",

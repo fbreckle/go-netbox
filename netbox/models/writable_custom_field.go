@@ -107,6 +107,10 @@ type WritableCustomField struct {
 	// Unique: true
 	ObjectTypes []string `json:"object_types,omitempty"`
 
+	// Related object type
+	// Enum: ["circuits.circuit","circuits.circuittermination","circuits.virtualcircuit","circuits.virtualcircuittermination","core.datasource","core.job","core.objectchange","dcim.cable","dcim.cablepath","dcim.cabletermination","dcim.consoleport","dcim.consoleporttemplate","dcim.consoleserverport","dcim.consoleserverporttemplate","dcim.device","dcim.devicebay","dcim.devicebaytemplate","dcim.devicerole","dcim.devicetype","dcim.frontport","dcim.frontporttemplate","dcim.interface","dcim.interfacetemplate","dcim.inventoryitem","dcim.inventoryitemrole","dcim.inventoryitemtemplate","dcim.location","dcim.manufacturer","dcim.module","dcim.modulebay","dcim.modulebaytemplate","dcim.moduletype","dcim.platform","dcim.powerfeed","dcim.poweroutlet","dcim.poweroutlettemplate","dcim.powerpanel","dcim.powerport","dcim.powerporttemplate","dcim.rack","dcim.rackreservation","dcim.rackrole","dcim.rearport","dcim.rearporttemplate","dcim.region","dcim.site","dcim.sitegroup","dcim.virtualchassis","extras.configcontext","extras.configrevision","extras.customfield","extras.customlink","extras.exporttemplate","extras.imageattachment","extras.jobresult","extras.journalentry","extras.report","extras.script","extras.tag","extras.taggeditem","extras.webhook","ipam.aggregate","ipam.ASN","ipam.FHRPgroup","ipam.FHRPgroupassignment","ipam.IPaddress","ipam.IPrange","ipam.L2VPN","ipam.L2VPNtermination","ipam.prefix","ipam.RIR","ipam.role","ipam.routetarget","ipam.service","ipam.servicetemplate","ipam.VLAN","ipam.VLANgroup","ipam.VRF","tenancy.contact","tenancy.contactassignment","tenancy.contactgroup","tenancy.contactrole","tenancy.tenant","tenancy.tenantgroup","virtualization.cluster","virtualization.clustergroup","virtualization.clustertype","virtualization.interface","virtualization.virtualmachine","wireless.WirelessLAN","wireless.WirelessLANGroup","wireless.wirelesslink"]
+	RelatedObjectType string `json:"related_object_type,omitempty"`
+
 	// Required
 	//
 	// If true, this field is required when creating new objects or editing an existing object.
@@ -201,6 +205,10 @@ func (m *WritableCustomField) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateObjectTypes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRelatedObjectType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -386,6 +394,318 @@ func (m *WritableCustomField) validateObjectTypes(formats strfmt.Registry) error
 	}
 
 	if err := validate.UniqueItems("object_types", "body", m.ObjectTypes); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var writableCustomFieldTypeRelatedObjectTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["circuits.circuit","circuits.circuittermination","circuits.virtualcircuit","circuits.virtualcircuittermination","core.datasource","core.job","core.objectchange","dcim.cable","dcim.cablepath","dcim.cabletermination","dcim.consoleport","dcim.consoleporttemplate","dcim.consoleserverport","dcim.consoleserverporttemplate","dcim.device","dcim.devicebay","dcim.devicebaytemplate","dcim.devicerole","dcim.devicetype","dcim.frontport","dcim.frontporttemplate","dcim.interface","dcim.interfacetemplate","dcim.inventoryitem","dcim.inventoryitemrole","dcim.inventoryitemtemplate","dcim.location","dcim.manufacturer","dcim.module","dcim.modulebay","dcim.modulebaytemplate","dcim.moduletype","dcim.platform","dcim.powerfeed","dcim.poweroutlet","dcim.poweroutlettemplate","dcim.powerpanel","dcim.powerport","dcim.powerporttemplate","dcim.rack","dcim.rackreservation","dcim.rackrole","dcim.rearport","dcim.rearporttemplate","dcim.region","dcim.site","dcim.sitegroup","dcim.virtualchassis","extras.configcontext","extras.configrevision","extras.customfield","extras.customlink","extras.exporttemplate","extras.imageattachment","extras.jobresult","extras.journalentry","extras.report","extras.script","extras.tag","extras.taggeditem","extras.webhook","ipam.aggregate","ipam.ASN","ipam.FHRPgroup","ipam.FHRPgroupassignment","ipam.IPaddress","ipam.IPrange","ipam.L2VPN","ipam.L2VPNtermination","ipam.prefix","ipam.RIR","ipam.role","ipam.routetarget","ipam.service","ipam.servicetemplate","ipam.VLAN","ipam.VLANgroup","ipam.VRF","tenancy.contact","tenancy.contactassignment","tenancy.contactgroup","tenancy.contactrole","tenancy.tenant","tenancy.tenantgroup","virtualization.cluster","virtualization.clustergroup","virtualization.clustertype","virtualization.interface","virtualization.virtualmachine","wireless.WirelessLAN","wireless.WirelessLANGroup","wireless.wirelesslink"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		writableCustomFieldTypeRelatedObjectTypePropEnum = append(writableCustomFieldTypeRelatedObjectTypePropEnum, v)
+	}
+}
+
+const (
+
+	// WritableCustomFieldRelatedObjectTypeCircuitsDotCircuit captures enum value "circuits.circuit"
+	WritableCustomFieldRelatedObjectTypeCircuitsDotCircuit string = "circuits.circuit"
+
+	// WritableCustomFieldRelatedObjectTypeCircuitsDotCircuittermination captures enum value "circuits.circuittermination"
+	WritableCustomFieldRelatedObjectTypeCircuitsDotCircuittermination string = "circuits.circuittermination"
+
+	// WritableCustomFieldRelatedObjectTypeCircuitsDotVirtualcircuit captures enum value "circuits.virtualcircuit"
+	WritableCustomFieldRelatedObjectTypeCircuitsDotVirtualcircuit string = "circuits.virtualcircuit"
+
+	// WritableCustomFieldRelatedObjectTypeCircuitsDotVirtualcircuittermination captures enum value "circuits.virtualcircuittermination"
+	WritableCustomFieldRelatedObjectTypeCircuitsDotVirtualcircuittermination string = "circuits.virtualcircuittermination"
+
+	// WritableCustomFieldRelatedObjectTypeCoreDotDatasource captures enum value "core.datasource"
+	WritableCustomFieldRelatedObjectTypeCoreDotDatasource string = "core.datasource"
+
+	// WritableCustomFieldRelatedObjectTypeCoreDotJob captures enum value "core.job"
+	WritableCustomFieldRelatedObjectTypeCoreDotJob string = "core.job"
+
+	// WritableCustomFieldRelatedObjectTypeCoreDotObjectchange captures enum value "core.objectchange"
+	WritableCustomFieldRelatedObjectTypeCoreDotObjectchange string = "core.objectchange"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotCable captures enum value "dcim.cable"
+	WritableCustomFieldRelatedObjectTypeDcimDotCable string = "dcim.cable"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotCablepath captures enum value "dcim.cablepath"
+	WritableCustomFieldRelatedObjectTypeDcimDotCablepath string = "dcim.cablepath"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotCabletermination captures enum value "dcim.cabletermination"
+	WritableCustomFieldRelatedObjectTypeDcimDotCabletermination string = "dcim.cabletermination"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotConsoleport captures enum value "dcim.consoleport"
+	WritableCustomFieldRelatedObjectTypeDcimDotConsoleport string = "dcim.consoleport"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotConsoleporttemplate captures enum value "dcim.consoleporttemplate"
+	WritableCustomFieldRelatedObjectTypeDcimDotConsoleporttemplate string = "dcim.consoleporttemplate"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotConsoleserverport captures enum value "dcim.consoleserverport"
+	WritableCustomFieldRelatedObjectTypeDcimDotConsoleserverport string = "dcim.consoleserverport"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotConsoleserverporttemplate captures enum value "dcim.consoleserverporttemplate"
+	WritableCustomFieldRelatedObjectTypeDcimDotConsoleserverporttemplate string = "dcim.consoleserverporttemplate"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotDevice captures enum value "dcim.device"
+	WritableCustomFieldRelatedObjectTypeDcimDotDevice string = "dcim.device"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotDevicebay captures enum value "dcim.devicebay"
+	WritableCustomFieldRelatedObjectTypeDcimDotDevicebay string = "dcim.devicebay"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotDevicebaytemplate captures enum value "dcim.devicebaytemplate"
+	WritableCustomFieldRelatedObjectTypeDcimDotDevicebaytemplate string = "dcim.devicebaytemplate"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotDevicerole captures enum value "dcim.devicerole"
+	WritableCustomFieldRelatedObjectTypeDcimDotDevicerole string = "dcim.devicerole"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotDevicetype captures enum value "dcim.devicetype"
+	WritableCustomFieldRelatedObjectTypeDcimDotDevicetype string = "dcim.devicetype"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotFrontport captures enum value "dcim.frontport"
+	WritableCustomFieldRelatedObjectTypeDcimDotFrontport string = "dcim.frontport"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotFrontporttemplate captures enum value "dcim.frontporttemplate"
+	WritableCustomFieldRelatedObjectTypeDcimDotFrontporttemplate string = "dcim.frontporttemplate"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotInterface captures enum value "dcim.interface"
+	WritableCustomFieldRelatedObjectTypeDcimDotInterface string = "dcim.interface"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotInterfacetemplate captures enum value "dcim.interfacetemplate"
+	WritableCustomFieldRelatedObjectTypeDcimDotInterfacetemplate string = "dcim.interfacetemplate"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotInventoryitem captures enum value "dcim.inventoryitem"
+	WritableCustomFieldRelatedObjectTypeDcimDotInventoryitem string = "dcim.inventoryitem"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotInventoryitemrole captures enum value "dcim.inventoryitemrole"
+	WritableCustomFieldRelatedObjectTypeDcimDotInventoryitemrole string = "dcim.inventoryitemrole"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotInventoryitemtemplate captures enum value "dcim.inventoryitemtemplate"
+	WritableCustomFieldRelatedObjectTypeDcimDotInventoryitemtemplate string = "dcim.inventoryitemtemplate"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotLocation captures enum value "dcim.location"
+	WritableCustomFieldRelatedObjectTypeDcimDotLocation string = "dcim.location"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotManufacturer captures enum value "dcim.manufacturer"
+	WritableCustomFieldRelatedObjectTypeDcimDotManufacturer string = "dcim.manufacturer"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotModule captures enum value "dcim.module"
+	WritableCustomFieldRelatedObjectTypeDcimDotModule string = "dcim.module"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotModulebay captures enum value "dcim.modulebay"
+	WritableCustomFieldRelatedObjectTypeDcimDotModulebay string = "dcim.modulebay"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotModulebaytemplate captures enum value "dcim.modulebaytemplate"
+	WritableCustomFieldRelatedObjectTypeDcimDotModulebaytemplate string = "dcim.modulebaytemplate"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotModuletype captures enum value "dcim.moduletype"
+	WritableCustomFieldRelatedObjectTypeDcimDotModuletype string = "dcim.moduletype"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotPlatform captures enum value "dcim.platform"
+	WritableCustomFieldRelatedObjectTypeDcimDotPlatform string = "dcim.platform"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotPowerfeed captures enum value "dcim.powerfeed"
+	WritableCustomFieldRelatedObjectTypeDcimDotPowerfeed string = "dcim.powerfeed"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotPoweroutlet captures enum value "dcim.poweroutlet"
+	WritableCustomFieldRelatedObjectTypeDcimDotPoweroutlet string = "dcim.poweroutlet"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotPoweroutlettemplate captures enum value "dcim.poweroutlettemplate"
+	WritableCustomFieldRelatedObjectTypeDcimDotPoweroutlettemplate string = "dcim.poweroutlettemplate"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotPowerpanel captures enum value "dcim.powerpanel"
+	WritableCustomFieldRelatedObjectTypeDcimDotPowerpanel string = "dcim.powerpanel"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotPowerport captures enum value "dcim.powerport"
+	WritableCustomFieldRelatedObjectTypeDcimDotPowerport string = "dcim.powerport"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotPowerporttemplate captures enum value "dcim.powerporttemplate"
+	WritableCustomFieldRelatedObjectTypeDcimDotPowerporttemplate string = "dcim.powerporttemplate"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotRack captures enum value "dcim.rack"
+	WritableCustomFieldRelatedObjectTypeDcimDotRack string = "dcim.rack"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotRackreservation captures enum value "dcim.rackreservation"
+	WritableCustomFieldRelatedObjectTypeDcimDotRackreservation string = "dcim.rackreservation"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotRackrole captures enum value "dcim.rackrole"
+	WritableCustomFieldRelatedObjectTypeDcimDotRackrole string = "dcim.rackrole"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotRearport captures enum value "dcim.rearport"
+	WritableCustomFieldRelatedObjectTypeDcimDotRearport string = "dcim.rearport"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotRearporttemplate captures enum value "dcim.rearporttemplate"
+	WritableCustomFieldRelatedObjectTypeDcimDotRearporttemplate string = "dcim.rearporttemplate"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotRegion captures enum value "dcim.region"
+	WritableCustomFieldRelatedObjectTypeDcimDotRegion string = "dcim.region"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotSite captures enum value "dcim.site"
+	WritableCustomFieldRelatedObjectTypeDcimDotSite string = "dcim.site"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotSitegroup captures enum value "dcim.sitegroup"
+	WritableCustomFieldRelatedObjectTypeDcimDotSitegroup string = "dcim.sitegroup"
+
+	// WritableCustomFieldRelatedObjectTypeDcimDotVirtualchassis captures enum value "dcim.virtualchassis"
+	WritableCustomFieldRelatedObjectTypeDcimDotVirtualchassis string = "dcim.virtualchassis"
+
+	// WritableCustomFieldRelatedObjectTypeExtrasDotConfigcontext captures enum value "extras.configcontext"
+	WritableCustomFieldRelatedObjectTypeExtrasDotConfigcontext string = "extras.configcontext"
+
+	// WritableCustomFieldRelatedObjectTypeExtrasDotConfigrevision captures enum value "extras.configrevision"
+	WritableCustomFieldRelatedObjectTypeExtrasDotConfigrevision string = "extras.configrevision"
+
+	// WritableCustomFieldRelatedObjectTypeExtrasDotCustomfield captures enum value "extras.customfield"
+	WritableCustomFieldRelatedObjectTypeExtrasDotCustomfield string = "extras.customfield"
+
+	// WritableCustomFieldRelatedObjectTypeExtrasDotCustomlink captures enum value "extras.customlink"
+	WritableCustomFieldRelatedObjectTypeExtrasDotCustomlink string = "extras.customlink"
+
+	// WritableCustomFieldRelatedObjectTypeExtrasDotExporttemplate captures enum value "extras.exporttemplate"
+	WritableCustomFieldRelatedObjectTypeExtrasDotExporttemplate string = "extras.exporttemplate"
+
+	// WritableCustomFieldRelatedObjectTypeExtrasDotImageattachment captures enum value "extras.imageattachment"
+	WritableCustomFieldRelatedObjectTypeExtrasDotImageattachment string = "extras.imageattachment"
+
+	// WritableCustomFieldRelatedObjectTypeExtrasDotJobresult captures enum value "extras.jobresult"
+	WritableCustomFieldRelatedObjectTypeExtrasDotJobresult string = "extras.jobresult"
+
+	// WritableCustomFieldRelatedObjectTypeExtrasDotJournalentry captures enum value "extras.journalentry"
+	WritableCustomFieldRelatedObjectTypeExtrasDotJournalentry string = "extras.journalentry"
+
+	// WritableCustomFieldRelatedObjectTypeExtrasDotReport captures enum value "extras.report"
+	WritableCustomFieldRelatedObjectTypeExtrasDotReport string = "extras.report"
+
+	// WritableCustomFieldRelatedObjectTypeExtrasDotScript captures enum value "extras.script"
+	WritableCustomFieldRelatedObjectTypeExtrasDotScript string = "extras.script"
+
+	// WritableCustomFieldRelatedObjectTypeExtrasDotTag captures enum value "extras.tag"
+	WritableCustomFieldRelatedObjectTypeExtrasDotTag string = "extras.tag"
+
+	// WritableCustomFieldRelatedObjectTypeExtrasDotTaggeditem captures enum value "extras.taggeditem"
+	WritableCustomFieldRelatedObjectTypeExtrasDotTaggeditem string = "extras.taggeditem"
+
+	// WritableCustomFieldRelatedObjectTypeExtrasDotWebhook captures enum value "extras.webhook"
+	WritableCustomFieldRelatedObjectTypeExtrasDotWebhook string = "extras.webhook"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotAggregate captures enum value "ipam.aggregate"
+	WritableCustomFieldRelatedObjectTypeIpamDotAggregate string = "ipam.aggregate"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotASN captures enum value "ipam.ASN"
+	WritableCustomFieldRelatedObjectTypeIpamDotASN string = "ipam.ASN"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotFHRPgroup captures enum value "ipam.FHRPgroup"
+	WritableCustomFieldRelatedObjectTypeIpamDotFHRPgroup string = "ipam.FHRPgroup"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotFHRPgroupassignment captures enum value "ipam.FHRPgroupassignment"
+	WritableCustomFieldRelatedObjectTypeIpamDotFHRPgroupassignment string = "ipam.FHRPgroupassignment"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotIPaddress captures enum value "ipam.IPaddress"
+	WritableCustomFieldRelatedObjectTypeIpamDotIPaddress string = "ipam.IPaddress"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotIPrange captures enum value "ipam.IPrange"
+	WritableCustomFieldRelatedObjectTypeIpamDotIPrange string = "ipam.IPrange"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotL2VPN captures enum value "ipam.L2VPN"
+	WritableCustomFieldRelatedObjectTypeIpamDotL2VPN string = "ipam.L2VPN"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotL2VPNtermination captures enum value "ipam.L2VPNtermination"
+	WritableCustomFieldRelatedObjectTypeIpamDotL2VPNtermination string = "ipam.L2VPNtermination"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotPrefix captures enum value "ipam.prefix"
+	WritableCustomFieldRelatedObjectTypeIpamDotPrefix string = "ipam.prefix"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotRIR captures enum value "ipam.RIR"
+	WritableCustomFieldRelatedObjectTypeIpamDotRIR string = "ipam.RIR"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotRole captures enum value "ipam.role"
+	WritableCustomFieldRelatedObjectTypeIpamDotRole string = "ipam.role"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotRoutetarget captures enum value "ipam.routetarget"
+	WritableCustomFieldRelatedObjectTypeIpamDotRoutetarget string = "ipam.routetarget"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotService captures enum value "ipam.service"
+	WritableCustomFieldRelatedObjectTypeIpamDotService string = "ipam.service"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotServicetemplate captures enum value "ipam.servicetemplate"
+	WritableCustomFieldRelatedObjectTypeIpamDotServicetemplate string = "ipam.servicetemplate"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotVLAN captures enum value "ipam.VLAN"
+	WritableCustomFieldRelatedObjectTypeIpamDotVLAN string = "ipam.VLAN"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotVLANgroup captures enum value "ipam.VLANgroup"
+	WritableCustomFieldRelatedObjectTypeIpamDotVLANgroup string = "ipam.VLANgroup"
+
+	// WritableCustomFieldRelatedObjectTypeIpamDotVRF captures enum value "ipam.VRF"
+	WritableCustomFieldRelatedObjectTypeIpamDotVRF string = "ipam.VRF"
+
+	// WritableCustomFieldRelatedObjectTypeTenancyDotContact captures enum value "tenancy.contact"
+	WritableCustomFieldRelatedObjectTypeTenancyDotContact string = "tenancy.contact"
+
+	// WritableCustomFieldRelatedObjectTypeTenancyDotContactassignment captures enum value "tenancy.contactassignment"
+	WritableCustomFieldRelatedObjectTypeTenancyDotContactassignment string = "tenancy.contactassignment"
+
+	// WritableCustomFieldRelatedObjectTypeTenancyDotContactgroup captures enum value "tenancy.contactgroup"
+	WritableCustomFieldRelatedObjectTypeTenancyDotContactgroup string = "tenancy.contactgroup"
+
+	// WritableCustomFieldRelatedObjectTypeTenancyDotContactrole captures enum value "tenancy.contactrole"
+	WritableCustomFieldRelatedObjectTypeTenancyDotContactrole string = "tenancy.contactrole"
+
+	// WritableCustomFieldRelatedObjectTypeTenancyDotTenant captures enum value "tenancy.tenant"
+	WritableCustomFieldRelatedObjectTypeTenancyDotTenant string = "tenancy.tenant"
+
+	// WritableCustomFieldRelatedObjectTypeTenancyDotTenantgroup captures enum value "tenancy.tenantgroup"
+	WritableCustomFieldRelatedObjectTypeTenancyDotTenantgroup string = "tenancy.tenantgroup"
+
+	// WritableCustomFieldRelatedObjectTypeVirtualizationDotCluster captures enum value "virtualization.cluster"
+	WritableCustomFieldRelatedObjectTypeVirtualizationDotCluster string = "virtualization.cluster"
+
+	// WritableCustomFieldRelatedObjectTypeVirtualizationDotClustergroup captures enum value "virtualization.clustergroup"
+	WritableCustomFieldRelatedObjectTypeVirtualizationDotClustergroup string = "virtualization.clustergroup"
+
+	// WritableCustomFieldRelatedObjectTypeVirtualizationDotClustertype captures enum value "virtualization.clustertype"
+	WritableCustomFieldRelatedObjectTypeVirtualizationDotClustertype string = "virtualization.clustertype"
+
+	// WritableCustomFieldRelatedObjectTypeVirtualizationDotInterface captures enum value "virtualization.interface"
+	WritableCustomFieldRelatedObjectTypeVirtualizationDotInterface string = "virtualization.interface"
+
+	// WritableCustomFieldRelatedObjectTypeVirtualizationDotVirtualmachine captures enum value "virtualization.virtualmachine"
+	WritableCustomFieldRelatedObjectTypeVirtualizationDotVirtualmachine string = "virtualization.virtualmachine"
+
+	// WritableCustomFieldRelatedObjectTypeWirelessDotWirelessLAN captures enum value "wireless.WirelessLAN"
+	WritableCustomFieldRelatedObjectTypeWirelessDotWirelessLAN string = "wireless.WirelessLAN"
+
+	// WritableCustomFieldRelatedObjectTypeWirelessDotWirelessLANGroup captures enum value "wireless.WirelessLANGroup"
+	WritableCustomFieldRelatedObjectTypeWirelessDotWirelessLANGroup string = "wireless.WirelessLANGroup"
+
+	// WritableCustomFieldRelatedObjectTypeWirelessDotWirelesslink captures enum value "wireless.wirelesslink"
+	WritableCustomFieldRelatedObjectTypeWirelessDotWirelesslink string = "wireless.wirelesslink"
+)
+
+// prop value enum
+func (m *WritableCustomField) validateRelatedObjectTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, writableCustomFieldTypeRelatedObjectTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *WritableCustomField) validateRelatedObjectType(formats strfmt.Registry) error {
+	if swag.IsZero(m.RelatedObjectType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateRelatedObjectTypeEnum("related_object_type", "body", m.RelatedObjectType); err != nil {
 		return err
 	}
 
