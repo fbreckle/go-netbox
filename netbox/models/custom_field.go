@@ -104,6 +104,10 @@ type CustomField struct {
 	// Unique: true
 	ObjectTypes []string `json:"object_types,omitempty"`
 
+	// Related object type
+	// Enum: ["circuits.circuit","circuits.circuittermination","circuits.virtualcircuit","circuits.virtualcircuittermination","core.datasource","core.job","core.objectchange","dcim.cable","dcim.cablepath","dcim.cabletermination","dcim.consoleport","dcim.consoleporttemplate","dcim.consoleserverport","dcim.consoleserverporttemplate","dcim.device","dcim.devicebay","dcim.devicebaytemplate","dcim.devicerole","dcim.devicetype","dcim.frontport","dcim.frontporttemplate","dcim.interface","dcim.interfacetemplate","dcim.inventoryitem","dcim.inventoryitemrole","dcim.inventoryitemtemplate","dcim.location","dcim.manufacturer","dcim.module","dcim.modulebay","dcim.modulebaytemplate","dcim.moduletype","dcim.platform","dcim.powerfeed","dcim.poweroutlet","dcim.poweroutlettemplate","dcim.powerpanel","dcim.powerport","dcim.powerporttemplate","dcim.rack","dcim.rackreservation","dcim.rackrole","dcim.rearport","dcim.rearporttemplate","dcim.region","dcim.site","dcim.sitegroup","dcim.virtualchassis","extras.configcontext","extras.configrevision","extras.customfield","extras.customlink","extras.exporttemplate","extras.imageattachment","extras.jobresult","extras.journalentry","extras.report","extras.script","extras.tag","extras.taggeditem","extras.webhook","ipam.aggregate","ipam.ASN","ipam.FHRPgroup","ipam.FHRPgroupassignment","ipam.IPaddress","ipam.IPrange","ipam.L2VPN","ipam.L2VPNtermination","ipam.prefix","ipam.RIR","ipam.role","ipam.routetarget","ipam.service","ipam.servicetemplate","ipam.VLAN","ipam.VLANgroup","ipam.VRF","tenancy.contact","tenancy.contactassignment","tenancy.contactgroup","tenancy.contactrole","tenancy.tenant","tenancy.tenantgroup","virtualization.cluster","virtualization.clustergroup","virtualization.clustertype","virtualization.interface","virtualization.virtualmachine","wireless.WirelessLAN","wireless.WirelessLANGroup","wireless.wirelesslink"]
+	RelatedObjectType string `json:"related_object_type,omitempty"`
+
 	// Required
 	//
 	// If true, this field is required when creating new objects or editing an existing object.
@@ -197,6 +201,10 @@ func (m *CustomField) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateObjectTypes(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRelatedObjectType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -375,6 +383,318 @@ func (m *CustomField) validateObjectTypes(formats strfmt.Registry) error {
 	}
 
 	if err := validate.UniqueItems("object_types", "body", m.ObjectTypes); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var customFieldTypeRelatedObjectTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["circuits.circuit","circuits.circuittermination","circuits.virtualcircuit","circuits.virtualcircuittermination","core.datasource","core.job","core.objectchange","dcim.cable","dcim.cablepath","dcim.cabletermination","dcim.consoleport","dcim.consoleporttemplate","dcim.consoleserverport","dcim.consoleserverporttemplate","dcim.device","dcim.devicebay","dcim.devicebaytemplate","dcim.devicerole","dcim.devicetype","dcim.frontport","dcim.frontporttemplate","dcim.interface","dcim.interfacetemplate","dcim.inventoryitem","dcim.inventoryitemrole","dcim.inventoryitemtemplate","dcim.location","dcim.manufacturer","dcim.module","dcim.modulebay","dcim.modulebaytemplate","dcim.moduletype","dcim.platform","dcim.powerfeed","dcim.poweroutlet","dcim.poweroutlettemplate","dcim.powerpanel","dcim.powerport","dcim.powerporttemplate","dcim.rack","dcim.rackreservation","dcim.rackrole","dcim.rearport","dcim.rearporttemplate","dcim.region","dcim.site","dcim.sitegroup","dcim.virtualchassis","extras.configcontext","extras.configrevision","extras.customfield","extras.customlink","extras.exporttemplate","extras.imageattachment","extras.jobresult","extras.journalentry","extras.report","extras.script","extras.tag","extras.taggeditem","extras.webhook","ipam.aggregate","ipam.ASN","ipam.FHRPgroup","ipam.FHRPgroupassignment","ipam.IPaddress","ipam.IPrange","ipam.L2VPN","ipam.L2VPNtermination","ipam.prefix","ipam.RIR","ipam.role","ipam.routetarget","ipam.service","ipam.servicetemplate","ipam.VLAN","ipam.VLANgroup","ipam.VRF","tenancy.contact","tenancy.contactassignment","tenancy.contactgroup","tenancy.contactrole","tenancy.tenant","tenancy.tenantgroup","virtualization.cluster","virtualization.clustergroup","virtualization.clustertype","virtualization.interface","virtualization.virtualmachine","wireless.WirelessLAN","wireless.WirelessLANGroup","wireless.wirelesslink"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		customFieldTypeRelatedObjectTypePropEnum = append(customFieldTypeRelatedObjectTypePropEnum, v)
+	}
+}
+
+const (
+
+	// CustomFieldRelatedObjectTypeCircuitsDotCircuit captures enum value "circuits.circuit"
+	CustomFieldRelatedObjectTypeCircuitsDotCircuit string = "circuits.circuit"
+
+	// CustomFieldRelatedObjectTypeCircuitsDotCircuittermination captures enum value "circuits.circuittermination"
+	CustomFieldRelatedObjectTypeCircuitsDotCircuittermination string = "circuits.circuittermination"
+
+	// CustomFieldRelatedObjectTypeCircuitsDotVirtualcircuit captures enum value "circuits.virtualcircuit"
+	CustomFieldRelatedObjectTypeCircuitsDotVirtualcircuit string = "circuits.virtualcircuit"
+
+	// CustomFieldRelatedObjectTypeCircuitsDotVirtualcircuittermination captures enum value "circuits.virtualcircuittermination"
+	CustomFieldRelatedObjectTypeCircuitsDotVirtualcircuittermination string = "circuits.virtualcircuittermination"
+
+	// CustomFieldRelatedObjectTypeCoreDotDatasource captures enum value "core.datasource"
+	CustomFieldRelatedObjectTypeCoreDotDatasource string = "core.datasource"
+
+	// CustomFieldRelatedObjectTypeCoreDotJob captures enum value "core.job"
+	CustomFieldRelatedObjectTypeCoreDotJob string = "core.job"
+
+	// CustomFieldRelatedObjectTypeCoreDotObjectchange captures enum value "core.objectchange"
+	CustomFieldRelatedObjectTypeCoreDotObjectchange string = "core.objectchange"
+
+	// CustomFieldRelatedObjectTypeDcimDotCable captures enum value "dcim.cable"
+	CustomFieldRelatedObjectTypeDcimDotCable string = "dcim.cable"
+
+	// CustomFieldRelatedObjectTypeDcimDotCablepath captures enum value "dcim.cablepath"
+	CustomFieldRelatedObjectTypeDcimDotCablepath string = "dcim.cablepath"
+
+	// CustomFieldRelatedObjectTypeDcimDotCabletermination captures enum value "dcim.cabletermination"
+	CustomFieldRelatedObjectTypeDcimDotCabletermination string = "dcim.cabletermination"
+
+	// CustomFieldRelatedObjectTypeDcimDotConsoleport captures enum value "dcim.consoleport"
+	CustomFieldRelatedObjectTypeDcimDotConsoleport string = "dcim.consoleport"
+
+	// CustomFieldRelatedObjectTypeDcimDotConsoleporttemplate captures enum value "dcim.consoleporttemplate"
+	CustomFieldRelatedObjectTypeDcimDotConsoleporttemplate string = "dcim.consoleporttemplate"
+
+	// CustomFieldRelatedObjectTypeDcimDotConsoleserverport captures enum value "dcim.consoleserverport"
+	CustomFieldRelatedObjectTypeDcimDotConsoleserverport string = "dcim.consoleserverport"
+
+	// CustomFieldRelatedObjectTypeDcimDotConsoleserverporttemplate captures enum value "dcim.consoleserverporttemplate"
+	CustomFieldRelatedObjectTypeDcimDotConsoleserverporttemplate string = "dcim.consoleserverporttemplate"
+
+	// CustomFieldRelatedObjectTypeDcimDotDevice captures enum value "dcim.device"
+	CustomFieldRelatedObjectTypeDcimDotDevice string = "dcim.device"
+
+	// CustomFieldRelatedObjectTypeDcimDotDevicebay captures enum value "dcim.devicebay"
+	CustomFieldRelatedObjectTypeDcimDotDevicebay string = "dcim.devicebay"
+
+	// CustomFieldRelatedObjectTypeDcimDotDevicebaytemplate captures enum value "dcim.devicebaytemplate"
+	CustomFieldRelatedObjectTypeDcimDotDevicebaytemplate string = "dcim.devicebaytemplate"
+
+	// CustomFieldRelatedObjectTypeDcimDotDevicerole captures enum value "dcim.devicerole"
+	CustomFieldRelatedObjectTypeDcimDotDevicerole string = "dcim.devicerole"
+
+	// CustomFieldRelatedObjectTypeDcimDotDevicetype captures enum value "dcim.devicetype"
+	CustomFieldRelatedObjectTypeDcimDotDevicetype string = "dcim.devicetype"
+
+	// CustomFieldRelatedObjectTypeDcimDotFrontport captures enum value "dcim.frontport"
+	CustomFieldRelatedObjectTypeDcimDotFrontport string = "dcim.frontport"
+
+	// CustomFieldRelatedObjectTypeDcimDotFrontporttemplate captures enum value "dcim.frontporttemplate"
+	CustomFieldRelatedObjectTypeDcimDotFrontporttemplate string = "dcim.frontporttemplate"
+
+	// CustomFieldRelatedObjectTypeDcimDotInterface captures enum value "dcim.interface"
+	CustomFieldRelatedObjectTypeDcimDotInterface string = "dcim.interface"
+
+	// CustomFieldRelatedObjectTypeDcimDotInterfacetemplate captures enum value "dcim.interfacetemplate"
+	CustomFieldRelatedObjectTypeDcimDotInterfacetemplate string = "dcim.interfacetemplate"
+
+	// CustomFieldRelatedObjectTypeDcimDotInventoryitem captures enum value "dcim.inventoryitem"
+	CustomFieldRelatedObjectTypeDcimDotInventoryitem string = "dcim.inventoryitem"
+
+	// CustomFieldRelatedObjectTypeDcimDotInventoryitemrole captures enum value "dcim.inventoryitemrole"
+	CustomFieldRelatedObjectTypeDcimDotInventoryitemrole string = "dcim.inventoryitemrole"
+
+	// CustomFieldRelatedObjectTypeDcimDotInventoryitemtemplate captures enum value "dcim.inventoryitemtemplate"
+	CustomFieldRelatedObjectTypeDcimDotInventoryitemtemplate string = "dcim.inventoryitemtemplate"
+
+	// CustomFieldRelatedObjectTypeDcimDotLocation captures enum value "dcim.location"
+	CustomFieldRelatedObjectTypeDcimDotLocation string = "dcim.location"
+
+	// CustomFieldRelatedObjectTypeDcimDotManufacturer captures enum value "dcim.manufacturer"
+	CustomFieldRelatedObjectTypeDcimDotManufacturer string = "dcim.manufacturer"
+
+	// CustomFieldRelatedObjectTypeDcimDotModule captures enum value "dcim.module"
+	CustomFieldRelatedObjectTypeDcimDotModule string = "dcim.module"
+
+	// CustomFieldRelatedObjectTypeDcimDotModulebay captures enum value "dcim.modulebay"
+	CustomFieldRelatedObjectTypeDcimDotModulebay string = "dcim.modulebay"
+
+	// CustomFieldRelatedObjectTypeDcimDotModulebaytemplate captures enum value "dcim.modulebaytemplate"
+	CustomFieldRelatedObjectTypeDcimDotModulebaytemplate string = "dcim.modulebaytemplate"
+
+	// CustomFieldRelatedObjectTypeDcimDotModuletype captures enum value "dcim.moduletype"
+	CustomFieldRelatedObjectTypeDcimDotModuletype string = "dcim.moduletype"
+
+	// CustomFieldRelatedObjectTypeDcimDotPlatform captures enum value "dcim.platform"
+	CustomFieldRelatedObjectTypeDcimDotPlatform string = "dcim.platform"
+
+	// CustomFieldRelatedObjectTypeDcimDotPowerfeed captures enum value "dcim.powerfeed"
+	CustomFieldRelatedObjectTypeDcimDotPowerfeed string = "dcim.powerfeed"
+
+	// CustomFieldRelatedObjectTypeDcimDotPoweroutlet captures enum value "dcim.poweroutlet"
+	CustomFieldRelatedObjectTypeDcimDotPoweroutlet string = "dcim.poweroutlet"
+
+	// CustomFieldRelatedObjectTypeDcimDotPoweroutlettemplate captures enum value "dcim.poweroutlettemplate"
+	CustomFieldRelatedObjectTypeDcimDotPoweroutlettemplate string = "dcim.poweroutlettemplate"
+
+	// CustomFieldRelatedObjectTypeDcimDotPowerpanel captures enum value "dcim.powerpanel"
+	CustomFieldRelatedObjectTypeDcimDotPowerpanel string = "dcim.powerpanel"
+
+	// CustomFieldRelatedObjectTypeDcimDotPowerport captures enum value "dcim.powerport"
+	CustomFieldRelatedObjectTypeDcimDotPowerport string = "dcim.powerport"
+
+	// CustomFieldRelatedObjectTypeDcimDotPowerporttemplate captures enum value "dcim.powerporttemplate"
+	CustomFieldRelatedObjectTypeDcimDotPowerporttemplate string = "dcim.powerporttemplate"
+
+	// CustomFieldRelatedObjectTypeDcimDotRack captures enum value "dcim.rack"
+	CustomFieldRelatedObjectTypeDcimDotRack string = "dcim.rack"
+
+	// CustomFieldRelatedObjectTypeDcimDotRackreservation captures enum value "dcim.rackreservation"
+	CustomFieldRelatedObjectTypeDcimDotRackreservation string = "dcim.rackreservation"
+
+	// CustomFieldRelatedObjectTypeDcimDotRackrole captures enum value "dcim.rackrole"
+	CustomFieldRelatedObjectTypeDcimDotRackrole string = "dcim.rackrole"
+
+	// CustomFieldRelatedObjectTypeDcimDotRearport captures enum value "dcim.rearport"
+	CustomFieldRelatedObjectTypeDcimDotRearport string = "dcim.rearport"
+
+	// CustomFieldRelatedObjectTypeDcimDotRearporttemplate captures enum value "dcim.rearporttemplate"
+	CustomFieldRelatedObjectTypeDcimDotRearporttemplate string = "dcim.rearporttemplate"
+
+	// CustomFieldRelatedObjectTypeDcimDotRegion captures enum value "dcim.region"
+	CustomFieldRelatedObjectTypeDcimDotRegion string = "dcim.region"
+
+	// CustomFieldRelatedObjectTypeDcimDotSite captures enum value "dcim.site"
+	CustomFieldRelatedObjectTypeDcimDotSite string = "dcim.site"
+
+	// CustomFieldRelatedObjectTypeDcimDotSitegroup captures enum value "dcim.sitegroup"
+	CustomFieldRelatedObjectTypeDcimDotSitegroup string = "dcim.sitegroup"
+
+	// CustomFieldRelatedObjectTypeDcimDotVirtualchassis captures enum value "dcim.virtualchassis"
+	CustomFieldRelatedObjectTypeDcimDotVirtualchassis string = "dcim.virtualchassis"
+
+	// CustomFieldRelatedObjectTypeExtrasDotConfigcontext captures enum value "extras.configcontext"
+	CustomFieldRelatedObjectTypeExtrasDotConfigcontext string = "extras.configcontext"
+
+	// CustomFieldRelatedObjectTypeExtrasDotConfigrevision captures enum value "extras.configrevision"
+	CustomFieldRelatedObjectTypeExtrasDotConfigrevision string = "extras.configrevision"
+
+	// CustomFieldRelatedObjectTypeExtrasDotCustomfield captures enum value "extras.customfield"
+	CustomFieldRelatedObjectTypeExtrasDotCustomfield string = "extras.customfield"
+
+	// CustomFieldRelatedObjectTypeExtrasDotCustomlink captures enum value "extras.customlink"
+	CustomFieldRelatedObjectTypeExtrasDotCustomlink string = "extras.customlink"
+
+	// CustomFieldRelatedObjectTypeExtrasDotExporttemplate captures enum value "extras.exporttemplate"
+	CustomFieldRelatedObjectTypeExtrasDotExporttemplate string = "extras.exporttemplate"
+
+	// CustomFieldRelatedObjectTypeExtrasDotImageattachment captures enum value "extras.imageattachment"
+	CustomFieldRelatedObjectTypeExtrasDotImageattachment string = "extras.imageattachment"
+
+	// CustomFieldRelatedObjectTypeExtrasDotJobresult captures enum value "extras.jobresult"
+	CustomFieldRelatedObjectTypeExtrasDotJobresult string = "extras.jobresult"
+
+	// CustomFieldRelatedObjectTypeExtrasDotJournalentry captures enum value "extras.journalentry"
+	CustomFieldRelatedObjectTypeExtrasDotJournalentry string = "extras.journalentry"
+
+	// CustomFieldRelatedObjectTypeExtrasDotReport captures enum value "extras.report"
+	CustomFieldRelatedObjectTypeExtrasDotReport string = "extras.report"
+
+	// CustomFieldRelatedObjectTypeExtrasDotScript captures enum value "extras.script"
+	CustomFieldRelatedObjectTypeExtrasDotScript string = "extras.script"
+
+	// CustomFieldRelatedObjectTypeExtrasDotTag captures enum value "extras.tag"
+	CustomFieldRelatedObjectTypeExtrasDotTag string = "extras.tag"
+
+	// CustomFieldRelatedObjectTypeExtrasDotTaggeditem captures enum value "extras.taggeditem"
+	CustomFieldRelatedObjectTypeExtrasDotTaggeditem string = "extras.taggeditem"
+
+	// CustomFieldRelatedObjectTypeExtrasDotWebhook captures enum value "extras.webhook"
+	CustomFieldRelatedObjectTypeExtrasDotWebhook string = "extras.webhook"
+
+	// CustomFieldRelatedObjectTypeIpamDotAggregate captures enum value "ipam.aggregate"
+	CustomFieldRelatedObjectTypeIpamDotAggregate string = "ipam.aggregate"
+
+	// CustomFieldRelatedObjectTypeIpamDotASN captures enum value "ipam.ASN"
+	CustomFieldRelatedObjectTypeIpamDotASN string = "ipam.ASN"
+
+	// CustomFieldRelatedObjectTypeIpamDotFHRPgroup captures enum value "ipam.FHRPgroup"
+	CustomFieldRelatedObjectTypeIpamDotFHRPgroup string = "ipam.FHRPgroup"
+
+	// CustomFieldRelatedObjectTypeIpamDotFHRPgroupassignment captures enum value "ipam.FHRPgroupassignment"
+	CustomFieldRelatedObjectTypeIpamDotFHRPgroupassignment string = "ipam.FHRPgroupassignment"
+
+	// CustomFieldRelatedObjectTypeIpamDotIPaddress captures enum value "ipam.IPaddress"
+	CustomFieldRelatedObjectTypeIpamDotIPaddress string = "ipam.IPaddress"
+
+	// CustomFieldRelatedObjectTypeIpamDotIPrange captures enum value "ipam.IPrange"
+	CustomFieldRelatedObjectTypeIpamDotIPrange string = "ipam.IPrange"
+
+	// CustomFieldRelatedObjectTypeIpamDotL2VPN captures enum value "ipam.L2VPN"
+	CustomFieldRelatedObjectTypeIpamDotL2VPN string = "ipam.L2VPN"
+
+	// CustomFieldRelatedObjectTypeIpamDotL2VPNtermination captures enum value "ipam.L2VPNtermination"
+	CustomFieldRelatedObjectTypeIpamDotL2VPNtermination string = "ipam.L2VPNtermination"
+
+	// CustomFieldRelatedObjectTypeIpamDotPrefix captures enum value "ipam.prefix"
+	CustomFieldRelatedObjectTypeIpamDotPrefix string = "ipam.prefix"
+
+	// CustomFieldRelatedObjectTypeIpamDotRIR captures enum value "ipam.RIR"
+	CustomFieldRelatedObjectTypeIpamDotRIR string = "ipam.RIR"
+
+	// CustomFieldRelatedObjectTypeIpamDotRole captures enum value "ipam.role"
+	CustomFieldRelatedObjectTypeIpamDotRole string = "ipam.role"
+
+	// CustomFieldRelatedObjectTypeIpamDotRoutetarget captures enum value "ipam.routetarget"
+	CustomFieldRelatedObjectTypeIpamDotRoutetarget string = "ipam.routetarget"
+
+	// CustomFieldRelatedObjectTypeIpamDotService captures enum value "ipam.service"
+	CustomFieldRelatedObjectTypeIpamDotService string = "ipam.service"
+
+	// CustomFieldRelatedObjectTypeIpamDotServicetemplate captures enum value "ipam.servicetemplate"
+	CustomFieldRelatedObjectTypeIpamDotServicetemplate string = "ipam.servicetemplate"
+
+	// CustomFieldRelatedObjectTypeIpamDotVLAN captures enum value "ipam.VLAN"
+	CustomFieldRelatedObjectTypeIpamDotVLAN string = "ipam.VLAN"
+
+	// CustomFieldRelatedObjectTypeIpamDotVLANgroup captures enum value "ipam.VLANgroup"
+	CustomFieldRelatedObjectTypeIpamDotVLANgroup string = "ipam.VLANgroup"
+
+	// CustomFieldRelatedObjectTypeIpamDotVRF captures enum value "ipam.VRF"
+	CustomFieldRelatedObjectTypeIpamDotVRF string = "ipam.VRF"
+
+	// CustomFieldRelatedObjectTypeTenancyDotContact captures enum value "tenancy.contact"
+	CustomFieldRelatedObjectTypeTenancyDotContact string = "tenancy.contact"
+
+	// CustomFieldRelatedObjectTypeTenancyDotContactassignment captures enum value "tenancy.contactassignment"
+	CustomFieldRelatedObjectTypeTenancyDotContactassignment string = "tenancy.contactassignment"
+
+	// CustomFieldRelatedObjectTypeTenancyDotContactgroup captures enum value "tenancy.contactgroup"
+	CustomFieldRelatedObjectTypeTenancyDotContactgroup string = "tenancy.contactgroup"
+
+	// CustomFieldRelatedObjectTypeTenancyDotContactrole captures enum value "tenancy.contactrole"
+	CustomFieldRelatedObjectTypeTenancyDotContactrole string = "tenancy.contactrole"
+
+	// CustomFieldRelatedObjectTypeTenancyDotTenant captures enum value "tenancy.tenant"
+	CustomFieldRelatedObjectTypeTenancyDotTenant string = "tenancy.tenant"
+
+	// CustomFieldRelatedObjectTypeTenancyDotTenantgroup captures enum value "tenancy.tenantgroup"
+	CustomFieldRelatedObjectTypeTenancyDotTenantgroup string = "tenancy.tenantgroup"
+
+	// CustomFieldRelatedObjectTypeVirtualizationDotCluster captures enum value "virtualization.cluster"
+	CustomFieldRelatedObjectTypeVirtualizationDotCluster string = "virtualization.cluster"
+
+	// CustomFieldRelatedObjectTypeVirtualizationDotClustergroup captures enum value "virtualization.clustergroup"
+	CustomFieldRelatedObjectTypeVirtualizationDotClustergroup string = "virtualization.clustergroup"
+
+	// CustomFieldRelatedObjectTypeVirtualizationDotClustertype captures enum value "virtualization.clustertype"
+	CustomFieldRelatedObjectTypeVirtualizationDotClustertype string = "virtualization.clustertype"
+
+	// CustomFieldRelatedObjectTypeVirtualizationDotInterface captures enum value "virtualization.interface"
+	CustomFieldRelatedObjectTypeVirtualizationDotInterface string = "virtualization.interface"
+
+	// CustomFieldRelatedObjectTypeVirtualizationDotVirtualmachine captures enum value "virtualization.virtualmachine"
+	CustomFieldRelatedObjectTypeVirtualizationDotVirtualmachine string = "virtualization.virtualmachine"
+
+	// CustomFieldRelatedObjectTypeWirelessDotWirelessLAN captures enum value "wireless.WirelessLAN"
+	CustomFieldRelatedObjectTypeWirelessDotWirelessLAN string = "wireless.WirelessLAN"
+
+	// CustomFieldRelatedObjectTypeWirelessDotWirelessLANGroup captures enum value "wireless.WirelessLANGroup"
+	CustomFieldRelatedObjectTypeWirelessDotWirelessLANGroup string = "wireless.WirelessLANGroup"
+
+	// CustomFieldRelatedObjectTypeWirelessDotWirelesslink captures enum value "wireless.wirelesslink"
+	CustomFieldRelatedObjectTypeWirelessDotWirelesslink string = "wireless.wirelesslink"
+)
+
+// prop value enum
+func (m *CustomField) validateRelatedObjectTypeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, customFieldTypeRelatedObjectTypePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CustomField) validateRelatedObjectType(formats strfmt.Registry) error {
+	if swag.IsZero(m.RelatedObjectType) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateRelatedObjectTypeEnum("related_object_type", "body", m.RelatedObjectType); err != nil {
 		return err
 	}
 
