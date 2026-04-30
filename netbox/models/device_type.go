@@ -50,6 +50,9 @@ type DeviceType struct {
 	// Custom fields
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
+	// default platform
+	DefaultPlatform *NestedPlatform `json:"default_platform,omitempty"`
+
 	// Description
 	// Max Length: 200
 	Description string `json:"description,omitempty"`
@@ -57,6 +60,9 @@ type DeviceType struct {
 	// Device count
 	// Read Only: true
 	DeviceCount int64 `json:"device_count,omitempty"`
+
+	// Exclude from utilization
+	ExcludeFromUtilization bool `json:"exclude_from_utilization,omitempty"`
 
 	// Display
 	// Read Only: true
