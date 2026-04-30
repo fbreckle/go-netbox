@@ -85900,7 +85900,7 @@
         "validation_minimum": {
           "title": "Minimum value",
           "description": "Minimum allowed value (for numeric fields)",
-          "type": "integer",
+          "type": "number",
           "maximum": 2147483647,
           "minimum": -2147483648,
           "x-nullable": true
@@ -85908,7 +85908,7 @@
         "validation_maximum": {
           "title": "Maximum value",
           "description": "Maximum allowed value (for numeric fields)",
-          "type": "integer",
+          "type": "number",
           "maximum": 2147483647,
           "minimum": -2147483648,
           "x-nullable": true
@@ -86085,7 +86085,7 @@
         "validation_minimum": {
           "title": "Minimum value",
           "description": "Minimum allowed value (for numeric fields)",
-          "type": "integer",
+          "type": "number",
           "maximum": 2147483647,
           "minimum": -2147483648,
           "x-nullable": true
@@ -86093,7 +86093,7 @@
         "validation_maximum": {
           "title": "Maximum value",
           "description": "Maximum allowed value (for numeric fields)",
-          "type": "integer",
+          "type": "number",
           "maximum": 2147483647,
           "minimum": -2147483648,
           "x-nullable": true
