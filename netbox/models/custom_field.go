@@ -137,14 +137,14 @@ type CustomField struct {
 	// Maximum allowed value (for numeric fields)
 	// Maximum: 2.147483647e+09
 	// Minimum: -2.147483648e+09
-	ValidationMaximum *int64 `json:"validation_maximum,omitempty"`
+	ValidationMaximum *float64 `json:"validation_maximum,omitempty"`
 
 	// Minimum value
 	//
 	// Minimum allowed value (for numeric fields)
 	// Maximum: 2.147483647e+09
 	// Minimum: -2.147483648e+09
-	ValidationMinimum *int64 `json:"validation_minimum,omitempty"`
+	ValidationMinimum *float64 `json:"validation_minimum,omitempty"`
 
 	// Validation regex
 	//
@@ -773,11 +773,11 @@ func (m *CustomField) validateValidationMaximum(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MinimumInt("validation_maximum", "body", *m.ValidationMaximum, -2.147483648e+09, false); err != nil {
+	if err := validate.Minimum("validation_maximum", "body", *m.ValidationMaximum, -2.147483648e+09, false); err != nil {
 		return err
 	}
 
-	if err := validate.MaximumInt("validation_maximum", "body", *m.ValidationMaximum, 2.147483647e+09, false); err != nil {
+	if err := validate.Maximum("validation_maximum", "body", *m.ValidationMaximum, 2.147483647e+09, false); err != nil {
 		return err
 	}
 
@@ -789,11 +789,11 @@ func (m *CustomField) validateValidationMinimum(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MinimumInt("validation_minimum", "body", *m.ValidationMinimum, -2.147483648e+09, false); err != nil {
+	if err := validate.Minimum("validation_minimum", "body", *m.ValidationMinimum, -2.147483648e+09, false); err != nil {
 		return err
 	}
 
-	if err := validate.MaximumInt("validation_minimum", "body", *m.ValidationMinimum, 2.147483647e+09, false); err != nil {
+	if err := validate.Maximum("validation_minimum", "body", *m.ValidationMinimum, 2.147483647e+09, false); err != nil {
 		return err
 	}
 
