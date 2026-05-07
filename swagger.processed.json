@@ -75784,6 +75784,11 @@
           "readOnly": true,
           "x-nullable": true
         },
+        "primary_mac_address": {
+          "title": "Primary MAC Address",
+          "$ref": "#/definitions/BriefMACAddress",
+          "x-nullable": true
+        },
         "speed": {
           "title": "Speed (Kbps)",
           "type": "integer",
@@ -76688,6 +76693,12 @@
           "title": "MAC Address",
           "type": "string",
           "x-nullable": true
+        },
+        "primary_mac_address": {
+          "title": "Primary MAC Address",
+          "type": "integer",
+          "x-nullable": true,
+          "x-omitempty": false
         },
         "speed": {
           "title": "Speed (Kbps)",
@@ -92463,6 +92474,11 @@
           "type": "string",
           "x-nullable": true
         },
+        "primary_mac_address": {
+          "title": "Primary MAC Address",
+          "$ref": "#/definitions/BriefMACAddress",
+          "x-nullable": true
+        },
         "description": {
           "title": "Description",
           "type": "string",
@@ -92606,6 +92622,12 @@
           "title": "MAC Address",
           "type": "string",
           "x-nullable": true
+        },
+        "primary_mac_address": {
+          "title": "Primary MAC Address",
+          "type": "integer",
+          "x-nullable": true,
+          "x-omitempty": false
         },
         "description": {
           "title": "Description",

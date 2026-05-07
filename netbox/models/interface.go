@@ -170,6 +170,9 @@ type Interface struct {
 	// poe type
 	PoeType *InterfacePoeType `json:"poe_type,omitempty"`
 
+	// Primary MAC Address
+	PrimaryMacAddress *BriefMACAddress `json:"primary_mac_address,omitempty"`
+
 	// rf channel
 	RfChannel *InterfaceRfChannel `json:"rf_channel,omitempty"`
 
@@ -308,6 +311,10 @@ func (m *Interface) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePoeType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePrimaryMacAddress(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -698,6 +705,25 @@ func (m *Interface) validatePoeType(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Interface) validatePrimaryMacAddress(formats strfmt.Registry) error {
+	if swag.IsZero(m.PrimaryMacAddress) { // not required
+		return nil
+	}
+
+	if m.PrimaryMacAddress != nil {
+		if err := m.PrimaryMacAddress.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("primary_mac_address")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("primary_mac_address")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Interface) validateRfChannel(formats strfmt.Registry) error {
 	if swag.IsZero(m.RfChannel) { // not required
 		return nil
@@ -1074,6 +1100,10 @@ func (m *Interface) ContextValidate(ctx context.Context, formats strfmt.Registry
 	}
 
 	if err := m.contextValidatePoeType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePrimaryMacAddress(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -1492,6 +1522,27 @@ func (m *Interface) contextValidatePoeType(ctx context.Context, formats strfmt.R
 				return ve.ValidateName("poe_type")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("poe_type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Interface) contextValidatePrimaryMacAddress(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PrimaryMacAddress != nil {
+
+		if swag.IsZero(m.PrimaryMacAddress) { // not required
+			return nil
+		}
+
+		if err := m.PrimaryMacAddress.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("primary_mac_address")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("primary_mac_address")
 			}
 			return err
 		}

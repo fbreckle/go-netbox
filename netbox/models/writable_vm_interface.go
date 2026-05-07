@@ -100,6 +100,9 @@ type WritableVMInterface struct {
 	// Parent interface
 	Parent *int64 `json:"parent,omitempty"`
 
+	// Primary MAC Address
+	PrimaryMacAddress *int64 `json:"primary_mac_address"`
+
 	// tagged vlans
 	// Unique: true
 	TaggedVlans []int64 `json:"tagged_vlans"`
