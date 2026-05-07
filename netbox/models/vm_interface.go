@@ -98,6 +98,9 @@ type VMInterface struct {
 	// parent
 	Parent *NestedVMInterface `json:"parent,omitempty"`
 
+	// Primary MAC Address
+	PrimaryMacAddress *BriefMACAddress `json:"primary_mac_address,omitempty"`
+
 	// tagged vlans
 	// Unique: true
 	TaggedVlans []*NestedVLAN `json:"tagged_vlans"`
@@ -158,6 +161,10 @@ func (m *VMInterface) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateParent(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePrimaryMacAddress(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -336,6 +343,25 @@ func (m *VMInterface) validateParent(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *VMInterface) validatePrimaryMacAddress(formats strfmt.Registry) error {
+	if swag.IsZero(m.PrimaryMacAddress) { // not required
+		return nil
+	}
+
+	if m.PrimaryMacAddress != nil {
+		if err := m.PrimaryMacAddress.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("primary_mac_address")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("primary_mac_address")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *VMInterface) validateTaggedVlans(formats strfmt.Registry) error {
 	if swag.IsZero(m.TaggedVlans) { // not required
 		return nil
@@ -506,6 +532,10 @@ func (m *VMInterface) ContextValidate(ctx context.Context, formats strfmt.Regist
 		res = append(res, err)
 	}
 
+	if err := m.contextValidatePrimaryMacAddress(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateTaggedVlans(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -666,6 +696,27 @@ func (m *VMInterface) contextValidateParent(ctx context.Context, formats strfmt.
 				return ve.ValidateName("parent")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("parent")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *VMInterface) contextValidatePrimaryMacAddress(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PrimaryMacAddress != nil {
+
+		if swag.IsZero(m.PrimaryMacAddress) { // not required
+			return nil
+		}
+
+		if err := m.PrimaryMacAddress.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("primary_mac_address")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("primary_mac_address")
 			}
 			return err
 		}
