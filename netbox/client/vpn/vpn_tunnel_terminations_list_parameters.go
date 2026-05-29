@@ -113,6 +113,9 @@ type VpnTunnelTerminationsListParams struct {
 	// IDn.
 	IDn *string
 
+	// InterfaceID.
+	InterfaceID []string
+
 	// LastUpdated.
 	LastUpdated *string
 
@@ -149,6 +152,9 @@ type VpnTunnelTerminationsListParams struct {
 	*/
 	Ordering *string
 
+	// OutsideIPID.
+	OutsideIPID []string
+
 	// Q.
 	Q *string
 
@@ -157,6 +163,12 @@ type VpnTunnelTerminationsListParams struct {
 
 	// Tagn.
 	Tagn *string
+
+	// TunnelID.
+	TunnelID []string
+
+	// VminterfaceID.
+	VminterfaceID []string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -343,6 +355,17 @@ func (o *VpnTunnelTerminationsListParams) SetIDn(iDn *string) {
 	o.IDn = iDn
 }
 
+// WithInterfaceID adds the interfaceID to the vpn tunnel terminations list params
+func (o *VpnTunnelTerminationsListParams) WithInterfaceID(interfaceID []string) *VpnTunnelTerminationsListParams {
+	o.SetInterfaceID(interfaceID)
+	return o
+}
+
+// SetInterfaceID adds the interfaceId to the vpn tunnel terminations list params
+func (o *VpnTunnelTerminationsListParams) SetInterfaceID(interfaceID []string) {
+	o.InterfaceID = interfaceID
+}
+
 // WithLastUpdated adds the lastUpdated to the vpn tunnel terminations list params
 func (o *VpnTunnelTerminationsListParams) WithLastUpdated(lastUpdated *string) *VpnTunnelTerminationsListParams {
 	o.SetLastUpdated(lastUpdated)
@@ -442,6 +465,17 @@ func (o *VpnTunnelTerminationsListParams) SetOrdering(ordering *string) {
 	o.Ordering = ordering
 }
 
+// WithOutsideIPID adds the outsideIPID to the vpn tunnel terminations list params
+func (o *VpnTunnelTerminationsListParams) WithOutsideIPID(outsideIPID []string) *VpnTunnelTerminationsListParams {
+	o.SetOutsideIPID(outsideIPID)
+	return o
+}
+
+// SetOutsideIPID adds the outsideIpId to the vpn tunnel terminations list params
+func (o *VpnTunnelTerminationsListParams) SetOutsideIPID(outsideIPID []string) {
+	o.OutsideIPID = outsideIPID
+}
+
 // WithQ adds the q to the vpn tunnel terminations list params
 func (o *VpnTunnelTerminationsListParams) WithQ(q *string) *VpnTunnelTerminationsListParams {
 	o.SetQ(q)
@@ -473,6 +507,28 @@ func (o *VpnTunnelTerminationsListParams) WithTagn(tagn *string) *VpnTunnelTermi
 // SetTagn adds the tagN to the vpn tunnel terminations list params
 func (o *VpnTunnelTerminationsListParams) SetTagn(tagn *string) {
 	o.Tagn = tagn
+}
+
+// WithTunnelID adds the tunnelID to the vpn tunnel terminations list params
+func (o *VpnTunnelTerminationsListParams) WithTunnelID(tunnelID []string) *VpnTunnelTerminationsListParams {
+	o.SetTunnelID(tunnelID)
+	return o
+}
+
+// SetTunnelID adds the tunnelId to the vpn tunnel terminations list params
+func (o *VpnTunnelTerminationsListParams) SetTunnelID(tunnelID []string) {
+	o.TunnelID = tunnelID
+}
+
+// WithVminterfaceID adds the vminterfaceID to the vpn tunnel terminations list params
+func (o *VpnTunnelTerminationsListParams) WithVminterfaceID(vminterfaceID []string) *VpnTunnelTerminationsListParams {
+	o.SetVminterfaceID(vminterfaceID)
+	return o
+}
+
+// SetVminterfaceID adds the vminterfaceId to the vpn tunnel terminations list params
+func (o *VpnTunnelTerminationsListParams) SetVminterfaceID(vminterfaceID []string) {
+	o.VminterfaceID = vminterfaceID
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -687,6 +743,17 @@ func (o *VpnTunnelTerminationsListParams) WriteToRequest(r runtime.ClientRequest
 		}
 	}
 
+	if o.InterfaceID != nil {
+
+		// binding items for interface_id
+		joinedInterfaceID := o.bindParamInterfaceID(reg)
+
+		// query array param interface_id
+		if err := r.SetQueryParam("interface_id", joinedInterfaceID...); err != nil {
+			return err
+		}
+	}
+
 	if o.LastUpdated != nil {
 
 		// query param last_updated
@@ -840,6 +907,17 @@ func (o *VpnTunnelTerminationsListParams) WriteToRequest(r runtime.ClientRequest
 		}
 	}
 
+	if o.OutsideIPID != nil {
+
+		// binding items for outside_ip_id
+		joinedOutsideIPID := o.bindParamOutsideIPID(reg)
+
+		// query array param outside_ip_id
+		if err := r.SetQueryParam("outside_ip_id", joinedOutsideIPID...); err != nil {
+			return err
+		}
+	}
+
 	if o.Q != nil {
 
 		// query param q
@@ -885,10 +963,66 @@ func (o *VpnTunnelTerminationsListParams) WriteToRequest(r runtime.ClientRequest
 		}
 	}
 
+	if o.TunnelID != nil {
+
+		// binding items for tunnel_id
+		joinedTunnelID := o.bindParamTunnelID(reg)
+
+		// query array param tunnel_id
+		if err := r.SetQueryParam("tunnel_id", joinedTunnelID...); err != nil {
+			return err
+		}
+	}
+
+	if o.VminterfaceID != nil {
+
+		// binding items for vminterface_id
+		joinedVminterfaceID := o.bindParamVminterfaceID(reg)
+
+		// query array param vminterface_id
+		if err := r.SetQueryParam("vminterface_id", joinedVminterfaceID...); err != nil {
+			return err
+		}
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamVpnTunnelTerminationsList binds the parameter interface_id
+func (o *VpnTunnelTerminationsListParams) bindParamInterfaceID(formats strfmt.Registry) []string {
+	interfaceIDIR := o.InterfaceID
+
+	var interfaceIDIC []string
+	for _, interfaceIDIIR := range interfaceIDIR { // explode []string
+
+		interfaceIDIIV := interfaceIDIIR // string as string
+		interfaceIDIC = append(interfaceIDIC, interfaceIDIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	interfaceIDIS := swag.JoinByFormat(interfaceIDIC, "multi")
+
+	return interfaceIDIS
+}
+
+// bindParamVpnTunnelTerminationsList binds the parameter outside_ip_id
+func (o *VpnTunnelTerminationsListParams) bindParamOutsideIPID(formats strfmt.Registry) []string {
+	outsideIPIDIR := o.OutsideIPID
+
+	var outsideIPIDIC []string
+	for _, outsideIPIDIIR := range outsideIPIDIR { // explode []string
+
+		outsideIPIDIIV := outsideIPIDIIR // string as string
+		outsideIPIDIC = append(outsideIPIDIC, outsideIPIDIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	outsideIPIDIS := swag.JoinByFormat(outsideIPIDIC, "multi")
+
+	return outsideIPIDIS
 }
 
 // bindParamVpnTunnelTerminationsList binds the parameter tag
@@ -906,4 +1040,38 @@ func (o *VpnTunnelTerminationsListParams) bindParamTag(formats strfmt.Registry) 
 	tagIS := swag.JoinByFormat(tagIC, "multi")
 
 	return tagIS
+}
+
+// bindParamVpnTunnelTerminationsList binds the parameter tunnel_id
+func (o *VpnTunnelTerminationsListParams) bindParamTunnelID(formats strfmt.Registry) []string {
+	tunnelIDIR := o.TunnelID
+
+	var tunnelIDIC []string
+	for _, tunnelIDIIR := range tunnelIDIR { // explode []string
+
+		tunnelIDIIV := tunnelIDIIR // string as string
+		tunnelIDIC = append(tunnelIDIC, tunnelIDIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	tunnelIDIS := swag.JoinByFormat(tunnelIDIC, "multi")
+
+	return tunnelIDIS
+}
+
+// bindParamVpnTunnelTerminationsList binds the parameter vminterface_id
+func (o *VpnTunnelTerminationsListParams) bindParamVminterfaceID(formats strfmt.Registry) []string {
+	vminterfaceIDIR := o.VminterfaceID
+
+	var vminterfaceIDIC []string
+	for _, vminterfaceIDIIR := range vminterfaceIDIR { // explode []string
+
+		vminterfaceIDIIV := vminterfaceIDIIR // string as string
+		vminterfaceIDIC = append(vminterfaceIDIC, vminterfaceIDIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	vminterfaceIDIS := swag.JoinByFormat(vminterfaceIDIC, "multi")
+
+	return vminterfaceIDIS
 }
