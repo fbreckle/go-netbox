@@ -63,8 +63,8 @@ type Contact struct {
 	// Format: email
 	Email strfmt.Email `json:"email,omitempty"`
 
-	// group
-	Group *NestedContactGroup `json:"group,omitempty"`
+	// groups
+	Groups []*NestedContactGroup `json:"groups"`
 
 	// ID
 	// Read Only: true
@@ -123,7 +123,7 @@ func (m *Contact) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateGroup(formats); err != nil {
+	if err := m.validateGroups(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -213,20 +213,27 @@ func (m *Contact) validateEmail(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Contact) validateGroup(formats strfmt.Registry) error {
-	if swag.IsZero(m.Group) { // not required
+func (m *Contact) validateGroups(formats strfmt.Registry) error {
+	if swag.IsZero(m.Groups) { // not required
 		return nil
 	}
 
-	if m.Group != nil {
-		if err := m.Group.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("group")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("group")
-			}
-			return err
+	for i := 0; i < len(m.Groups); i++ {
+		if swag.IsZero(m.Groups[i]) { // not required
+			continue
 		}
+
+		if m.Groups[i] != nil {
+			if err := m.Groups[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("groups" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("groups" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -351,7 +358,7 @@ func (m *Contact) ContextValidate(ctx context.Context, formats strfmt.Registry) 
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateGroup(ctx, formats); err != nil {
+	if err := m.contextValidateGroups(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -395,22 +402,26 @@ func (m *Contact) contextValidateDisplay(ctx context.Context, formats strfmt.Reg
 	return nil
 }
 
-func (m *Contact) contextValidateGroup(ctx context.Context, formats strfmt.Registry) error {
+func (m *Contact) contextValidateGroups(ctx context.Context, formats strfmt.Registry) error {
 
-	if m.Group != nil {
+	for i := 0; i < len(m.Groups); i++ {
 
-		if swag.IsZero(m.Group) { // not required
-			return nil
-		}
+		if m.Groups[i] != nil {
 
-		if err := m.Group.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("group")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("group")
+			if swag.IsZero(m.Groups[i]) { // not required
+				return nil
 			}
-			return err
+
+			if err := m.Groups[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("groups" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("groups" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
 		}
+
 	}
 
 	return nil

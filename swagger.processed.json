@@ -90941,8 +90941,11 @@
           "type": "string",
           "readOnly": true
         },
-        "group": {
-          "$ref": "#/definitions/NestedContactGroup"
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NestedContactGroup"
+          }
         },
         "name": {
           "title": "Name",
@@ -91035,10 +91038,12 @@
           "type": "string",
           "readOnly": true
         },
-        "group": {
+        "groups": {
           "title": "Group",
-          "type": "integer",
-          "x-nullable": true
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
         },
         "name": {
           "title": "Name",
