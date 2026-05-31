@@ -64,7 +64,7 @@ type WritableContact struct {
 	Email strfmt.Email `json:"email,omitempty"`
 
 	// Group
-	Group *int64 `json:"group,omitempty"`
+	Groups []int64 `json:"groups"`
 
 	// ID
 	// Read Only: true
