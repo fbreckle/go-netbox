@@ -45509,6 +45509,20 @@
             "type": "string"
           },
           {
+            "name": "mark_populated",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "mark_utilized",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "id__n",
             "in": "query",
             "description": "",
@@ -88047,6 +88061,14 @@
         "role": {
           "$ref": "#/definitions/NestedRole"
         },
+        "mark_populated": {
+          "title": "Mark populated",
+          "type": "boolean"
+        },
+        "mark_utilized": {
+          "title": "Mark utilized",
+          "type": "boolean"
+        },
         "description": {
           "title": "Description",
           "type": "string",
@@ -88156,6 +88178,16 @@
           "description": "The primary function of this range",
           "type": "integer",
           "x-nullable": true
+        },
+        "mark_populated": {
+          "title": "Mark populated",
+          "type": "boolean",
+          "x-omitempty": false
+        },
+        "mark_utilized": {
+          "title": "Mark utilized",
+          "type": "boolean",
+          "x-omitempty": false
         },
         "description": {
           "title": "Description",

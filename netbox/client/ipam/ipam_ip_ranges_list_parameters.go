@@ -179,6 +179,12 @@ type IpamIPRangesListParams struct {
 	*/
 	Limit *int64
 
+	// MarkPopulated.
+	MarkPopulated *string
+
+	// MarkUtilized.
+	MarkUtilized *string
+
 	/* Offset.
 
 	   The initial index from which to return the results.
@@ -671,6 +677,28 @@ func (o *IpamIPRangesListParams) WithLimit(limit *int64) *IpamIPRangesListParams
 // SetLimit adds the limit to the ipam ip ranges list params
 func (o *IpamIPRangesListParams) SetLimit(limit *int64) {
 	o.Limit = limit
+}
+
+// WithMarkPopulated adds the markPopulated to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) WithMarkPopulated(markPopulated *string) *IpamIPRangesListParams {
+	o.SetMarkPopulated(markPopulated)
+	return o
+}
+
+// SetMarkPopulated adds the markPopulated to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) SetMarkPopulated(markPopulated *string) {
+	o.MarkPopulated = markPopulated
+}
+
+// WithMarkUtilized adds the markUtilized to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) WithMarkUtilized(markUtilized *string) *IpamIPRangesListParams {
+	o.SetMarkUtilized(markUtilized)
+	return o
+}
+
+// SetMarkUtilized adds the markUtilized to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) SetMarkUtilized(markUtilized *string) {
+	o.MarkUtilized = markUtilized
 }
 
 // WithOffset adds the offset to the ipam ip ranges list params
@@ -1501,6 +1529,40 @@ func (o *IpamIPRangesListParams) WriteToRequest(r runtime.ClientRequest, reg str
 		if qLimit != "" {
 
 			if err := r.SetQueryParam("limit", qLimit); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.MarkPopulated != nil {
+
+		// query param mark_populated
+		var qrMarkPopulated string
+
+		if o.MarkPopulated != nil {
+			qrMarkPopulated = *o.MarkPopulated
+		}
+		qMarkPopulated := qrMarkPopulated
+		if qMarkPopulated != "" {
+
+			if err := r.SetQueryParam("mark_populated", qMarkPopulated); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.MarkUtilized != nil {
+
+		// query param mark_utilized
+		var qrMarkUtilized string
+
+		if o.MarkUtilized != nil {
+			qrMarkUtilized = *o.MarkUtilized
+		}
+		qMarkUtilized := qrMarkUtilized
+		if qMarkUtilized != "" {
+
+			if err := r.SetQueryParam("mark_utilized", qMarkUtilized); err != nil {
 				return err
 			}
 		}
