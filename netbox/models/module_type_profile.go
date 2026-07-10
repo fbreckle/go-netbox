@@ -22,7 +22,6 @@ package models
 
 import (
 	"context"
-	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -31,13 +30,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// WritableModuleType writable module type
+// ModuleTypeProfile module type profile
 //
-// swagger:model WritableModuleType
-type WritableModuleType struct {
-
-	// Attributes
-	Attributes interface{} `json:"attributes,omitempty"`
+// swagger:model ModuleTypeProfile
+type ModuleTypeProfile struct {
 
 	// Comments
 	Comments string `json:"comments,omitempty"`
@@ -67,24 +63,14 @@ type WritableModuleType struct {
 	// Format: date-time
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
 
-	// Manufacturer
-	// Required: true
-	Manufacturer *int64 `json:"manufacturer"`
-
-	// Model
+	// Name
 	// Required: true
 	// Max Length: 100
 	// Min Length: 1
-	Model *string `json:"model"`
+	Name *string `json:"name"`
 
-	// Part number
-	//
-	// Discrete part number (optional)
-	// Max Length: 50
-	PartNumber string `json:"part_number,omitempty"`
-
-	// Profile
-	Profile *int64 `json:"profile,omitempty"`
+	// Schema
+	Schema interface{} `json:"schema,omitempty"`
 
 	// tags
 	Tags []*NestedTag `json:"tags"`
@@ -93,17 +79,10 @@ type WritableModuleType struct {
 	// Read Only: true
 	// Format: uri
 	URL strfmt.URI `json:"url,omitempty"`
-
-	// Weight
-	Weight *float64 `json:"weight"`
-
-	// Weight unit
-	// Enum: ["kg","g","lb","oz"]
-	WeightUnit string `json:"weight_unit"`
 }
 
-// Validate validates this writable module type
-func (m *WritableModuleType) Validate(formats strfmt.Registry) error {
+// Validate validates this module type profile
+func (m *ModuleTypeProfile) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCreated(formats); err != nil {
@@ -118,15 +97,7 @@ func (m *WritableModuleType) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateManufacturer(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateModel(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePartNumber(formats); err != nil {
+	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -138,17 +109,13 @@ func (m *WritableModuleType) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateWeightUnit(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
 }
 
-func (m *WritableModuleType) validateCreated(formats strfmt.Registry) error {
+func (m *ModuleTypeProfile) validateCreated(formats strfmt.Registry) error {
 	if swag.IsZero(m.Created) { // not required
 		return nil
 	}
@@ -160,7 +127,7 @@ func (m *WritableModuleType) validateCreated(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *WritableModuleType) validateDescription(formats strfmt.Registry) error {
+func (m *ModuleTypeProfile) validateDescription(formats strfmt.Registry) error {
 	if swag.IsZero(m.Description) { // not required
 		return nil
 	}
@@ -172,7 +139,7 @@ func (m *WritableModuleType) validateDescription(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *WritableModuleType) validateLastUpdated(formats strfmt.Registry) error {
+func (m *ModuleTypeProfile) validateLastUpdated(formats strfmt.Registry) error {
 	if swag.IsZero(m.LastUpdated) { // not required
 		return nil
 	}
@@ -184,45 +151,24 @@ func (m *WritableModuleType) validateLastUpdated(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *WritableModuleType) validateManufacturer(formats strfmt.Registry) error {
+func (m *ModuleTypeProfile) validateName(formats strfmt.Registry) error {
 
-	if err := validate.Required("manufacturer", "body", m.Manufacturer); err != nil {
+	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	if err := validate.MinLength("name", "body", *m.Name, 1); err != nil {
+		return err
+	}
+
+	if err := validate.MaxLength("name", "body", *m.Name, 100); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *WritableModuleType) validateModel(formats strfmt.Registry) error {
-
-	if err := validate.Required("model", "body", m.Model); err != nil {
-		return err
-	}
-
-	if err := validate.MinLength("model", "body", *m.Model, 1); err != nil {
-		return err
-	}
-
-	if err := validate.MaxLength("model", "body", *m.Model, 100); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableModuleType) validatePartNumber(formats strfmt.Registry) error {
-	if swag.IsZero(m.PartNumber) { // not required
-		return nil
-	}
-
-	if err := validate.MaxLength("part_number", "body", m.PartNumber, 50); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *WritableModuleType) validateTags(formats strfmt.Registry) error {
+func (m *ModuleTypeProfile) validateTags(formats strfmt.Registry) error {
 	if swag.IsZero(m.Tags) { // not required
 		return nil
 	}
@@ -248,7 +194,7 @@ func (m *WritableModuleType) validateTags(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *WritableModuleType) validateURL(formats strfmt.Registry) error {
+func (m *ModuleTypeProfile) validateURL(formats strfmt.Registry) error {
 	if swag.IsZero(m.URL) { // not required
 		return nil
 	}
@@ -260,56 +206,8 @@ func (m *WritableModuleType) validateURL(formats strfmt.Registry) error {
 	return nil
 }
 
-var writableModuleTypeTypeWeightUnitPropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["kg","g","lb","oz"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		writableModuleTypeTypeWeightUnitPropEnum = append(writableModuleTypeTypeWeightUnitPropEnum, v)
-	}
-}
-
-const (
-
-	// WritableModuleTypeWeightUnitKg captures enum value "kg"
-	WritableModuleTypeWeightUnitKg string = "kg"
-
-	// WritableModuleTypeWeightUnitG captures enum value "g"
-	WritableModuleTypeWeightUnitG string = "g"
-
-	// WritableModuleTypeWeightUnitLb captures enum value "lb"
-	WritableModuleTypeWeightUnitLb string = "lb"
-
-	// WritableModuleTypeWeightUnitOz captures enum value "oz"
-	WritableModuleTypeWeightUnitOz string = "oz"
-)
-
-// prop value enum
-func (m *WritableModuleType) validateWeightUnitEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, writableModuleTypeTypeWeightUnitPropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (m *WritableModuleType) validateWeightUnit(formats strfmt.Registry) error {
-	if swag.IsZero(m.WeightUnit) { // not required
-		return nil
-	}
-
-	// value enum
-	if err := m.validateWeightUnitEnum("weight_unit", "body", m.WeightUnit); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this writable module type based on the context it is used
-func (m *WritableModuleType) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this module type profile based on the context it is used
+func (m *ModuleTypeProfile) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateCreated(ctx, formats); err != nil {
@@ -342,7 +240,7 @@ func (m *WritableModuleType) ContextValidate(ctx context.Context, formats strfmt
 	return nil
 }
 
-func (m *WritableModuleType) contextValidateCreated(ctx context.Context, formats strfmt.Registry) error {
+func (m *ModuleTypeProfile) contextValidateCreated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "created", "body", m.Created); err != nil {
 		return err
@@ -351,7 +249,7 @@ func (m *WritableModuleType) contextValidateCreated(ctx context.Context, formats
 	return nil
 }
 
-func (m *WritableModuleType) contextValidateDisplay(ctx context.Context, formats strfmt.Registry) error {
+func (m *ModuleTypeProfile) contextValidateDisplay(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "display", "body", string(m.Display)); err != nil {
 		return err
@@ -360,7 +258,7 @@ func (m *WritableModuleType) contextValidateDisplay(ctx context.Context, formats
 	return nil
 }
 
-func (m *WritableModuleType) contextValidateID(ctx context.Context, formats strfmt.Registry) error {
+func (m *ModuleTypeProfile) contextValidateID(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "id", "body", int64(m.ID)); err != nil {
 		return err
@@ -369,7 +267,7 @@ func (m *WritableModuleType) contextValidateID(ctx context.Context, formats strf
 	return nil
 }
 
-func (m *WritableModuleType) contextValidateLastUpdated(ctx context.Context, formats strfmt.Registry) error {
+func (m *ModuleTypeProfile) contextValidateLastUpdated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "last_updated", "body", m.LastUpdated); err != nil {
 		return err
@@ -378,7 +276,7 @@ func (m *WritableModuleType) contextValidateLastUpdated(ctx context.Context, for
 	return nil
 }
 
-func (m *WritableModuleType) contextValidateTags(ctx context.Context, formats strfmt.Registry) error {
+func (m *ModuleTypeProfile) contextValidateTags(ctx context.Context, formats strfmt.Registry) error {
 
 	for i := 0; i < len(m.Tags); i++ {
 
@@ -403,7 +301,7 @@ func (m *WritableModuleType) contextValidateTags(ctx context.Context, formats st
 	return nil
 }
 
-func (m *WritableModuleType) contextValidateURL(ctx context.Context, formats strfmt.Registry) error {
+func (m *ModuleTypeProfile) contextValidateURL(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "url", "body", strfmt.URI(m.URL)); err != nil {
 		return err
@@ -413,7 +311,7 @@ func (m *WritableModuleType) contextValidateURL(ctx context.Context, formats str
 }
 
 // MarshalBinary interface implementation
-func (m *WritableModuleType) MarshalBinary() ([]byte, error) {
+func (m *ModuleTypeProfile) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -421,8 +319,8 @@ func (m *WritableModuleType) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *WritableModuleType) UnmarshalBinary(b []byte) error {
-	var res WritableModuleType
+func (m *ModuleTypeProfile) UnmarshalBinary(b []byte) error {
+	var res ModuleTypeProfile
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
