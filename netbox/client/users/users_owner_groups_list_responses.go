@@ -1,0 +1,370 @@
+// Copyright 2020 The go-netbox Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+package users
+
+// This file was manually added to extend the client with NetBox's Owner/OwnerGroup
+// endpoints (netbox-community/netbox users app), which are not yet covered by the
+// upstream swagger-generated client.
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"io"
+	"strconv"
+
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
+
+	"github.com/fbreckle/go-netbox/netbox/models"
+)
+
+// UsersOwnerGroupsListReader is a Reader for the UsersOwnerGroupsList structure.
+type UsersOwnerGroupsListReader struct {
+	formats strfmt.Registry
+}
+
+// ReadResponse reads a server response into the received o.
+func (o *UsersOwnerGroupsListReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+	switch response.Code() {
+	case 200:
+		result := NewUsersOwnerGroupsListOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return result, nil
+	default:
+		result := NewUsersOwnerGroupsListDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
+	}
+}
+
+// NewUsersOwnerGroupsListOK creates a UsersOwnerGroupsListOK with default headers values
+func NewUsersOwnerGroupsListOK() *UsersOwnerGroupsListOK {
+	return &UsersOwnerGroupsListOK{}
+}
+
+/*
+UsersOwnerGroupsListOK describes a response with status code 200, with default header values.
+
+UsersOwnerGroupsListOK users owner groups list o k
+*/
+type UsersOwnerGroupsListOK struct {
+	Payload *UsersOwnerGroupsListOKBody
+}
+
+// IsSuccess returns true when this users owner groups list o k response has a 2xx status code
+func (o *UsersOwnerGroupsListOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this users owner groups list o k response has a 3xx status code
+func (o *UsersOwnerGroupsListOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this users owner groups list o k response has a 4xx status code
+func (o *UsersOwnerGroupsListOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this users owner groups list o k response has a 5xx status code
+func (o *UsersOwnerGroupsListOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this users owner groups list o k response a status code equal to that given
+func (o *UsersOwnerGroupsListOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the users owner groups list o k response
+func (o *UsersOwnerGroupsListOK) Code() int {
+	return 200
+}
+
+func (o *UsersOwnerGroupsListOK) Error() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /users/owner-groups/][%d] usersOwnerGroupsListOK %s", 200, payload)
+}
+
+func (o *UsersOwnerGroupsListOK) String() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /users/owner-groups/][%d] usersOwnerGroupsListOK %s", 200, payload)
+}
+
+func (o *UsersOwnerGroupsListOK) GetPayload() *UsersOwnerGroupsListOKBody {
+	return o.Payload
+}
+
+func (o *UsersOwnerGroupsListOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(UsersOwnerGroupsListOKBody)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUsersOwnerGroupsListDefault creates a UsersOwnerGroupsListDefault with default headers values
+func NewUsersOwnerGroupsListDefault(code int) *UsersOwnerGroupsListDefault {
+	return &UsersOwnerGroupsListDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+UsersOwnerGroupsListDefault describes a response with status code -1, with default header values.
+
+UsersOwnerGroupsListDefault users owner groups list default
+*/
+type UsersOwnerGroupsListDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// IsSuccess returns true when this users owner groups list default response has a 2xx status code
+func (o *UsersOwnerGroupsListDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this users owner groups list default response has a 3xx status code
+func (o *UsersOwnerGroupsListDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this users owner groups list default response has a 4xx status code
+func (o *UsersOwnerGroupsListDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this users owner groups list default response has a 5xx status code
+func (o *UsersOwnerGroupsListDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this users owner groups list default response a status code equal to that given
+func (o *UsersOwnerGroupsListDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+// Code gets the status code for the users owner groups list default response
+func (o *UsersOwnerGroupsListDefault) Code() int {
+	return o._statusCode
+}
+
+func (o *UsersOwnerGroupsListDefault) Error() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /users/owner-groups/][%d] users_owner_groups_list default %s", o._statusCode, payload)
+}
+
+func (o *UsersOwnerGroupsListDefault) String() string {
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /users/owner-groups/][%d] users_owner_groups_list default %s", o._statusCode, payload)
+}
+
+func (o *UsersOwnerGroupsListDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *UsersOwnerGroupsListDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+/*
+UsersOwnerGroupsListOKBody users owner groups list o k body
+swagger:model UsersOwnerGroupsListOKBody
+*/
+type UsersOwnerGroupsListOKBody struct {
+
+	// count
+	// Required: true
+	Count *int64 `json:"count"`
+
+	// next
+	// Format: uri
+	Next *strfmt.URI `json:"next,omitempty"`
+
+	// previous
+	// Format: uri
+	Previous *strfmt.URI `json:"previous,omitempty"`
+
+	// results
+	// Required: true
+	Results []*models.OwnerGroup `json:"results"`
+}
+
+// Validate validates this usersOwnerGroupsList o k body
+func (o *UsersOwnerGroupsListOKBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validateCount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateNext(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validatePrevious(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateResults(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *UsersOwnerGroupsListOKBody) validateCount(formats strfmt.Registry) error {
+
+	if err := validate.Required("usersOwnerGroupsListOK"+"."+"count", "body", o.Count); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *UsersOwnerGroupsListOKBody) validateNext(formats strfmt.Registry) error {
+	if swag.IsZero(o.Next) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("usersOwnerGroupsListOK"+"."+"next", "body", "uri", o.Next.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *UsersOwnerGroupsListOKBody) validatePrevious(formats strfmt.Registry) error {
+	if swag.IsZero(o.Previous) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("usersOwnerGroupsListOK"+"."+"previous", "body", "uri", o.Previous.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *UsersOwnerGroupsListOKBody) validateResults(formats strfmt.Registry) error {
+
+	if err := validate.Required("usersOwnerGroupsListOK"+"."+"results", "body", o.Results); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(o.Results); i++ {
+		if swag.IsZero(o.Results[i]) { // not required
+			continue
+		}
+
+		if o.Results[i] != nil {
+			if err := o.Results[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("usersOwnerGroupsListOK" + "." + "results" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("usersOwnerGroupsListOK" + "." + "results" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this usersOwnerGroupsList o k body based on the context it is used
+func (o *UsersOwnerGroupsListOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateResults(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *UsersOwnerGroupsListOKBody) contextValidateResults(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Results); i++ {
+
+		if o.Results[i] != nil {
+
+			if swag.IsZero(o.Results[i]) { // not required
+				return nil
+			}
+
+			if err := o.Results[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("usersOwnerGroupsListOK" + "." + "results" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("usersOwnerGroupsListOK" + "." + "results" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *UsersOwnerGroupsListOKBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *UsersOwnerGroupsListOKBody) UnmarshalBinary(b []byte) error {
+	var res UsersOwnerGroupsListOKBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
+}
