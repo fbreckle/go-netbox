@@ -130,6 +130,9 @@ type Rack struct {
 	// Read Only: true
 	PowerfeedCount int64 `json:"powerfeed_count,omitempty"`
 
+	// rack type
+	RackType *NestedRackType `json:"rack_type,omitempty"`
+
 	// role
 	Role *NestedRackRole `json:"role,omitempty"`
 
@@ -228,6 +231,10 @@ func (m *Rack) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateOuterWidth(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRackType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -475,6 +482,25 @@ func (m *Rack) validateOuterWidth(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Rack) validateRackType(formats strfmt.Registry) error {
+	if swag.IsZero(m.RackType) { // not required
+		return nil
+	}
+
+	if m.RackType != nil {
+		if err := m.RackType.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("rack_type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("rack_type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Rack) validateRole(formats strfmt.Registry) error {
 	if swag.IsZero(m.Role) { // not required
 		return nil
@@ -696,6 +722,10 @@ func (m *Rack) ContextValidate(ctx context.Context, formats strfmt.Registry) err
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateRackType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateRole(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -846,6 +876,27 @@ func (m *Rack) contextValidatePowerfeedCount(ctx context.Context, formats strfmt
 
 	if err := validate.ReadOnly(ctx, "powerfeed_count", "body", int64(m.PowerfeedCount)); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Rack) contextValidateRackType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.RackType != nil {
+
+		if swag.IsZero(m.RackType) { // not required
+			return nil
+		}
+
+		if err := m.RackType.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("rack_type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("rack_type")
+			}
+			return err
+		}
 	}
 
 	return nil
