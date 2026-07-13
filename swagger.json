@@ -80497,9 +80497,7 @@
           "minLength": 1
         },
         "cable": {
-          "title": "Cable",
-          "type": "integer",
-          "x-nullable": true
+          "$ref": "#/definitions/NestedCable"
         },
         "_occupied": {
           "title": "occupied",

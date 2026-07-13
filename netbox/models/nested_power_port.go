@@ -38,8 +38,8 @@ type NestedPowerPort struct {
 	// Read Only: true
 	Occupied *bool `json:"_occupied,omitempty"`
 
-	// Cable
-	Cable *int64 `json:"cable,omitempty"`
+	// cable
+	Cable *NestedCable `json:"cable,omitempty"`
 
 	// device
 	Device *NestedDevice `json:"device,omitempty"`
@@ -68,6 +68,10 @@ type NestedPowerPort struct {
 func (m *NestedPowerPort) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCable(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateDevice(formats); err != nil {
 		res = append(res, err)
 	}
@@ -83,6 +87,25 @@ func (m *NestedPowerPort) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *NestedPowerPort) validateCable(formats strfmt.Registry) error {
+	if swag.IsZero(m.Cable) { // not required
+		return nil
+	}
+
+	if m.Cable != nil {
+		if err := m.Cable.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cable")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cable")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -142,6 +165,10 @@ func (m *NestedPowerPort) ContextValidate(ctx context.Context, formats strfmt.Re
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateCable(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateDevice(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -168,6 +195,27 @@ func (m *NestedPowerPort) contextValidateOccupied(ctx context.Context, formats s
 
 	if err := validate.ReadOnly(ctx, "_occupied", "body", m.Occupied); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *NestedPowerPort) contextValidateCable(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Cable != nil {
+
+		if swag.IsZero(m.Cable) { // not required
+			return nil
+		}
+
+		if err := m.Cable.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cable")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cable")
+			}
+			return err
+		}
 	}
 
 	return nil
