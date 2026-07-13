@@ -73757,8 +73757,8 @@
         },
         "oob_ip": {
           "title": "OOB ip",
-          "type": "string",
-          "readOnly": true
+          "type": "integer",
+          "x-nullable": true
         },
         "cluster": {
           "title": "Cluster",
