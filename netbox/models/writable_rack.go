@@ -138,6 +138,9 @@ type WritableRack struct {
 	// Read Only: true
 	PowerfeedCount int64 `json:"powerfeed_count,omitempty"`
 
+	// Rack type
+	RackType *int64 `json:"rack_type,omitempty"`
+
 	// Role
 	//
 	// Functional role

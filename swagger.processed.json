@@ -70763,6 +70763,48 @@
         }
       }
     },
+    "NestedRackType": {
+      "required": [
+        "model",
+        "slug"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "url": {
+          "title": "Url",
+          "type": "string",
+          "format": "uri",
+          "readOnly": true
+        },
+        "display": {
+          "title": "Display",
+          "type": "string",
+          "readOnly": true
+        },
+        "manufacturer": {
+          "$ref": "#/definitions/NestedManufacturer"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "slug": {
+          "title": "Slug",
+          "type": "string",
+          "format": "slug",
+          "pattern": "^[-a-zA-Z0-9_]+$",
+          "maxLength": 100,
+          "minLength": 1
+        }
+      }
+    },
     "NestedDeviceRole": {
       "required": [
         "name",
@@ -82287,6 +82329,9 @@
       ],
       "type": "object",
       "properties": {
+        "rack_type": {
+          "$ref": "#/definitions/NestedRackType"
+        },
         "id": {
           "title": "ID",
           "type": "integer",
@@ -82588,6 +82633,11 @@
       ],
       "type": "object",
       "properties": {
+        "rack_type": {
+          "title": "Rack type",
+          "type": "integer",
+          "x-nullable": true
+        },
         "id": {
           "title": "ID",
           "type": "integer",
