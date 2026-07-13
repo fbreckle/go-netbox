@@ -47,7 +47,11 @@ type WritableOwner struct {
 	DisplayURL strfmt.URI `json:"display_url,omitempty"`
 
 	// Group
-	Group *int64 `json:"group,omitempty"`
+	// NetBox's Owner API declares this field without required=False, so the
+	// key must always be present in the request body (as null or an id) --
+	// omitempty would drop it entirely and the API rejects the request with
+	// {"group":["This field is required."]}.
+	Group *int64 `json:"group"`
 
 	// ID
 	// Read Only: true

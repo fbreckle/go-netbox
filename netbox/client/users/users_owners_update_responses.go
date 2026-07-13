@@ -67,7 +67,7 @@ UsersOwnersUpdateOK describes a response with status code 200, with default head
 UsersOwnersUpdateOK users owners update o k
 */
 type UsersOwnersUpdateOK struct {
-	Payload *models.WritableOwner
+	Payload *models.Owner
 }
 
 // IsSuccess returns true when this users owners update o k response has a 2xx status code
@@ -110,13 +110,13 @@ func (o *UsersOwnersUpdateOK) String() string {
 	return fmt.Sprintf("[PUT /users/owners/{id}/][%d] usersOwnersUpdateOK %s", 200, payload)
 }
 
-func (o *UsersOwnersUpdateOK) GetPayload() *models.WritableOwner {
+func (o *UsersOwnersUpdateOK) GetPayload() *models.Owner {
 	return o.Payload
 }
 
 func (o *UsersOwnersUpdateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.WritableOwner)
+	o.Payload = new(models.Owner)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

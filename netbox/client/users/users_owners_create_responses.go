@@ -67,7 +67,7 @@ UsersOwnersCreateCreated describes a response with status code 201, with default
 UsersOwnersCreateCreated users owners create created
 */
 type UsersOwnersCreateCreated struct {
-	Payload *models.WritableOwner
+	Payload *models.Owner
 }
 
 // IsSuccess returns true when this users owners create created response has a 2xx status code
@@ -110,13 +110,13 @@ func (o *UsersOwnersCreateCreated) String() string {
 	return fmt.Sprintf("[POST /users/owners/][%d] usersOwnersCreateCreated %s", 201, payload)
 }
 
-func (o *UsersOwnersCreateCreated) GetPayload() *models.WritableOwner {
+func (o *UsersOwnersCreateCreated) GetPayload() *models.Owner {
 	return o.Payload
 }
 
 func (o *UsersOwnersCreateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.WritableOwner)
+	o.Payload = new(models.Owner)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

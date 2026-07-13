@@ -67,7 +67,7 @@ UsersOwnersPartialUpdateOK describes a response with status code 200, with defau
 UsersOwnersPartialUpdateOK users owners partial update o k
 */
 type UsersOwnersPartialUpdateOK struct {
-	Payload *models.WritableOwner
+	Payload *models.Owner
 }
 
 // IsSuccess returns true when this users owners partial update o k response has a 2xx status code
@@ -110,13 +110,13 @@ func (o *UsersOwnersPartialUpdateOK) String() string {
 	return fmt.Sprintf("[PATCH /users/owners/{id}/][%d] usersOwnersPartialUpdateOK %s", 200, payload)
 }
 
-func (o *UsersOwnersPartialUpdateOK) GetPayload() *models.WritableOwner {
+func (o *UsersOwnersPartialUpdateOK) GetPayload() *models.Owner {
 	return o.Payload
 }
 
 func (o *UsersOwnersPartialUpdateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.WritableOwner)
+	o.Payload = new(models.Owner)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
