@@ -30,16 +30,13 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// DeviceRole device role
+// VirtualMachineType virtual machine type
 //
-// swagger:model DeviceRole
-type DeviceRole struct {
+// swagger:model VirtualMachineType
+type VirtualMachineType struct {
 
-	// Color
-	// Max Length: 6
-	// Min Length: 1
-	// Pattern: ^[0-9a-f]{6}$
-	Color string `json:"color,omitempty"`
+	// Comments
+	Comments string `json:"comments,omitempty"`
 
 	// Created
 	// Read Only: true
@@ -49,13 +46,22 @@ type DeviceRole struct {
 	// Custom fields
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
+	// Default memory
+	// Maximum: 2.147483647e+09
+	// Minimum: 0
+	DefaultMemory *int64 `json:"default_memory,omitempty"`
+
+	// Default platform
+	DefaultPlatform *NestedPlatform `json:"default_platform,omitempty"`
+
+	// Default vcpus
+	// Maximum: < 10000
+	// Minimum: 0.01
+	DefaultVcpus *float64 `json:"default_vcpus,omitempty"`
+
 	// Description
 	// Max Length: 200
 	Description string `json:"description,omitempty"`
-
-	// Device count
-	// Read Only: true
-	DeviceCount int64 `json:"device_count,omitempty"`
 
 	// Display
 	// Read Only: true
@@ -91,25 +97,28 @@ type DeviceRole struct {
 	// Format: uri
 	URL strfmt.URI `json:"url,omitempty"`
 
-	// Virtualmachine count
+	// Virtual machine count
 	// Read Only: true
-	VirtualmachineCount int64 `json:"virtualmachine_count,omitempty"`
-
-	// VM Role
-	//
-	// Virtual machines may be assigned to this role
-	VMRole *bool `json:"vm_role,omitempty"`
+	VirtualMachineCount int64 `json:"virtual_machine_count,omitempty"`
 }
 
-// Validate validates this device role
-func (m *DeviceRole) Validate(formats strfmt.Registry) error {
+// Validate validates this virtual machine type
+func (m *VirtualMachineType) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateColor(formats); err != nil {
+	if err := m.validateCreated(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateCreated(formats); err != nil {
+	if err := m.validateDefaultMemory(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDefaultPlatform(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDefaultVcpus(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -143,27 +152,7 @@ func (m *DeviceRole) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DeviceRole) validateColor(formats strfmt.Registry) error {
-	if swag.IsZero(m.Color) { // not required
-		return nil
-	}
-
-	if err := validate.MinLength("color", "body", m.Color, 1); err != nil {
-		return err
-	}
-
-	if err := validate.MaxLength("color", "body", m.Color, 6); err != nil {
-		return err
-	}
-
-	if err := validate.Pattern("color", "body", m.Color, `^[0-9a-f]{6}$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *DeviceRole) validateCreated(formats strfmt.Registry) error {
+func (m *VirtualMachineType) validateCreated(formats strfmt.Registry) error {
 	if swag.IsZero(m.Created) { // not required
 		return nil
 	}
@@ -175,7 +164,58 @@ func (m *DeviceRole) validateCreated(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DeviceRole) validateDescription(formats strfmt.Registry) error {
+func (m *VirtualMachineType) validateDefaultMemory(formats strfmt.Registry) error {
+	if swag.IsZero(m.DefaultMemory) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("default_memory", "body", *m.DefaultMemory, 0, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("default_memory", "body", *m.DefaultMemory, 2.147483647e+09, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *VirtualMachineType) validateDefaultPlatform(formats strfmt.Registry) error {
+	if swag.IsZero(m.DefaultPlatform) { // not required
+		return nil
+	}
+
+	if m.DefaultPlatform != nil {
+		if err := m.DefaultPlatform.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("default_platform")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("default_platform")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *VirtualMachineType) validateDefaultVcpus(formats strfmt.Registry) error {
+	if swag.IsZero(m.DefaultVcpus) { // not required
+		return nil
+	}
+
+	if err := validate.Minimum("default_vcpus", "body", *m.DefaultVcpus, 0.01, false); err != nil {
+		return err
+	}
+
+	if err := validate.Maximum("default_vcpus", "body", *m.DefaultVcpus, 10000, true); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *VirtualMachineType) validateDescription(formats strfmt.Registry) error {
 	if swag.IsZero(m.Description) { // not required
 		return nil
 	}
@@ -187,7 +227,7 @@ func (m *DeviceRole) validateDescription(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DeviceRole) validateLastUpdated(formats strfmt.Registry) error {
+func (m *VirtualMachineType) validateLastUpdated(formats strfmt.Registry) error {
 	if swag.IsZero(m.LastUpdated) { // not required
 		return nil
 	}
@@ -199,7 +239,7 @@ func (m *DeviceRole) validateLastUpdated(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DeviceRole) validateName(formats strfmt.Registry) error {
+func (m *VirtualMachineType) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
@@ -216,7 +256,7 @@ func (m *DeviceRole) validateName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DeviceRole) validateSlug(formats strfmt.Registry) error {
+func (m *VirtualMachineType) validateSlug(formats strfmt.Registry) error {
 
 	if err := validate.Required("slug", "body", m.Slug); err != nil {
 		return err
@@ -237,7 +277,7 @@ func (m *DeviceRole) validateSlug(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DeviceRole) validateTags(formats strfmt.Registry) error {
+func (m *VirtualMachineType) validateTags(formats strfmt.Registry) error {
 	if swag.IsZero(m.Tags) { // not required
 		return nil
 	}
@@ -263,7 +303,7 @@ func (m *DeviceRole) validateTags(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DeviceRole) validateURL(formats strfmt.Registry) error {
+func (m *VirtualMachineType) validateURL(formats strfmt.Registry) error {
 	if swag.IsZero(m.URL) { // not required
 		return nil
 	}
@@ -275,15 +315,15 @@ func (m *DeviceRole) validateURL(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validate this device role based on the context it is used
-func (m *DeviceRole) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this virtual machine type based on the context it is used
+func (m *VirtualMachineType) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateCreated(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateDeviceCount(ctx, formats); err != nil {
+	if err := m.contextValidateDefaultPlatform(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -307,7 +347,7 @@ func (m *DeviceRole) ContextValidate(ctx context.Context, formats strfmt.Registr
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateVirtualmachineCount(ctx, formats); err != nil {
+	if err := m.contextValidateVirtualMachineCount(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -317,7 +357,7 @@ func (m *DeviceRole) ContextValidate(ctx context.Context, formats strfmt.Registr
 	return nil
 }
 
-func (m *DeviceRole) contextValidateCreated(ctx context.Context, formats strfmt.Registry) error {
+func (m *VirtualMachineType) contextValidateCreated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "created", "body", m.Created); err != nil {
 		return err
@@ -326,16 +366,28 @@ func (m *DeviceRole) contextValidateCreated(ctx context.Context, formats strfmt.
 	return nil
 }
 
-func (m *DeviceRole) contextValidateDeviceCount(ctx context.Context, formats strfmt.Registry) error {
+func (m *VirtualMachineType) contextValidateDefaultPlatform(ctx context.Context, formats strfmt.Registry) error {
 
-	if err := validate.ReadOnly(ctx, "device_count", "body", int64(m.DeviceCount)); err != nil {
-		return err
+	if m.DefaultPlatform != nil {
+
+		if swag.IsZero(m.DefaultPlatform) { // not required
+			return nil
+		}
+
+		if err := m.DefaultPlatform.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("default_platform")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("default_platform")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
-func (m *DeviceRole) contextValidateDisplay(ctx context.Context, formats strfmt.Registry) error {
+func (m *VirtualMachineType) contextValidateDisplay(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "display", "body", string(m.Display)); err != nil {
 		return err
@@ -344,7 +396,7 @@ func (m *DeviceRole) contextValidateDisplay(ctx context.Context, formats strfmt.
 	return nil
 }
 
-func (m *DeviceRole) contextValidateID(ctx context.Context, formats strfmt.Registry) error {
+func (m *VirtualMachineType) contextValidateID(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "id", "body", int64(m.ID)); err != nil {
 		return err
@@ -353,7 +405,7 @@ func (m *DeviceRole) contextValidateID(ctx context.Context, formats strfmt.Regis
 	return nil
 }
 
-func (m *DeviceRole) contextValidateLastUpdated(ctx context.Context, formats strfmt.Registry) error {
+func (m *VirtualMachineType) contextValidateLastUpdated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "last_updated", "body", m.LastUpdated); err != nil {
 		return err
@@ -362,7 +414,7 @@ func (m *DeviceRole) contextValidateLastUpdated(ctx context.Context, formats str
 	return nil
 }
 
-func (m *DeviceRole) contextValidateTags(ctx context.Context, formats strfmt.Registry) error {
+func (m *VirtualMachineType) contextValidateTags(ctx context.Context, formats strfmt.Registry) error {
 
 	for i := 0; i < len(m.Tags); i++ {
 
@@ -387,7 +439,7 @@ func (m *DeviceRole) contextValidateTags(ctx context.Context, formats strfmt.Reg
 	return nil
 }
 
-func (m *DeviceRole) contextValidateURL(ctx context.Context, formats strfmt.Registry) error {
+func (m *VirtualMachineType) contextValidateURL(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "url", "body", strfmt.URI(m.URL)); err != nil {
 		return err
@@ -396,9 +448,9 @@ func (m *DeviceRole) contextValidateURL(ctx context.Context, formats strfmt.Regi
 	return nil
 }
 
-func (m *DeviceRole) contextValidateVirtualmachineCount(ctx context.Context, formats strfmt.Registry) error {
+func (m *VirtualMachineType) contextValidateVirtualMachineCount(ctx context.Context, formats strfmt.Registry) error {
 
-	if err := validate.ReadOnly(ctx, "virtualmachine_count", "body", int64(m.VirtualmachineCount)); err != nil {
+	if err := validate.ReadOnly(ctx, "virtual_machine_count", "body", int64(m.VirtualMachineCount)); err != nil {
 		return err
 	}
 
@@ -406,7 +458,7 @@ func (m *DeviceRole) contextValidateVirtualmachineCount(ctx context.Context, for
 }
 
 // MarshalBinary interface implementation
-func (m *DeviceRole) MarshalBinary() ([]byte, error) {
+func (m *VirtualMachineType) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -414,8 +466,8 @@ func (m *DeviceRole) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *DeviceRole) UnmarshalBinary(b []byte) error {
-	var res DeviceRole
+func (m *VirtualMachineType) UnmarshalBinary(b []byte) error {
+	var res VirtualMachineType
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
