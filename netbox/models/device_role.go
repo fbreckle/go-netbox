@@ -98,7 +98,7 @@ type DeviceRole struct {
 	// VM Role
 	//
 	// Virtual machines may be assigned to this role
-	VMRole bool `json:"vm_role,omitempty"`
+	VMRole *bool `json:"vm_role,omitempty"`
 }
 
 // Validate validates this device role
