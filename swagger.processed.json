@@ -72976,7 +72976,8 @@
         "vm_role": {
           "title": "VM Role",
           "description": "Virtual machines may be assigned to this role",
-          "type": "boolean"
+          "type": "boolean",
+          "x-nullable": true
         },
         "description": {
           "title": "Description",
