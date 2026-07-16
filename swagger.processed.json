@@ -73925,8 +73925,7 @@
     "FrontPortTemplate": {
       "required": [
         "name",
-        "type",
-        "rear_port"
+        "type"
       ],
       "type": "object",
       "properties": {
@@ -74086,6 +74085,19 @@
           "maximum": 1024,
           "minimum": 1
         },
+        "positions": {
+          "title": "Positions",
+          "type": "integer",
+          "maximum": 1024,
+          "minimum": 1
+        },
+        "rear_ports": {
+          "title": "Rear ports",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FrontPortTemplateMapping"
+          }
+        },
         "description": {
           "title": "Description",
           "type": "string",
@@ -74110,8 +74122,7 @@
     "WritableFrontPortTemplate": {
       "required": [
         "name",
-        "type",
-        "rear_port"
+        "type"
       ],
       "type": "object",
       "properties": {
@@ -74219,6 +74230,21 @@
           "maximum": 1024,
           "minimum": 1
         },
+        "positions": {
+          "title": "Positions",
+          "type": "integer",
+          "maximum": 1024,
+          "minimum": 1
+        },
+        "rear_ports": {
+          "title": "Rear ports",
+          "description": "Mapping of front port positions to rear ports. Omitted from the request when unset; NetBox 4.5 and later rejects an explicit null and rejects re-sending any mapping that already exists, while a changed mapping set replaces the existing one atomically.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FrontPortTemplateMapping"
+          },
+          "x-omitempty": true
+        },
         "description": {
           "title": "Description",
           "type": "string",
@@ -74285,8 +74311,7 @@
       "required": [
         "device",
         "name",
-        "type",
-        "rear_port"
+        "type"
       ],
       "type": "object",
       "properties": {
@@ -74445,6 +74470,19 @@
           "maximum": 1024,
           "minimum": 1
         },
+        "positions": {
+          "title": "Positions",
+          "type": "integer",
+          "maximum": 1024,
+          "minimum": 1
+        },
+        "rear_ports": {
+          "title": "Rear ports",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FrontPortMapping"
+          }
+        },
         "description": {
           "title": "Description",
           "type": "string",
@@ -74514,8 +74552,7 @@
       "required": [
         "device",
         "name",
-        "type",
-        "rear_port"
+        "type"
       ],
       "type": "object",
       "properties": {
@@ -74623,6 +74660,21 @@
           "type": "integer",
           "maximum": 1024,
           "minimum": 1
+        },
+        "positions": {
+          "title": "Positions",
+          "type": "integer",
+          "maximum": 1024,
+          "minimum": 1
+        },
+        "rear_ports": {
+          "title": "Rear ports",
+          "description": "Mapping of front port positions to rear ports. Omitted from the request when unset; NetBox 4.5 and later rejects an explicit null and rejects re-sending any mapping that already exists, while a changed mapping set replaces the existing one atomically.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FrontPortMapping"
+          },
+          "x-omitempty": true
         },
         "description": {
           "title": "Description",
@@ -95281,6 +95333,52 @@
         "mac_address",
         "url"
       ]
+    },
+    "FrontPortMapping": {
+      "required": [
+        "position",
+        "rear_port"
+      ],
+      "type": "object",
+      "properties": {
+        "position": {
+          "title": "Position",
+          "type": "integer"
+        },
+        "rear_port": {
+          "title": "Rear port",
+          "type": "integer"
+        },
+        "rear_port_position": {
+          "title": "Rear port position",
+          "type": "integer",
+          "maximum": 1024,
+          "minimum": 1
+        }
+      }
+    },
+    "FrontPortTemplateMapping": {
+      "required": [
+        "position",
+        "rear_port"
+      ],
+      "type": "object",
+      "properties": {
+        "position": {
+          "title": "Position",
+          "type": "integer"
+        },
+        "rear_port": {
+          "title": "Rear port",
+          "type": "integer"
+        },
+        "rear_port_position": {
+          "title": "Rear port position",
+          "type": "integer",
+          "maximum": 1024,
+          "minimum": 1
+        }
+      }
     }
   }
 }

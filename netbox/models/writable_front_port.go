@@ -112,14 +112,23 @@ type WritableFrontPort struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
+	// Positions
+	// Maximum: 1024
+	// Minimum: 1
+	Positions int64 `json:"positions,omitempty"`
+
 	// Rear port
-	// Required: true
-	RearPort *int64 `json:"rear_port"`
+	RearPort int64 `json:"rear_port,omitempty"`
 
 	// Rear port position
 	// Maximum: 1024
 	// Minimum: 1
 	RearPortPosition int64 `json:"rear_port_position,omitempty"`
+
+	// Rear ports
+	//
+	// Mapping of front port positions to rear ports. Omitted from the request when unset; NetBox 4.5 and later rejects an explicit null and rejects re-sending any mapping that already exists, while a changed mapping set replaces the existing one atomically.
+	RearPorts []*FrontPortMapping `json:"rear_ports,omitempty"`
 
 	// tags
 	Tags []*NestedTag `json:"tags"`
@@ -175,11 +184,15 @@ func (m *WritableFrontPort) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateRearPort(formats); err != nil {
+	if err := m.validatePositions(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateRearPortPosition(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRearPorts(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -322,9 +335,16 @@ func (m *WritableFrontPort) validateName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *WritableFrontPort) validateRearPort(formats strfmt.Registry) error {
+func (m *WritableFrontPort) validatePositions(formats strfmt.Registry) error {
+	if swag.IsZero(m.Positions) { // not required
+		return nil
+	}
 
-	if err := validate.Required("rear_port", "body", m.RearPort); err != nil {
+	if err := validate.MinimumInt("positions", "body", m.Positions, 1, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("positions", "body", m.Positions, 1024, false); err != nil {
 		return err
 	}
 
@@ -342,6 +362,32 @@ func (m *WritableFrontPort) validateRearPortPosition(formats strfmt.Registry) er
 
 	if err := validate.MaximumInt("rear_port_position", "body", m.RearPortPosition, 1024, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *WritableFrontPort) validateRearPorts(formats strfmt.Registry) error {
+	if swag.IsZero(m.RearPorts) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.RearPorts); i++ {
+		if swag.IsZero(m.RearPorts[i]) { // not required
+			continue
+		}
+
+		if m.RearPorts[i] != nil {
+			if err := m.RearPorts[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("rear_ports" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("rear_ports" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -591,6 +637,10 @@ func (m *WritableFrontPort) ContextValidate(ctx context.Context, formats strfmt.
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateRearPorts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateTags(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -693,6 +743,31 @@ func (m *WritableFrontPort) contextValidateLinkPeersType(ctx context.Context, fo
 
 	if err := validate.ReadOnly(ctx, "link_peers_type", "body", string(m.LinkPeersType)); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *WritableFrontPort) contextValidateRearPorts(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.RearPorts); i++ {
+
+		if m.RearPorts[i] != nil {
+
+			if swag.IsZero(m.RearPorts[i]) { // not required
+				return nil
+			}
+
+			if err := m.RearPorts[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("rear_ports" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("rear_ports" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
