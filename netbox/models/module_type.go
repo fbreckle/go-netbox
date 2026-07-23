@@ -36,6 +36,9 @@ import (
 // swagger:model ModuleType
 type ModuleType struct {
 
+	// Attributes
+	Attributes interface{} `json:"attributes,omitempty"`
+
 	// Comments
 	Comments string `json:"comments,omitempty"`
 
@@ -80,6 +83,9 @@ type ModuleType struct {
 	// Max Length: 50
 	PartNumber string `json:"part_number,omitempty"`
 
+	// profile
+	Profile *NestedModuleTypeProfile `json:"profile,omitempty"`
+
 	// tags
 	Tags []*NestedTag `json:"tags"`
 
@@ -120,6 +126,10 @@ func (m *ModuleType) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePartNumber(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProfile(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -226,6 +236,25 @@ func (m *ModuleType) validatePartNumber(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *ModuleType) validateProfile(formats strfmt.Registry) error {
+	if swag.IsZero(m.Profile) { // not required
+		return nil
+	}
+
+	if m.Profile != nil {
+		if err := m.Profile.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("profile")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("profile")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *ModuleType) validateTags(formats strfmt.Registry) error {
 	if swag.IsZero(m.Tags) { // not required
 		return nil
@@ -307,6 +336,10 @@ func (m *ModuleType) ContextValidate(ctx context.Context, formats strfmt.Registr
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateProfile(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateTags(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -370,6 +403,27 @@ func (m *ModuleType) contextValidateManufacturer(ctx context.Context, formats st
 				return ve.ValidateName("manufacturer")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("manufacturer")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ModuleType) contextValidateProfile(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Profile != nil {
+
+		if swag.IsZero(m.Profile) { // not required
+			return nil
+		}
+
+		if err := m.Profile.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("profile")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("profile")
 			}
 			return err
 		}
