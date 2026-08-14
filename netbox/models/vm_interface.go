@@ -81,6 +81,9 @@ type VMInterface struct {
 	// MAC Address
 	MacAddress *string `json:"mac_address,omitempty"`
 
+	// Primary MAC Address
+	PrimaryMacAddress *BriefMACAddress `json:"primary_mac_address,omitempty"`
+
 	// mode
 	Mode *VMInterfaceMode `json:"mode,omitempty"`
 
