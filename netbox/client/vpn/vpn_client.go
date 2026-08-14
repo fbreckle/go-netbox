@@ -69,6 +69,56 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	VpnIkePoliciesCreate(params *VpnIkePoliciesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkePoliciesCreateCreated, error)
+
+	VpnIkePoliciesDelete(params *VpnIkePoliciesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkePoliciesDeleteNoContent, error)
+
+	VpnIkePoliciesList(params *VpnIkePoliciesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkePoliciesListOK, error)
+
+	VpnIkePoliciesRead(params *VpnIkePoliciesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkePoliciesReadOK, error)
+
+	VpnIkePoliciesUpdate(params *VpnIkePoliciesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkePoliciesUpdateOK, error)
+
+	VpnIkeProposalsCreate(params *VpnIkeProposalsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsCreateCreated, error)
+
+	VpnIkeProposalsDelete(params *VpnIkeProposalsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsDeleteNoContent, error)
+
+	VpnIkeProposalsList(params *VpnIkeProposalsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsListOK, error)
+
+	VpnIkeProposalsRead(params *VpnIkeProposalsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsReadOK, error)
+
+	VpnIkeProposalsUpdate(params *VpnIkeProposalsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsUpdateOK, error)
+
+	VpnIpsecPoliciesCreate(params *VpnIpsecPoliciesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecPoliciesCreateCreated, error)
+
+	VpnIpsecPoliciesDelete(params *VpnIpsecPoliciesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecPoliciesDeleteNoContent, error)
+
+	VpnIpsecPoliciesList(params *VpnIpsecPoliciesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecPoliciesListOK, error)
+
+	VpnIpsecPoliciesRead(params *VpnIpsecPoliciesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecPoliciesReadOK, error)
+
+	VpnIpsecPoliciesUpdate(params *VpnIpsecPoliciesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecPoliciesUpdateOK, error)
+
+	VpnIpsecProfilesCreate(params *VpnIpsecProfilesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProfilesCreateCreated, error)
+
+	VpnIpsecProfilesDelete(params *VpnIpsecProfilesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProfilesDeleteNoContent, error)
+
+	VpnIpsecProfilesList(params *VpnIpsecProfilesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProfilesListOK, error)
+
+	VpnIpsecProfilesRead(params *VpnIpsecProfilesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProfilesReadOK, error)
+
+	VpnIpsecProfilesUpdate(params *VpnIpsecProfilesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProfilesUpdateOK, error)
+
+	VpnIpsecProposalsCreate(params *VpnIpsecProposalsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProposalsCreateCreated, error)
+
+	VpnIpsecProposalsDelete(params *VpnIpsecProposalsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProposalsDeleteNoContent, error)
+
+	VpnIpsecProposalsList(params *VpnIpsecProposalsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProposalsListOK, error)
+
+	VpnIpsecProposalsRead(params *VpnIpsecProposalsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProposalsReadOK, error)
+
+	VpnIpsecProposalsUpdate(params *VpnIpsecProposalsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProposalsUpdateOK, error)
+
 	VpnTunnelGroupsCreate(params *VpnTunnelGroupsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnTunnelGroupsCreateCreated, error)
 
 	VpnTunnelGroupsDelete(params *VpnTunnelGroupsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnTunnelGroupsDeleteNoContent, error)
@@ -100,6 +150,956 @@ type ClientService interface {
 	VpnTunnelsUpdate(params *VpnTunnelsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnTunnelsUpdateOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+VpnIkePoliciesCreate vpn ike policies create API
+*/
+func (a *Client) VpnIkePoliciesCreate(params *VpnIkePoliciesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkePoliciesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkePoliciesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-policies_create",
+		Method:             "POST",
+		PathPattern:        "/vpn/ike-policies/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkePoliciesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkePoliciesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkePoliciesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIkePoliciesDelete vpn ike policies delete API
+*/
+func (a *Client) VpnIkePoliciesDelete(params *VpnIkePoliciesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkePoliciesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkePoliciesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-policies_delete",
+		Method:             "DELETE",
+		PathPattern:        "/vpn/ike-policies/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkePoliciesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkePoliciesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkePoliciesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIkePoliciesList vpn ike policies list API
+*/
+func (a *Client) VpnIkePoliciesList(params *VpnIkePoliciesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkePoliciesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkePoliciesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-policies_list",
+		Method:             "GET",
+		PathPattern:        "/vpn/ike-policies/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkePoliciesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkePoliciesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkePoliciesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIkePoliciesRead vpn ike policies read API
+*/
+func (a *Client) VpnIkePoliciesRead(params *VpnIkePoliciesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkePoliciesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkePoliciesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-policies_read",
+		Method:             "GET",
+		PathPattern:        "/vpn/ike-policies/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkePoliciesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkePoliciesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkePoliciesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIkePoliciesUpdate vpn ike policies update API
+*/
+func (a *Client) VpnIkePoliciesUpdate(params *VpnIkePoliciesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkePoliciesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkePoliciesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-policies_update",
+		Method:             "PUT",
+		PathPattern:        "/vpn/ike-policies/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkePoliciesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkePoliciesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkePoliciesUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIkeProposalsCreate vpn ike proposals create API
+*/
+func (a *Client) VpnIkeProposalsCreate(params *VpnIkeProposalsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkeProposalsCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-proposals_create",
+		Method:             "POST",
+		PathPattern:        "/vpn/ike-proposals/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkeProposalsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkeProposalsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkeProposalsCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIkeProposalsDelete vpn ike proposals delete API
+*/
+func (a *Client) VpnIkeProposalsDelete(params *VpnIkeProposalsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkeProposalsDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-proposals_delete",
+		Method:             "DELETE",
+		PathPattern:        "/vpn/ike-proposals/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkeProposalsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkeProposalsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkeProposalsDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIkeProposalsList vpn ike proposals list API
+*/
+func (a *Client) VpnIkeProposalsList(params *VpnIkeProposalsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkeProposalsListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-proposals_list",
+		Method:             "GET",
+		PathPattern:        "/vpn/ike-proposals/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkeProposalsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkeProposalsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkeProposalsListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIkeProposalsRead vpn ike proposals read API
+*/
+func (a *Client) VpnIkeProposalsRead(params *VpnIkeProposalsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkeProposalsReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-proposals_read",
+		Method:             "GET",
+		PathPattern:        "/vpn/ike-proposals/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkeProposalsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkeProposalsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkeProposalsReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIkeProposalsUpdate vpn ike proposals update API
+*/
+func (a *Client) VpnIkeProposalsUpdate(params *VpnIkeProposalsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkeProposalsUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-proposals_update",
+		Method:             "PUT",
+		PathPattern:        "/vpn/ike-proposals/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkeProposalsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkeProposalsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkeProposalsUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecPoliciesCreate vpn ipsec policies create API
+*/
+func (a *Client) VpnIpsecPoliciesCreate(params *VpnIpsecPoliciesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecPoliciesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecPoliciesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-policies_create",
+		Method:             "POST",
+		PathPattern:        "/vpn/ipsec-policies/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecPoliciesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecPoliciesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecPoliciesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecPoliciesDelete vpn ipsec policies delete API
+*/
+func (a *Client) VpnIpsecPoliciesDelete(params *VpnIpsecPoliciesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecPoliciesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecPoliciesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-policies_delete",
+		Method:             "DELETE",
+		PathPattern:        "/vpn/ipsec-policies/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecPoliciesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecPoliciesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecPoliciesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecPoliciesList vpn ipsec policies list API
+*/
+func (a *Client) VpnIpsecPoliciesList(params *VpnIpsecPoliciesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecPoliciesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecPoliciesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-policies_list",
+		Method:             "GET",
+		PathPattern:        "/vpn/ipsec-policies/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecPoliciesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecPoliciesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecPoliciesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecPoliciesRead vpn ipsec policies read API
+*/
+func (a *Client) VpnIpsecPoliciesRead(params *VpnIpsecPoliciesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecPoliciesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecPoliciesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-policies_read",
+		Method:             "GET",
+		PathPattern:        "/vpn/ipsec-policies/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecPoliciesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecPoliciesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecPoliciesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecPoliciesUpdate vpn ipsec policies update API
+*/
+func (a *Client) VpnIpsecPoliciesUpdate(params *VpnIpsecPoliciesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecPoliciesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecPoliciesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-policies_update",
+		Method:             "PUT",
+		PathPattern:        "/vpn/ipsec-policies/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecPoliciesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecPoliciesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecPoliciesUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecProfilesCreate vpn ipsec profiles create API
+*/
+func (a *Client) VpnIpsecProfilesCreate(params *VpnIpsecProfilesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProfilesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecProfilesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-profiles_create",
+		Method:             "POST",
+		PathPattern:        "/vpn/ipsec-profiles/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecProfilesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecProfilesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecProfilesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecProfilesDelete vpn ipsec profiles delete API
+*/
+func (a *Client) VpnIpsecProfilesDelete(params *VpnIpsecProfilesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProfilesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecProfilesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-profiles_delete",
+		Method:             "DELETE",
+		PathPattern:        "/vpn/ipsec-profiles/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecProfilesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecProfilesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecProfilesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecProfilesList vpn ipsec profiles list API
+*/
+func (a *Client) VpnIpsecProfilesList(params *VpnIpsecProfilesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProfilesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecProfilesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-profiles_list",
+		Method:             "GET",
+		PathPattern:        "/vpn/ipsec-profiles/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecProfilesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecProfilesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecProfilesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecProfilesRead vpn ipsec profiles read API
+*/
+func (a *Client) VpnIpsecProfilesRead(params *VpnIpsecProfilesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProfilesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecProfilesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-profiles_read",
+		Method:             "GET",
+		PathPattern:        "/vpn/ipsec-profiles/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecProfilesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecProfilesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecProfilesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecProfilesUpdate vpn ipsec profiles update API
+*/
+func (a *Client) VpnIpsecProfilesUpdate(params *VpnIpsecProfilesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProfilesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecProfilesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-profiles_update",
+		Method:             "PUT",
+		PathPattern:        "/vpn/ipsec-profiles/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecProfilesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecProfilesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecProfilesUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecProposalsCreate vpn ipsec proposals create API
+*/
+func (a *Client) VpnIpsecProposalsCreate(params *VpnIpsecProposalsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProposalsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecProposalsCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-proposals_create",
+		Method:             "POST",
+		PathPattern:        "/vpn/ipsec-proposals/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecProposalsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecProposalsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecProposalsCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecProposalsDelete vpn ipsec proposals delete API
+*/
+func (a *Client) VpnIpsecProposalsDelete(params *VpnIpsecProposalsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProposalsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecProposalsDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-proposals_delete",
+		Method:             "DELETE",
+		PathPattern:        "/vpn/ipsec-proposals/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecProposalsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecProposalsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecProposalsDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecProposalsList vpn ipsec proposals list API
+*/
+func (a *Client) VpnIpsecProposalsList(params *VpnIpsecProposalsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProposalsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecProposalsListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-proposals_list",
+		Method:             "GET",
+		PathPattern:        "/vpn/ipsec-proposals/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecProposalsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecProposalsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecProposalsListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecProposalsRead vpn ipsec proposals read API
+*/
+func (a *Client) VpnIpsecProposalsRead(params *VpnIpsecProposalsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProposalsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecProposalsReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-proposals_read",
+		Method:             "GET",
+		PathPattern:        "/vpn/ipsec-proposals/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecProposalsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecProposalsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecProposalsReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIpsecProposalsUpdate vpn ipsec proposals update API
+*/
+func (a *Client) VpnIpsecProposalsUpdate(params *VpnIpsecProposalsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIpsecProposalsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIpsecProposalsUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ipsec-proposals_update",
+		Method:             "PUT",
+		PathPattern:        "/vpn/ipsec-proposals/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIpsecProposalsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIpsecProposalsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIpsecProposalsUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*

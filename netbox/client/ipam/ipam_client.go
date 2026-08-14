@@ -81,6 +81,18 @@ type ClientService interface {
 
 	IpamAggregatesUpdate(params *IpamAggregatesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAggregatesUpdateOK, error)
 
+	IpamAsnRangesCreate(params *IpamAsnRangesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesCreateCreated, error)
+
+	IpamAsnRangesDelete(params *IpamAsnRangesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesDeleteNoContent, error)
+
+	IpamAsnRangesList(params *IpamAsnRangesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesListOK, error)
+
+	IpamAsnRangesPartialUpdate(params *IpamAsnRangesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesPartialUpdateOK, error)
+
+	IpamAsnRangesRead(params *IpamAsnRangesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesReadOK, error)
+
+	IpamAsnRangesUpdate(params *IpamAsnRangesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesUpdateOK, error)
+
 	IpamAsnsCreate(params *IpamAsnsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnsCreateCreated, error)
 
 	IpamAsnsDelete(params *IpamAsnsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnsDeleteNoContent, error)
@@ -264,6 +276,30 @@ type ClientService interface {
 	IpamVlanGroupsRead(params *IpamVlanGroupsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanGroupsReadOK, error)
 
 	IpamVlanGroupsUpdate(params *IpamVlanGroupsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanGroupsUpdateOK, error)
+
+	IpamVlanTranslationPoliciesCreate(params *IpamVlanTranslationPoliciesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationPoliciesCreateCreated, error)
+
+	IpamVlanTranslationPoliciesDelete(params *IpamVlanTranslationPoliciesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationPoliciesDeleteNoContent, error)
+
+	IpamVlanTranslationPoliciesList(params *IpamVlanTranslationPoliciesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationPoliciesListOK, error)
+
+	IpamVlanTranslationPoliciesPartialUpdate(params *IpamVlanTranslationPoliciesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationPoliciesPartialUpdateOK, error)
+
+	IpamVlanTranslationPoliciesRead(params *IpamVlanTranslationPoliciesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationPoliciesReadOK, error)
+
+	IpamVlanTranslationPoliciesUpdate(params *IpamVlanTranslationPoliciesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationPoliciesUpdateOK, error)
+
+	IpamVlanTranslationRulesCreate(params *IpamVlanTranslationRulesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationRulesCreateCreated, error)
+
+	IpamVlanTranslationRulesDelete(params *IpamVlanTranslationRulesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationRulesDeleteNoContent, error)
+
+	IpamVlanTranslationRulesList(params *IpamVlanTranslationRulesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationRulesListOK, error)
+
+	IpamVlanTranslationRulesPartialUpdate(params *IpamVlanTranslationRulesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationRulesPartialUpdateOK, error)
+
+	IpamVlanTranslationRulesRead(params *IpamVlanTranslationRulesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationRulesReadOK, error)
+
+	IpamVlanTranslationRulesUpdate(params *IpamVlanTranslationRulesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationRulesUpdateOK, error)
 
 	IpamVlansCreate(params *IpamVlansCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlansCreateCreated, error)
 
@@ -517,6 +553,234 @@ func (a *Client) IpamAggregatesUpdate(params *IpamAggregatesUpdateParams, authIn
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*IpamAggregatesUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamAsnRangesCreate ipam asn ranges create API
+*/
+func (a *Client) IpamAsnRangesCreate(params *IpamAsnRangesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_create",
+		Method:             "POST",
+		PathPattern:        "/ipam/asn-ranges/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamAsnRangesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamAsnRangesDelete ipam asn ranges delete API
+*/
+func (a *Client) IpamAsnRangesDelete(params *IpamAsnRangesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_delete",
+		Method:             "DELETE",
+		PathPattern:        "/ipam/asn-ranges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamAsnRangesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamAsnRangesList ipam asn ranges list API
+*/
+func (a *Client) IpamAsnRangesList(params *IpamAsnRangesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_list",
+		Method:             "GET",
+		PathPattern:        "/ipam/asn-ranges/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamAsnRangesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamAsnRangesPartialUpdate ipam asn ranges partial update API
+*/
+func (a *Client) IpamAsnRangesPartialUpdate(params *IpamAsnRangesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/ipam/asn-ranges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamAsnRangesPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamAsnRangesRead ipam asn ranges read API
+*/
+func (a *Client) IpamAsnRangesRead(params *IpamAsnRangesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_read",
+		Method:             "GET",
+		PathPattern:        "/ipam/asn-ranges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamAsnRangesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamAsnRangesUpdate ipam asn ranges update API
+*/
+func (a *Client) IpamAsnRangesUpdate(params *IpamAsnRangesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_update",
+		Method:             "PUT",
+		PathPattern:        "/ipam/asn-ranges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamAsnRangesUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -4013,6 +4277,462 @@ func (a *Client) IpamVlanGroupsUpdate(params *IpamVlanGroupsUpdateParams, authIn
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*IpamVlanGroupsUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamVlanTranslationPoliciesCreate ipam vlan translation policies create API
+*/
+func (a *Client) IpamVlanTranslationPoliciesCreate(params *IpamVlanTranslationPoliciesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationPoliciesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamVlanTranslationPoliciesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_vlan-translation-policies_create",
+		Method:             "POST",
+		PathPattern:        "/ipam/vlan-translation-policies/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamVlanTranslationPoliciesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamVlanTranslationPoliciesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamVlanTranslationPoliciesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamVlanTranslationPoliciesDelete ipam vlan translation policies delete API
+*/
+func (a *Client) IpamVlanTranslationPoliciesDelete(params *IpamVlanTranslationPoliciesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationPoliciesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamVlanTranslationPoliciesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_vlan-translation-policies_delete",
+		Method:             "DELETE",
+		PathPattern:        "/ipam/vlan-translation-policies/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamVlanTranslationPoliciesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamVlanTranslationPoliciesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamVlanTranslationPoliciesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamVlanTranslationPoliciesList ipam vlan translation policies list API
+*/
+func (a *Client) IpamVlanTranslationPoliciesList(params *IpamVlanTranslationPoliciesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationPoliciesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamVlanTranslationPoliciesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_vlan-translation-policies_list",
+		Method:             "GET",
+		PathPattern:        "/ipam/vlan-translation-policies/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamVlanTranslationPoliciesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamVlanTranslationPoliciesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamVlanTranslationPoliciesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamVlanTranslationPoliciesPartialUpdate ipam vlan translation policies partial update API
+*/
+func (a *Client) IpamVlanTranslationPoliciesPartialUpdate(params *IpamVlanTranslationPoliciesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationPoliciesPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamVlanTranslationPoliciesPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_vlan-translation-policies_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/ipam/vlan-translation-policies/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamVlanTranslationPoliciesPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamVlanTranslationPoliciesPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamVlanTranslationPoliciesPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamVlanTranslationPoliciesRead ipam vlan translation policies read API
+*/
+func (a *Client) IpamVlanTranslationPoliciesRead(params *IpamVlanTranslationPoliciesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationPoliciesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamVlanTranslationPoliciesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_vlan-translation-policies_read",
+		Method:             "GET",
+		PathPattern:        "/ipam/vlan-translation-policies/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamVlanTranslationPoliciesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamVlanTranslationPoliciesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamVlanTranslationPoliciesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamVlanTranslationPoliciesUpdate ipam vlan translation policies update API
+*/
+func (a *Client) IpamVlanTranslationPoliciesUpdate(params *IpamVlanTranslationPoliciesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationPoliciesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamVlanTranslationPoliciesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_vlan-translation-policies_update",
+		Method:             "PUT",
+		PathPattern:        "/ipam/vlan-translation-policies/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamVlanTranslationPoliciesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamVlanTranslationPoliciesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamVlanTranslationPoliciesUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamVlanTranslationRulesCreate ipam vlan translation rules create API
+*/
+func (a *Client) IpamVlanTranslationRulesCreate(params *IpamVlanTranslationRulesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationRulesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamVlanTranslationRulesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_vlan-translation-rules_create",
+		Method:             "POST",
+		PathPattern:        "/ipam/vlan-translation-rules/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamVlanTranslationRulesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamVlanTranslationRulesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamVlanTranslationRulesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamVlanTranslationRulesDelete ipam vlan translation rules delete API
+*/
+func (a *Client) IpamVlanTranslationRulesDelete(params *IpamVlanTranslationRulesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationRulesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamVlanTranslationRulesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_vlan-translation-rules_delete",
+		Method:             "DELETE",
+		PathPattern:        "/ipam/vlan-translation-rules/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamVlanTranslationRulesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamVlanTranslationRulesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamVlanTranslationRulesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamVlanTranslationRulesList ipam vlan translation rules list API
+*/
+func (a *Client) IpamVlanTranslationRulesList(params *IpamVlanTranslationRulesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationRulesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamVlanTranslationRulesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_vlan-translation-rules_list",
+		Method:             "GET",
+		PathPattern:        "/ipam/vlan-translation-rules/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamVlanTranslationRulesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamVlanTranslationRulesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamVlanTranslationRulesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamVlanTranslationRulesPartialUpdate ipam vlan translation rules partial update API
+*/
+func (a *Client) IpamVlanTranslationRulesPartialUpdate(params *IpamVlanTranslationRulesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationRulesPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamVlanTranslationRulesPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_vlan-translation-rules_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/ipam/vlan-translation-rules/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamVlanTranslationRulesPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamVlanTranslationRulesPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamVlanTranslationRulesPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamVlanTranslationRulesRead ipam vlan translation rules read API
+*/
+func (a *Client) IpamVlanTranslationRulesRead(params *IpamVlanTranslationRulesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationRulesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamVlanTranslationRulesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_vlan-translation-rules_read",
+		Method:             "GET",
+		PathPattern:        "/ipam/vlan-translation-rules/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamVlanTranslationRulesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamVlanTranslationRulesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamVlanTranslationRulesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamVlanTranslationRulesUpdate ipam vlan translation rules update API
+*/
+func (a *Client) IpamVlanTranslationRulesUpdate(params *IpamVlanTranslationRulesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamVlanTranslationRulesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamVlanTranslationRulesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_vlan-translation-rules_update",
+		Method:             "PUT",
+		PathPattern:        "/ipam/vlan-translation-rules/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamVlanTranslationRulesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamVlanTranslationRulesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamVlanTranslationRulesUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

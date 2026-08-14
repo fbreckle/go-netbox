@@ -83,6 +83,30 @@ type ClientService interface {
 
 	UsersGroupsUpdate(params *UsersGroupsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersGroupsUpdateOK, error)
 
+	UsersOwnerGroupsCreate(params *UsersOwnerGroupsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnerGroupsCreateCreated, error)
+
+	UsersOwnerGroupsDelete(params *UsersOwnerGroupsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnerGroupsDeleteNoContent, error)
+
+	UsersOwnerGroupsList(params *UsersOwnerGroupsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnerGroupsListOK, error)
+
+	UsersOwnerGroupsPartialUpdate(params *UsersOwnerGroupsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnerGroupsPartialUpdateOK, error)
+
+	UsersOwnerGroupsRead(params *UsersOwnerGroupsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnerGroupsReadOK, error)
+
+	UsersOwnerGroupsUpdate(params *UsersOwnerGroupsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnerGroupsUpdateOK, error)
+
+	UsersOwnersCreate(params *UsersOwnersCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnersCreateCreated, error)
+
+	UsersOwnersDelete(params *UsersOwnersDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnersDeleteNoContent, error)
+
+	UsersOwnersList(params *UsersOwnersListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnersListOK, error)
+
+	UsersOwnersPartialUpdate(params *UsersOwnersPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnersPartialUpdateOK, error)
+
+	UsersOwnersRead(params *UsersOwnersReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnersReadOK, error)
+
+	UsersOwnersUpdate(params *UsersOwnersUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnersUpdateOK, error)
+
 	UsersPermissionsCreate(params *UsersPermissionsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersPermissionsCreateCreated, error)
 
 	UsersPermissionsDelete(params *UsersPermissionsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersPermissionsDeleteNoContent, error)
@@ -387,6 +411,462 @@ func (a *Client) UsersGroupsUpdate(params *UsersGroupsUpdateParams, authInfo run
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*UsersGroupsUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UsersOwnerGroupsCreate users owner groups create API
+*/
+func (a *Client) UsersOwnerGroupsCreate(params *UsersOwnerGroupsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnerGroupsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUsersOwnerGroupsCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "users_owner-groups_create",
+		Method:             "POST",
+		PathPattern:        "/users/owner-groups/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UsersOwnerGroupsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UsersOwnerGroupsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UsersOwnerGroupsCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UsersOwnerGroupsDelete users owner groups delete API
+*/
+func (a *Client) UsersOwnerGroupsDelete(params *UsersOwnerGroupsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnerGroupsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUsersOwnerGroupsDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "users_owner-groups_delete",
+		Method:             "DELETE",
+		PathPattern:        "/users/owner-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UsersOwnerGroupsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UsersOwnerGroupsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UsersOwnerGroupsDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UsersOwnerGroupsList users owner groups list API
+*/
+func (a *Client) UsersOwnerGroupsList(params *UsersOwnerGroupsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnerGroupsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUsersOwnerGroupsListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "users_owner-groups_list",
+		Method:             "GET",
+		PathPattern:        "/users/owner-groups/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UsersOwnerGroupsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UsersOwnerGroupsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UsersOwnerGroupsListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UsersOwnerGroupsPartialUpdate users owner groups partial update API
+*/
+func (a *Client) UsersOwnerGroupsPartialUpdate(params *UsersOwnerGroupsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnerGroupsPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUsersOwnerGroupsPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "users_owner-groups_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/users/owner-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UsersOwnerGroupsPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UsersOwnerGroupsPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UsersOwnerGroupsPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UsersOwnerGroupsRead users owner groups read API
+*/
+func (a *Client) UsersOwnerGroupsRead(params *UsersOwnerGroupsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnerGroupsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUsersOwnerGroupsReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "users_owner-groups_read",
+		Method:             "GET",
+		PathPattern:        "/users/owner-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UsersOwnerGroupsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UsersOwnerGroupsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UsersOwnerGroupsReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UsersOwnerGroupsUpdate users owner groups update API
+*/
+func (a *Client) UsersOwnerGroupsUpdate(params *UsersOwnerGroupsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnerGroupsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUsersOwnerGroupsUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "users_owner-groups_update",
+		Method:             "PUT",
+		PathPattern:        "/users/owner-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UsersOwnerGroupsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UsersOwnerGroupsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UsersOwnerGroupsUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UsersOwnersCreate users owners create API
+*/
+func (a *Client) UsersOwnersCreate(params *UsersOwnersCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnersCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUsersOwnersCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "users_owners_create",
+		Method:             "POST",
+		PathPattern:        "/users/owners/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UsersOwnersCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UsersOwnersCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UsersOwnersCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UsersOwnersDelete users owners delete API
+*/
+func (a *Client) UsersOwnersDelete(params *UsersOwnersDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnersDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUsersOwnersDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "users_owners_delete",
+		Method:             "DELETE",
+		PathPattern:        "/users/owners/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UsersOwnersDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UsersOwnersDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UsersOwnersDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UsersOwnersList users owners list API
+*/
+func (a *Client) UsersOwnersList(params *UsersOwnersListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnersListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUsersOwnersListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "users_owners_list",
+		Method:             "GET",
+		PathPattern:        "/users/owners/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UsersOwnersListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UsersOwnersListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UsersOwnersListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UsersOwnersPartialUpdate users owners partial update API
+*/
+func (a *Client) UsersOwnersPartialUpdate(params *UsersOwnersPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnersPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUsersOwnersPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "users_owners_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/users/owners/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UsersOwnersPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UsersOwnersPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UsersOwnersPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UsersOwnersRead users owners read API
+*/
+func (a *Client) UsersOwnersRead(params *UsersOwnersReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnersReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUsersOwnersReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "users_owners_read",
+		Method:             "GET",
+		PathPattern:        "/users/owners/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UsersOwnersReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UsersOwnersReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UsersOwnersReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+UsersOwnersUpdate users owners update API
+*/
+func (a *Client) UsersOwnersUpdate(params *UsersOwnersUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UsersOwnersUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUsersOwnersUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "users_owners_update",
+		Method:             "PUT",
+		PathPattern:        "/users/owners/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &UsersOwnersUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UsersOwnersUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*UsersOwnersUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

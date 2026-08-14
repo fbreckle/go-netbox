@@ -129,6 +129,18 @@ type ClientService interface {
 
 	VirtualizationVirtualDisksUpdate(params *VirtualizationVirtualDisksUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualDisksUpdateOK, error)
 
+	VirtualizationVirtualMachineTypesCreate(params *VirtualizationVirtualMachineTypesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachineTypesCreateCreated, error)
+
+	VirtualizationVirtualMachineTypesDelete(params *VirtualizationVirtualMachineTypesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachineTypesDeleteNoContent, error)
+
+	VirtualizationVirtualMachineTypesList(params *VirtualizationVirtualMachineTypesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachineTypesListOK, error)
+
+	VirtualizationVirtualMachineTypesPartialUpdate(params *VirtualizationVirtualMachineTypesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachineTypesPartialUpdateOK, error)
+
+	VirtualizationVirtualMachineTypesRead(params *VirtualizationVirtualMachineTypesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachineTypesReadOK, error)
+
+	VirtualizationVirtualMachineTypesUpdate(params *VirtualizationVirtualMachineTypesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachineTypesUpdateOK, error)
+
 	VirtualizationVirtualMachinesCreate(params *VirtualizationVirtualMachinesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachinesCreateCreated, error)
 
 	VirtualizationVirtualMachinesDelete(params *VirtualizationVirtualMachinesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachinesDeleteNoContent, error)
@@ -1281,6 +1293,234 @@ func (a *Client) VirtualizationVirtualDisksUpdate(params *VirtualizationVirtualD
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*VirtualizationVirtualDisksUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VirtualizationVirtualMachineTypesCreate virtualization virtual machine types create API
+*/
+func (a *Client) VirtualizationVirtualMachineTypesCreate(params *VirtualizationVirtualMachineTypesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachineTypesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationVirtualMachineTypesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "virtualization_virtual-machine-types_create",
+		Method:             "POST",
+		PathPattern:        "/virtualization/virtual-machine-types/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationVirtualMachineTypesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationVirtualMachineTypesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VirtualizationVirtualMachineTypesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VirtualizationVirtualMachineTypesDelete virtualization virtual machine types delete API
+*/
+func (a *Client) VirtualizationVirtualMachineTypesDelete(params *VirtualizationVirtualMachineTypesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachineTypesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationVirtualMachineTypesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "virtualization_virtual-machine-types_delete",
+		Method:             "DELETE",
+		PathPattern:        "/virtualization/virtual-machine-types/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationVirtualMachineTypesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationVirtualMachineTypesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VirtualizationVirtualMachineTypesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VirtualizationVirtualMachineTypesList virtualization virtual machine types list API
+*/
+func (a *Client) VirtualizationVirtualMachineTypesList(params *VirtualizationVirtualMachineTypesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachineTypesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationVirtualMachineTypesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "virtualization_virtual-machine-types_list",
+		Method:             "GET",
+		PathPattern:        "/virtualization/virtual-machine-types/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationVirtualMachineTypesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationVirtualMachineTypesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VirtualizationVirtualMachineTypesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VirtualizationVirtualMachineTypesPartialUpdate virtualization virtual machine types partial update API
+*/
+func (a *Client) VirtualizationVirtualMachineTypesPartialUpdate(params *VirtualizationVirtualMachineTypesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachineTypesPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationVirtualMachineTypesPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "virtualization_virtual-machine-types_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/virtualization/virtual-machine-types/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationVirtualMachineTypesPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationVirtualMachineTypesPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VirtualizationVirtualMachineTypesPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VirtualizationVirtualMachineTypesRead virtualization virtual machine types read API
+*/
+func (a *Client) VirtualizationVirtualMachineTypesRead(params *VirtualizationVirtualMachineTypesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachineTypesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationVirtualMachineTypesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "virtualization_virtual-machine-types_read",
+		Method:             "GET",
+		PathPattern:        "/virtualization/virtual-machine-types/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationVirtualMachineTypesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationVirtualMachineTypesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VirtualizationVirtualMachineTypesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VirtualizationVirtualMachineTypesUpdate virtualization virtual machine types update API
+*/
+func (a *Client) VirtualizationVirtualMachineTypesUpdate(params *VirtualizationVirtualMachineTypesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VirtualizationVirtualMachineTypesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVirtualizationVirtualMachineTypesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "virtualization_virtual-machine-types_update",
+		Method:             "PUT",
+		PathPattern:        "/virtualization/virtual-machine-types/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VirtualizationVirtualMachineTypesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VirtualizationVirtualMachineTypesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VirtualizationVirtualMachineTypesUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
