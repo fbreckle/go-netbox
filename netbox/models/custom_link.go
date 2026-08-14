@@ -41,10 +41,10 @@ type CustomLink struct {
 	// Enum: ["outline-dark","blue","indigo","purple","pink","red","orange","yellow","green","teal","cyan","gray","black","white","ghost-dark"]
 	ButtonClass string `json:"button_class,omitempty"`
 
-	// content types
+	// object types
 	// Required: true
 	// Unique: true
-	ContentTypes []string `json:"content_types"`
+	ContentTypes []string `json:"object_types"`
 
 	// Created
 	// Read Only: true
@@ -56,7 +56,7 @@ type CustomLink struct {
 	Display string `json:"display,omitempty"`
 
 	// Enabled
-	Enabled bool `json:"enabled,omitempty"`
+	Enabled bool `json:"enabled"`
 
 	// Group name
 	//
@@ -96,7 +96,7 @@ type CustomLink struct {
 	// New window
 	//
 	// Force link to open in a new window
-	NewWindow bool `json:"new_window,omitempty"`
+	NewWindow bool `json:"new_window"`
 
 	// Url
 	// Read Only: true
@@ -242,11 +242,11 @@ func (m *CustomLink) validateButtonClass(formats strfmt.Registry) error {
 
 func (m *CustomLink) validateContentTypes(formats strfmt.Registry) error {
 
-	if err := validate.Required("content_types", "body", m.ContentTypes); err != nil {
+	if err := validate.Required("object_types", "body", m.ContentTypes); err != nil {
 		return err
 	}
 
-	if err := validate.UniqueItems("content_types", "body", m.ContentTypes); err != nil {
+	if err := validate.UniqueItems("object_types", "body", m.ContentTypes); err != nil {
 		return err
 	}
 
