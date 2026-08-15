@@ -80415,14 +80415,16 @@
           "pattern": "^[0-9a-f]{6}$",
           "maxLength": 6
         },
-        "rear_port": {
-          "$ref": "#/definitions/NestedRearPortTemplate"
-        },
-        "rear_port_position": {
-          "title": "Rear port position",
+        "positions": {
+          "title": "Positions",
           "type": "integer",
-          "maximum": 1024,
-          "minimum": 1
+          "readOnly": true
+        },
+        "rear_ports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FrontPortTemplateMapping"
+          }
         },
         "description": {
           "title": "Description",
@@ -80547,15 +80549,16 @@
           "pattern": "^[0-9a-f]{6}$",
           "maxLength": 6
         },
-        "rear_port": {
-          "title": "Rear port",
-          "type": "integer"
-        },
-        "rear_port_position": {
-          "title": "Rear port position",
+        "positions": {
+          "title": "Positions",
           "type": "integer",
-          "maximum": 1024,
-          "minimum": 1
+          "readOnly": true
+        },
+        "rear_ports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FrontPortTemplateMapping"
+          }
         },
         "description": {
           "title": "Description",
@@ -105306,6 +105309,30 @@
           "type": "string",
           "maxLength": 100,
           "minLength": 1
+        }
+      }
+    },
+    "FrontPortTemplateMapping": {
+      "required": [
+        "position",
+        "rear_port",
+        "rear_port_position"
+      ],
+      "type": "object",
+      "properties": {
+        "position": {
+          "title": "Position",
+          "type": "integer"
+        },
+        "rear_port": {
+          "title": "Rear port",
+          "type": "integer"
+        },
+        "rear_port_position": {
+          "title": "Rear port position",
+          "type": "integer",
+          "maximum": 1024,
+          "minimum": 1
         }
       }
     }

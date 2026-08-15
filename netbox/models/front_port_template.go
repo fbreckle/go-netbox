@@ -23,6 +23,7 @@ package models
 import (
 	"context"
 	"encoding/json"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -84,14 +85,12 @@ type FrontPortTemplate struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
-	// rear port
-	// Required: true
-	RearPort *NestedRearPortTemplate `json:"rear_port"`
+	// Positions
+	// Read Only: true
+	Positions int64 `json:"positions,omitempty"`
 
-	// Rear port position
-	// Maximum: 1024
-	// Minimum: 1
-	RearPortPosition int64 `json:"rear_port_position,omitempty"`
+	// rear ports
+	RearPorts []*FrontPortTemplateMapping `json:"rear_ports"`
 
 	// type
 	// Required: true
@@ -139,11 +138,7 @@ func (m *FrontPortTemplate) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateRearPort(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRearPortPosition(formats); err != nil {
+	if err := m.validateRearPorts(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -280,37 +275,27 @@ func (m *FrontPortTemplate) validateName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *FrontPortTemplate) validateRearPort(formats strfmt.Registry) error {
-
-	if err := validate.Required("rear_port", "body", m.RearPort); err != nil {
-		return err
-	}
-
-	if m.RearPort != nil {
-		if err := m.RearPort.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("rear_port")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("rear_port")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *FrontPortTemplate) validateRearPortPosition(formats strfmt.Registry) error {
-	if swag.IsZero(m.RearPortPosition) { // not required
+func (m *FrontPortTemplate) validateRearPorts(formats strfmt.Registry) error {
+	if swag.IsZero(m.RearPorts) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("rear_port_position", "body", m.RearPortPosition, 1, false); err != nil {
-		return err
-	}
+	for i := 0; i < len(m.RearPorts); i++ {
+		if swag.IsZero(m.RearPorts[i]) { // not required
+			continue
+		}
 
-	if err := validate.MaximumInt("rear_port_position", "body", m.RearPortPosition, 1024, false); err != nil {
-		return err
+		if m.RearPorts[i] != nil {
+			if err := m.RearPorts[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("rear_ports" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("rear_ports" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -376,7 +361,11 @@ func (m *FrontPortTemplate) ContextValidate(ctx context.Context, formats strfmt.
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateRearPort(ctx, formats); err != nil {
+	if err := m.contextValidatePositions(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRearPorts(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -472,18 +461,35 @@ func (m *FrontPortTemplate) contextValidateModuleType(ctx context.Context, forma
 	return nil
 }
 
-func (m *FrontPortTemplate) contextValidateRearPort(ctx context.Context, formats strfmt.Registry) error {
+func (m *FrontPortTemplate) contextValidatePositions(ctx context.Context, formats strfmt.Registry) error {
 
-	if m.RearPort != nil {
+	if err := validate.ReadOnly(ctx, "positions", "body", int64(m.Positions)); err != nil {
+		return err
+	}
 
-		if err := m.RearPort.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("rear_port")
-			} else if ce, ok := err.(*errors.CompositeError); ok {
-				return ce.ValidateName("rear_port")
+	return nil
+}
+
+func (m *FrontPortTemplate) contextValidateRearPorts(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.RearPorts); i++ {
+
+		if m.RearPorts[i] != nil {
+
+			if swag.IsZero(m.RearPorts[i]) { // not required
+				return nil
 			}
-			return err
+
+			if err := m.RearPorts[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("rear_ports" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("rear_ports" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
 		}
+
 	}
 
 	return nil
