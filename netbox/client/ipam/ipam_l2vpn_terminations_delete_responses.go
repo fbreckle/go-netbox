@@ -99,11 +99,11 @@ func (o *IpamL2vpnTerminationsDeleteNoContent) Code() int {
 }
 
 func (o *IpamL2vpnTerminationsDeleteNoContent) Error() string {
-	return fmt.Sprintf("[DELETE /ipam/l2vpn-terminations/{id}/][%d] ipamL2vpnTerminationsDeleteNoContent", 204)
+	return fmt.Sprintf("[DELETE /vpn/l2vpn-terminations/{id}/][%d] ipamL2vpnTerminationsDeleteNoContent", 204)
 }
 
 func (o *IpamL2vpnTerminationsDeleteNoContent) String() string {
-	return fmt.Sprintf("[DELETE /ipam/l2vpn-terminations/{id}/][%d] ipamL2vpnTerminationsDeleteNoContent", 204)
+	return fmt.Sprintf("[DELETE /vpn/l2vpn-terminations/{id}/][%d] ipamL2vpnTerminationsDeleteNoContent", 204)
 }
 
 func (o *IpamL2vpnTerminationsDeleteNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -161,12 +161,12 @@ func (o *IpamL2vpnTerminationsDeleteDefault) Code() int {
 
 func (o *IpamL2vpnTerminationsDeleteDefault) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /ipam/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_delete default %s", o._statusCode, payload)
+	return fmt.Sprintf("[DELETE /vpn/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_delete default %s", o._statusCode, payload)
 }
 
 func (o *IpamL2vpnTerminationsDeleteDefault) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[DELETE /ipam/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_delete default %s", o._statusCode, payload)
+	return fmt.Sprintf("[DELETE /vpn/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_delete default %s", o._statusCode, payload)
 }
 
 func (o *IpamL2vpnTerminationsDeleteDefault) GetPayload() interface{} {

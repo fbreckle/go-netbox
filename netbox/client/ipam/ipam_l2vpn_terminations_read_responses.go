@@ -103,12 +103,12 @@ func (o *IpamL2vpnTerminationsReadOK) Code() int {
 
 func (o *IpamL2vpnTerminationsReadOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /ipam/l2vpn-terminations/{id}/][%d] ipamL2vpnTerminationsReadOK %s", 200, payload)
+	return fmt.Sprintf("[GET /vpn/l2vpn-terminations/{id}/][%d] ipamL2vpnTerminationsReadOK %s", 200, payload)
 }
 
 func (o *IpamL2vpnTerminationsReadOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /ipam/l2vpn-terminations/{id}/][%d] ipamL2vpnTerminationsReadOK %s", 200, payload)
+	return fmt.Sprintf("[GET /vpn/l2vpn-terminations/{id}/][%d] ipamL2vpnTerminationsReadOK %s", 200, payload)
 }
 
 func (o *IpamL2vpnTerminationsReadOK) GetPayload() *models.L2VPNTermination {
@@ -177,12 +177,12 @@ func (o *IpamL2vpnTerminationsReadDefault) Code() int {
 
 func (o *IpamL2vpnTerminationsReadDefault) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /ipam/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_read default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /vpn/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_read default %s", o._statusCode, payload)
 }
 
 func (o *IpamL2vpnTerminationsReadDefault) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /ipam/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_read default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /vpn/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_read default %s", o._statusCode, payload)
 }
 
 func (o *IpamL2vpnTerminationsReadDefault) GetPayload() interface{} {

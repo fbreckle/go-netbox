@@ -41,11 +41,6 @@ type CustomLink struct {
 	// Enum: ["outline-dark","blue","indigo","purple","pink","red","orange","yellow","green","teal","cyan","gray","black","white","ghost-dark"]
 	ButtonClass string `json:"button_class,omitempty"`
 
-	// object types
-	// Required: true
-	// Unique: true
-	ContentTypes []string `json:"object_types"`
-
 	// Created
 	// Read Only: true
 	// Format: date-time
@@ -98,6 +93,11 @@ type CustomLink struct {
 	// Force link to open in a new window
 	NewWindow bool `json:"new_window"`
 
+	// object types
+	// Required: true
+	// Unique: true
+	ObjectTypes []string `json:"object_types"`
+
 	// Url
 	// Read Only: true
 	// Format: uri
@@ -114,10 +114,6 @@ func (m *CustomLink) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateButtonClass(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateContentTypes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -142,6 +138,10 @@ func (m *CustomLink) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateObjectTypes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -240,19 +240,6 @@ func (m *CustomLink) validateButtonClass(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CustomLink) validateContentTypes(formats strfmt.Registry) error {
-
-	if err := validate.Required("object_types", "body", m.ContentTypes); err != nil {
-		return err
-	}
-
-	if err := validate.UniqueItems("object_types", "body", m.ContentTypes); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *CustomLink) validateCreated(formats strfmt.Registry) error {
 	if swag.IsZero(m.Created) { // not required
 		return nil
@@ -326,6 +313,19 @@ func (m *CustomLink) validateName(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaxLength("name", "body", *m.Name, 100); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CustomLink) validateObjectTypes(formats strfmt.Registry) error {
+
+	if err := validate.Required("object_types", "body", m.ObjectTypes); err != nil {
+		return err
+	}
+
+	if err := validate.UniqueItems("object_types", "body", m.ObjectTypes); err != nil {
 		return err
 	}
 
