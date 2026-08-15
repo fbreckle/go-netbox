@@ -134,6 +134,9 @@ type Interface struct {
 	// Read Only: true
 	MacAddresses []*BriefMACAddress `json:"mac_addresses"`
 
+	// Primary MAC Address
+	PrimaryMacAddress *BriefMACAddress `json:"primary_mac_address,omitempty"`
+
 	// Mark connected
 	//
 	// Treat as if a cable is connected

@@ -135,6 +135,9 @@ type WritableInterface struct {
 	// MAC Address
 	MacAddress *string `json:"mac_address,omitempty"`
 
+	// Primary MAC Address
+	PrimaryMacAddress *int64 `json:"primary_mac_address,omitempty"`
+
 	// Mark connected
 	//
 	// Treat as if a cable is connected
