@@ -86833,6 +86833,31 @@
           "maxLength": 200,
           "x-omitempty": false
         },
+        "weight": {
+          "title": "Weight",
+          "description": "Tags with lower weights are displayed before tags with higher weights.",
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 0,
+          "x-nullable": true
+        },
+        "object_types": {
+          "title": "Object types",
+          "description": "The object types to which this tag may be applied. An empty list allows all object types.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-type": {
+            "type": "[]string",
+            "hints": {
+              "kind": "array",
+              "nullable": true,
+              "noValidation": true
+            }
+          },
+          "x-omitempty": true
+        },
         "tagged_items": {
           "title": "Tagged items",
           "type": "integer",
@@ -95284,4 +95309,3 @@
     }
   }
 }
-
