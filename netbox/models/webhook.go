@@ -23,6 +23,7 @@ package models
 import (
 	"context"
 	"encoding/json"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -98,12 +99,17 @@ type Webhook struct {
 	//
 	// When provided, the request will include a 'X-Hook-Signature' header containing a HMAC hex digest of the payload body using the secret as the key. The secret is not transmitted in the request.
 	// Max Length: 255
-	Secret string `json:"secret,omitempty"`
+	// Pointer so an explicit empty string (clear) is distinct from omitempty-skip.
+	Secret *string `json:"secret,omitempty"`
 
 	// SSL verification
 	//
 	// Enable SSL certificate verification. Disable with caution!
-	SslVerification bool `json:"ssl_verification,omitempty"`
+	// Pointer so false survives JSON omitempty (a non-pointer bool would drop false).
+	SslVerification *bool `json:"ssl_verification,omitempty"`
+
+	// tags
+	Tags []*NestedTag `json:"tags"`
 
 	// Url
 	// Read Only: true
@@ -144,6 +150,10 @@ func (m *Webhook) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateSecret(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTags(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -299,8 +309,34 @@ func (m *Webhook) validateSecret(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.MaxLength("secret", "body", m.Secret, 255); err != nil {
+	if err := validate.MaxLength("secret", "body", *m.Secret, 255); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Webhook) validateTags(formats strfmt.Registry) error {
+	if swag.IsZero(m.Tags) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Tags); i++ {
+		if swag.IsZero(m.Tags[i]) { // not required
+			continue
+		}
+
+		if m.Tags[i] != nil {
+			if err := m.Tags[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("tags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -342,9 +378,34 @@ func (m *Webhook) ContextValidate(ctx context.Context, formats strfmt.Registry) 
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateTags(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Webhook) contextValidateTags(ctx context.Context, formats strfmt.Registry) error {
+	for i := 0; i < len(m.Tags); i++ {
+		if m.Tags[i] != nil {
+			if swag.IsZero(m.Tags[i]) { // not required
+				return nil
+			}
+
+			if err := m.Tags[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("tags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+	}
+
 	return nil
 }
 

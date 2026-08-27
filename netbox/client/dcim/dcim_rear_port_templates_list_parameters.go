@@ -1231,7 +1231,7 @@ func (o *DcimRearPortTemplatesListParams) WriteToRequest(r runtime.ClientRequest
 		qDevicetypeID := qrDevicetypeID
 		if qDevicetypeID != "" {
 
-			if err := r.SetQueryParam("devicetype_id", qDevicetypeID); err != nil {
+			if err := r.SetQueryParam("device_type_id", qDevicetypeID); err != nil {
 				return err
 			}
 		}
@@ -1248,7 +1248,7 @@ func (o *DcimRearPortTemplatesListParams) WriteToRequest(r runtime.ClientRequest
 		qDevicetypeIDn := qrDevicetypeIDn
 		if qDevicetypeIDn != "" {
 
-			if err := r.SetQueryParam("devicetype_id__n", qDevicetypeIDn); err != nil {
+			if err := r.SetQueryParam("device_type_id__n", qDevicetypeIDn); err != nil {
 				return err
 			}
 		}
@@ -1486,7 +1486,7 @@ func (o *DcimRearPortTemplatesListParams) WriteToRequest(r runtime.ClientRequest
 		qModuletypeID := qrModuletypeID
 		if qModuletypeID != "" {
 
-			if err := r.SetQueryParam("moduletype_id", qModuletypeID); err != nil {
+			if err := r.SetQueryParam("module_type_id", qModuletypeID); err != nil {
 				return err
 			}
 		}
@@ -1503,7 +1503,7 @@ func (o *DcimRearPortTemplatesListParams) WriteToRequest(r runtime.ClientRequest
 		qModuletypeIDn := qrModuletypeIDn
 		if qModuletypeIDn != "" {
 
-			if err := r.SetQueryParam("moduletype_id__n", qModuletypeIDn); err != nil {
+			if err := r.SetQueryParam("module_type_id__n", qModuletypeIDn); err != nil {
 				return err
 			}
 		}

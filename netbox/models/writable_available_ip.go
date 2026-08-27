@@ -42,6 +42,9 @@ type WritableAvailableIP struct {
 	// Family
 	// Read Only: true
 	Family int64 `json:"family,omitempty"`
+
+	// Tenant
+	Tenant int64 `json:"tenant,omitempty"`
 }
 
 // Validate validates this writable available IP

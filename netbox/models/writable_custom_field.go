@@ -133,7 +133,7 @@ type WritableCustomField struct {
 	//
 	// Specifies the visibility of custom field in the UI
 	// Enum: ["read-write","read-only","hidden"]
-	UIVisibility string `json:"ui_visibility,omitempty"`
+	UIVisibility string `json:"ui_visible,omitempty"`
 
 	// Url
 	// Read Only: true

@@ -51,6 +51,9 @@ type WritableDeviceType struct {
 	// Custom fields
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
+	// Default platform
+	DefaultPlatform *int64 `json:"default_platform,omitempty"`
+
 	// Description
 	// Max Length: 200
 	Description string `json:"description,omitempty"`
@@ -58,6 +61,9 @@ type WritableDeviceType struct {
 	// Device count
 	// Read Only: true
 	DeviceCount int64 `json:"device_count,omitempty"`
+
+	// Exclude from utilization
+	ExcludeFromUtilization bool `json:"exclude_from_utilization"`
 
 	// Display
 	// Read Only: true
