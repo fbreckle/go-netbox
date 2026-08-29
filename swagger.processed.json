@@ -89852,7 +89852,7 @@
         }
       }
     },
-    "VLANGroup": {
+"VLANGroup": {
       "required": [
         "name",
         "slug"
@@ -89921,6 +89921,15 @@
           "title": "Description",
           "type": "string",
           "maxLength": 200
+        },
+        "tenant": {
+          "title": "Tenant",
+          "type": "integer",
+          "x-nullable": true
+        },
+        "comments": {
+          "title": "Comments",
+          "type": "string"
         },
         "tags": {
           "type": "array",
