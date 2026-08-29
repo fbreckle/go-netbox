@@ -90041,7 +90041,7 @@
         }
       }
     },
-    "VLAN": {
+"VLAN": {
       "required": [
         "vid",
         "name"
@@ -90114,6 +90114,34 @@
         "role": {
           "$ref": "#/definitions/NestedRole"
         },
+        "qinq_role": {
+          "title": "Qinq role",
+          "type": "object",
+          "properties": {
+            "value": {
+              "title": "Value",
+              "type": "string",
+              "enum": [
+                "svlan",
+                "cvlan"
+              ]
+            },
+            "label": {
+              "title": "Label",
+              "type": "string",
+              "enum": [
+                "Service",
+                "Customer"
+              ]
+            }
+          },
+          "readOnly": true
+        },
+        "qinq_svlan": {
+          "title": "Q-in-Q SVLAN",
+          "$ref": "#/definitions/NestedVLAN",
+          "x-nullable": true
+        },
         "description": {
           "title": "Description",
           "type": "string",
@@ -90158,7 +90186,7 @@
         }
       }
     },
-    "WritableVLAN": {
+"WritableVLAN": {
       "required": [
         "vid",
         "name"
@@ -90219,6 +90247,20 @@
         },
         "role": {
           "title": "Role",
+          "type": "integer",
+          "x-nullable": true
+        },
+        "qinq_role": {
+          "title": "Qinq role",
+          "type": "string",
+          "enum": [
+            "svlan",
+            "cvlan"
+          ],
+          "x-nullable": true
+        },
+        "qinq_svlan": {
+          "title": "Q-in-Q SVLAN",
           "type": "integer",
           "x-nullable": true
         },

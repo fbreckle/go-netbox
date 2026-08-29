@@ -80,6 +80,12 @@ type VLAN struct {
 	// Read Only: true
 	PrefixCount int64 `json:"prefix_count,omitempty"`
 
+	// qinq role
+	QinqRole *VLANQinqRole `json:"qinq_role,omitempty"`
+
+	// Q-in-Q SVLAN
+	QinqSvlan *NestedVLAN `json:"qinq_svlan,omitempty"`
+
 	// role
 	Role *NestedRole `json:"role,omitempty"`
 
@@ -132,6 +138,14 @@ func (m *VLAN) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateQinqRole(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateQinqSvlan(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -255,6 +269,44 @@ func (m *VLAN) validateName(formats strfmt.Registry) error {
 
 	if err := validate.MaxLength("name", "body", *m.Name, 64); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *VLAN) validateQinqRole(formats strfmt.Registry) error {
+	if swag.IsZero(m.QinqRole) { // not required
+		return nil
+	}
+
+	if m.QinqRole != nil {
+		if err := m.QinqRole.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("qinq_role")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("qinq_role")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *VLAN) validateQinqSvlan(formats strfmt.Registry) error {
+	if swag.IsZero(m.QinqSvlan) { // not required
+		return nil
+	}
+
+	if m.QinqSvlan != nil {
+		if err := m.QinqSvlan.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("qinq_svlan")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("qinq_svlan")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -423,6 +475,14 @@ func (m *VLAN) ContextValidate(ctx context.Context, formats strfmt.Registry) err
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateQinqRole(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateQinqSvlan(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateRole(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -535,6 +595,48 @@ func (m *VLAN) contextValidatePrefixCount(ctx context.Context, formats strfmt.Re
 
 	if err := validate.ReadOnly(ctx, "prefix_count", "body", int64(m.PrefixCount)); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *VLAN) contextValidateQinqRole(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.QinqRole != nil {
+
+		if swag.IsZero(m.QinqRole) { // not required
+			return nil
+		}
+
+		if err := m.QinqRole.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("qinq_role")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("qinq_role")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *VLAN) contextValidateQinqSvlan(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.QinqSvlan != nil {
+
+		if swag.IsZero(m.QinqSvlan) { // not required
+			return nil
+		}
+
+		if err := m.QinqSvlan.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("qinq_svlan")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("qinq_svlan")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -669,6 +771,150 @@ func (m *VLAN) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *VLAN) UnmarshalBinary(b []byte) error {
 	var res VLAN
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// VLANQinqRole Qinq role
+//
+// swagger:model VLANQinqRole
+type VLANQinqRole struct {
+
+	// Label
+	// Enum: ["Service","Customer"]
+	Label string `json:"label,omitempty"`
+
+	// Value
+	// Enum: ["svlan","cvlan"]
+	Value string `json:"value,omitempty"`
+}
+
+// Validate validates this v l a n qinq role
+func (m *VLANQinqRole) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateLabel(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var vLANQinqRoleTypeLabelPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["Service","Customer"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		vLANQinqRoleTypeLabelPropEnum = append(vLANQinqRoleTypeLabelPropEnum, v)
+	}
+}
+
+const (
+
+	// VLANQinqRoleLabelService captures enum value "Service"
+	VLANQinqRoleLabelService string = "Service"
+
+	// VLANQinqRoleLabelCustomer captures enum value "Customer"
+	VLANQinqRoleLabelCustomer string = "Customer"
+)
+
+// prop value enum
+func (m *VLANQinqRole) validateLabelEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, vLANQinqRoleTypeLabelPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *VLANQinqRole) validateLabel(formats strfmt.Registry) error {
+	if swag.IsZero(m.Label) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateLabelEnum("qinq_role"+"."+"label", "body", m.Label); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var vLANQinqRoleTypeValuePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["svlan","cvlan"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		vLANQinqRoleTypeValuePropEnum = append(vLANQinqRoleTypeValuePropEnum, v)
+	}
+}
+
+const (
+
+	// VLANQinqRoleValueSvlan captures enum value "svlan"
+	VLANQinqRoleValueSvlan string = "svlan"
+
+	// VLANQinqRoleValueCvlan captures enum value "cvlan"
+	VLANQinqRoleValueCvlan string = "cvlan"
+)
+
+// prop value enum
+func (m *VLANQinqRole) validateValueEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, vLANQinqRoleTypeValuePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *VLANQinqRole) validateValue(formats strfmt.Registry) error {
+	if swag.IsZero(m.Value) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateValueEnum("qinq_role"+"."+"value", "body", m.Value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this v l a n qinq role based on the context it is used
+func (m *VLANQinqRole) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *VLANQinqRole) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *VLANQinqRole) UnmarshalBinary(b []byte) error {
+	var res VLANQinqRole
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
