@@ -39662,6 +39662,279 @@
         }
       ]
     },
+    "/extras/notification-groups/": {
+      "get": {
+        "operationId": "extras_notification-groups_list",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "group_id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/NotificationGroup"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "extras"
+        ]
+      },
+      "post": {
+        "operationId": "extras_notification-groups_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WritableNotificationGroup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NotificationGroup"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "extras"
+        ]
+      },
+      "parameters": []
+    },
+    "/extras/notification-groups/{id}/": {
+      "get": {
+        "operationId": "extras_notification-groups_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NotificationGroup"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "extras"
+        ]
+      },
+      "put": {
+        "operationId": "extras_notification-groups_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WritableNotificationGroup"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NotificationGroup"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "extras"
+        ]
+      },
+      "patch": {
+        "operationId": "extras_notification-groups_partial_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WritableNotificationGroup"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NotificationGroup"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "extras"
+        ]
+      },
+      "delete": {
+        "operationId": "extras_notification-groups_delete",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "extras"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A unique integer value identifying this notification group.",
+          "required": true,
+          "type": "integer"
+        }
+      ]
+    },
     "/extras/object-changes/": {
       "get": {
         "operationId": "extras_object-changes_list",
@@ -69272,6 +69545,55 @@
         }
       }
     },
+    "NotificationGroup": {
+      "required": [
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "url": {
+          "title": "Url",
+          "type": "string",
+          "format": "uri",
+          "readOnly": true
+        },
+        "display": {
+          "title": "Display",
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "title": "Name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "maxLength": 200
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NestedGroup"
+          },
+          "uniqueItems": true
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NestedUser"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
     "WritableCircuitTermination": {
       "required": [
         "circuit",
@@ -69991,6 +70313,55 @@
           "format": "date-time",
           "readOnly": true,
           "x-nullable": true
+        }
+      }
+    },
+    "WritableNotificationGroup": {
+      "required": [
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "url": {
+          "title": "Url",
+          "type": "string",
+          "format": "uri",
+          "readOnly": true
+        },
+        "display": {
+          "title": "Display",
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "title": "Name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "maxLength": 200
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "uniqueItems": true
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "uniqueItems": true
         }
       }
     },

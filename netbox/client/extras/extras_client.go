@@ -213,6 +213,18 @@ type ClientService interface {
 
 	ExtrasJournalEntriesUpdate(params *ExtrasJournalEntriesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasJournalEntriesUpdateOK, error)
 
+	ExtrasNotificationGroupsCreate(params *ExtrasNotificationGroupsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasNotificationGroupsCreateCreated, error)
+
+	ExtrasNotificationGroupsDelete(params *ExtrasNotificationGroupsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasNotificationGroupsDeleteNoContent, error)
+
+	ExtrasNotificationGroupsList(params *ExtrasNotificationGroupsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasNotificationGroupsListOK, error)
+
+	ExtrasNotificationGroupsPartialUpdate(params *ExtrasNotificationGroupsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasNotificationGroupsPartialUpdateOK, error)
+
+	ExtrasNotificationGroupsRead(params *ExtrasNotificationGroupsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasNotificationGroupsReadOK, error)
+
+	ExtrasNotificationGroupsUpdate(params *ExtrasNotificationGroupsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasNotificationGroupsUpdateOK, error)
+
 	ExtrasObjectChangesList(params *ExtrasObjectChangesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasObjectChangesListOK, error)
 
 	ExtrasObjectChangesRead(params *ExtrasObjectChangesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasObjectChangesReadOK, error)
@@ -2545,6 +2557,234 @@ func (a *Client) ExtrasJournalEntriesUpdate(params *ExtrasJournalEntriesUpdatePa
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*ExtrasJournalEntriesUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ExtrasNotificationGroupsCreate extras notification groups create API
+*/
+func (a *Client) ExtrasNotificationGroupsCreate(params *ExtrasNotificationGroupsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasNotificationGroupsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasNotificationGroupsCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_notification-groups_create",
+		Method:             "POST",
+		PathPattern:        "/extras/notification-groups/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasNotificationGroupsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasNotificationGroupsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasNotificationGroupsCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ExtrasNotificationGroupsDelete extras notification groups delete API
+*/
+func (a *Client) ExtrasNotificationGroupsDelete(params *ExtrasNotificationGroupsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasNotificationGroupsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasNotificationGroupsDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_notification-groups_delete",
+		Method:             "DELETE",
+		PathPattern:        "/extras/notification-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasNotificationGroupsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasNotificationGroupsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasNotificationGroupsDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ExtrasNotificationGroupsList extras notification groups list API
+*/
+func (a *Client) ExtrasNotificationGroupsList(params *ExtrasNotificationGroupsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasNotificationGroupsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasNotificationGroupsListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_notification-groups_list",
+		Method:             "GET",
+		PathPattern:        "/extras/notification-groups/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasNotificationGroupsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasNotificationGroupsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasNotificationGroupsListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ExtrasNotificationGroupsPartialUpdate extras notification groups partial update API
+*/
+func (a *Client) ExtrasNotificationGroupsPartialUpdate(params *ExtrasNotificationGroupsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasNotificationGroupsPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasNotificationGroupsPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_notification-groups_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/extras/notification-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasNotificationGroupsPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasNotificationGroupsPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasNotificationGroupsPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ExtrasNotificationGroupsRead extras notification groups read API
+*/
+func (a *Client) ExtrasNotificationGroupsRead(params *ExtrasNotificationGroupsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasNotificationGroupsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasNotificationGroupsReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_notification-groups_read",
+		Method:             "GET",
+		PathPattern:        "/extras/notification-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasNotificationGroupsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasNotificationGroupsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasNotificationGroupsReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+ExtrasNotificationGroupsUpdate extras notification groups update API
+*/
+func (a *Client) ExtrasNotificationGroupsUpdate(params *ExtrasNotificationGroupsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ExtrasNotificationGroupsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExtrasNotificationGroupsUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "extras_notification-groups_update",
+		Method:             "PUT",
+		PathPattern:        "/extras/notification-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &ExtrasNotificationGroupsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ExtrasNotificationGroupsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ExtrasNotificationGroupsUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
