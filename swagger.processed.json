@@ -68963,6 +68963,30 @@
     }
   },
   "definitions": {
+    "FrontPortTemplateMapping": {
+      "required": [
+        "position",
+        "rear_port",
+        "rear_port_position"
+      ],
+      "type": "object",
+      "properties": {
+        "position": {
+          "title": "Position",
+          "type": "integer"
+        },
+        "rear_port": {
+          "title": "Rear port",
+          "type": "integer"
+        },
+        "rear_port_position": {
+          "title": "Rear port position",
+          "type": "integer",
+          "maximum": 1024,
+          "minimum": 1
+        }
+      }
+    },
     "NestedCircuit": {
       "required": [
         "cid"
@@ -73922,11 +73946,10 @@
         }
       }
     },
-    "FrontPortTemplate": {
+"FrontPortTemplate": {
       "required": [
         "name",
-        "type",
-        "rear_port"
+        "type"
       ],
       "type": "object",
       "properties": {
@@ -74077,6 +74100,17 @@
           "pattern": "^[0-9a-f]{6}$",
           "maxLength": 6
         },
+        "positions": {
+          "title": "Positions",
+          "type": "integer",
+          "readOnly": true
+        },
+        "rear_ports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FrontPortTemplateMapping"
+          }
+        },
         "rear_port": {
           "$ref": "#/definitions/NestedRearPortTemplate"
         },
@@ -74107,11 +74141,10 @@
         }
       }
     },
-    "WritableFrontPortTemplate": {
+"WritableFrontPortTemplate": {
       "required": [
         "name",
-        "type",
-        "rear_port"
+        "type"
       ],
       "type": "object",
       "properties": {
@@ -74208,6 +74241,18 @@
           "type": "string",
           "pattern": "^[0-9a-f]{6}$",
           "maxLength": 6
+        },
+        "positions": {
+          "title": "Positions",
+          "type": "integer",
+          "maximum": 1024,
+          "minimum": 1
+        },
+        "rear_ports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FrontPortTemplateMapping"
+          }
         },
         "rear_port": {
           "title": "Rear port",
