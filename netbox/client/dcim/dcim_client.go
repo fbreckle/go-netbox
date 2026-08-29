@@ -473,6 +473,18 @@ type ClientService interface {
 
 	DcimPowerPortsUpdate(params *DcimPowerPortsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimPowerPortsUpdateOK, error)
 
+	DcimRackGroupsCreate(params *DcimRackGroupsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackGroupsCreateCreated, error)
+
+	DcimRackGroupsDelete(params *DcimRackGroupsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackGroupsDeleteNoContent, error)
+
+	DcimRackGroupsList(params *DcimRackGroupsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackGroupsListOK, error)
+
+	DcimRackGroupsPartialUpdate(params *DcimRackGroupsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackGroupsPartialUpdateOK, error)
+
+	DcimRackGroupsRead(params *DcimRackGroupsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackGroupsReadOK, error)
+
+	DcimRackGroupsUpdate(params *DcimRackGroupsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackGroupsUpdateOK, error)
+
 	DcimRackReservationsCreate(params *DcimRackReservationsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackReservationsCreateCreated, error)
 
 	DcimRackReservationsDelete(params *DcimRackReservationsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackReservationsDeleteNoContent, error)
@@ -8289,6 +8301,234 @@ func (a *Client) DcimPowerPortsUpdate(params *DcimPowerPortsUpdateParams, authIn
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*DcimPowerPortsUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimRackGroupsCreate dcim rack groups create API
+*/
+func (a *Client) DcimRackGroupsCreate(params *DcimRackGroupsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackGroupsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackGroupsCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_rack-groups_create",
+		Method:             "POST",
+		PathPattern:        "/dcim/rack-groups/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackGroupsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackGroupsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimRackGroupsCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimRackGroupsDelete dcim rack groups delete API
+*/
+func (a *Client) DcimRackGroupsDelete(params *DcimRackGroupsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackGroupsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackGroupsDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_rack-groups_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/rack-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackGroupsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackGroupsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimRackGroupsDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimRackGroupsList dcim rack groups list API
+*/
+func (a *Client) DcimRackGroupsList(params *DcimRackGroupsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackGroupsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackGroupsListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_rack-groups_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/rack-groups/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackGroupsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackGroupsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimRackGroupsListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimRackGroupsPartialUpdate dcim rack groups partial update API
+*/
+func (a *Client) DcimRackGroupsPartialUpdate(params *DcimRackGroupsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackGroupsPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackGroupsPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_rack-groups_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/dcim/rack-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackGroupsPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackGroupsPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimRackGroupsPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimRackGroupsRead dcim rack groups read API
+*/
+func (a *Client) DcimRackGroupsRead(params *DcimRackGroupsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackGroupsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackGroupsReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_rack-groups_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/rack-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackGroupsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackGroupsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimRackGroupsReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimRackGroupsUpdate dcim rack groups update API
+*/
+func (a *Client) DcimRackGroupsUpdate(params *DcimRackGroupsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimRackGroupsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimRackGroupsUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_rack-groups_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/rack-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimRackGroupsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimRackGroupsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimRackGroupsUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
