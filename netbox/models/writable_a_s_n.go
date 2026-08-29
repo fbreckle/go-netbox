@@ -79,9 +79,15 @@ type WritableASN struct {
 	// Required: true
 	Rir *int64 `json:"rir"`
 
+	// Role
+	Role *int64 `json:"role,omitempty"`
+
 	// Site count
 	// Read Only: true
 	SiteCount int64 `json:"site_count,omitempty"`
+
+	// Sites
+	Sites []int64 `json:"sites"`
 
 	// tags
 	Tags []*NestedTag `json:"tags"`

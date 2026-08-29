@@ -87179,7 +87179,7 @@
         }
       }
     },
-    "ASN": {
+"ASN": {
       "required": [
         "asn",
         "rir"
@@ -87214,6 +87214,18 @@
         },
         "tenant": {
           "$ref": "#/definitions/NestedTenant"
+        },
+        "role": {
+          "title": "Role",
+          "$ref": "#/definitions/NestedRole",
+          "x-nullable": true
+        },
+        "sites": {
+          "title": "Sites",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NestedSite"
+          }
         },
         "description": {
           "title": "Description",
@@ -87261,7 +87273,7 @@
         }
       }
     },
-    "WritableASN": {
+"WritableASN": {
       "required": [
         "asn",
         "rir"
@@ -87299,6 +87311,18 @@
           "title": "Tenant",
           "type": "integer",
           "x-nullable": true
+        },
+        "role": {
+          "title": "Role",
+          "type": "integer",
+          "x-nullable": true
+        },
+        "sites": {
+          "title": "Sites",
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
         },
         "description": {
           "title": "Description",
