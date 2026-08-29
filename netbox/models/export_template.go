@@ -37,12 +37,7 @@ type ExportTemplate struct {
 	// As attachment
 	//
 	// Download file as attachment
-	AsAttachment bool `json:"as_attachment,omitempty"`
-
-	// content types
-	// Required: true
-	// Unique: true
-	ContentTypes []string `json:"content_types"`
+	AsAttachment bool `json:"as_attachment"`
 
 	// Created
 	// Read Only: true
@@ -84,6 +79,11 @@ type ExportTemplate struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
+	// object types
+	// Required: true
+	// Unique: true
+	ObjectTypes []string `json:"object_types"`
+
 	// Template code
 	//
 	// Jinja2 template code. The list of objects being exported is passed as a context variable named <code>queryset</code>.
@@ -100,10 +100,6 @@ type ExportTemplate struct {
 // Validate validates this export template
 func (m *ExportTemplate) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateContentTypes(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateCreated(formats); err != nil {
 		res = append(res, err)
@@ -129,6 +125,10 @@ func (m *ExportTemplate) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateObjectTypes(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateTemplateCode(formats); err != nil {
 		res = append(res, err)
 	}
@@ -140,19 +140,6 @@ func (m *ExportTemplate) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *ExportTemplate) validateContentTypes(formats strfmt.Registry) error {
-
-	if err := validate.Required("content_types", "body", m.ContentTypes); err != nil {
-		return err
-	}
-
-	if err := validate.UniqueItems("content_types", "body", m.ContentTypes); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -227,6 +214,19 @@ func (m *ExportTemplate) validateName(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaxLength("name", "body", *m.Name, 100); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ExportTemplate) validateObjectTypes(formats strfmt.Registry) error {
+
+	if err := validate.Required("object_types", "body", m.ObjectTypes); err != nil {
+		return err
+	}
+
+	if err := validate.UniqueItems("object_types", "body", m.ObjectTypes); err != nil {
 		return err
 	}
 

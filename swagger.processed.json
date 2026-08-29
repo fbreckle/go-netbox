@@ -84574,7 +84574,7 @@
         }
       }
     },
-    "VirtualDeviceContext": {
+"VirtualDeviceContext": {
       "required": [
         "name",
         "device",
@@ -84629,12 +84629,29 @@
         },
         "status": {
           "title": "Status",
-          "type": "string",
-          "enum": [
-            "active",
-            "planned",
-            "offline"
-          ]
+          "required": [
+            "label",
+            "value"
+          ],
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "enum": [
+                "active",
+                "planned",
+                "offline"
+              ]
+            },
+            "label": {
+              "type": "string",
+              "enum": [
+                "Active",
+                "Planned",
+                "Offline"
+              ]
+            }
+          }
         },
         "description": {
           "title": "Description",
@@ -86024,9 +86041,9 @@
         }
       }
     },
-    "CustomLink": {
+"CustomLink": {
       "required": [
-        "content_types",
+        "object_types",
         "name",
         "link_text",
         "link_url"
@@ -86049,13 +86066,6 @@
           "type": "string",
           "readOnly": true
         },
-        "content_types": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "uniqueItems": true
-        },
         "name": {
           "title": "Name",
           "type": "string",
@@ -86064,7 +86074,8 @@
         },
         "enabled": {
           "title": "Enabled",
-          "type": "boolean"
+          "type": "boolean",
+          "x-omitempty": false
         },
         "link_text": {
           "title": "Link text",
@@ -86115,7 +86126,8 @@
         "new_window": {
           "title": "New window",
           "description": "Force link to open in a new window",
-          "type": "boolean"
+          "type": "boolean",
+          "x-omitempty": false
         },
         "created": {
           "title": "Created",
@@ -86130,12 +86142,19 @@
           "format": "date-time",
           "readOnly": true,
           "x-nullable": true
+        },
+        "object_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
         }
       }
     },
-    "ExportTemplate": {
+"ExportTemplate": {
       "required": [
-        "content_types",
+        "object_types",
         "name",
         "template_code"
       ],
@@ -86156,13 +86175,6 @@
           "title": "Display",
           "type": "string",
           "readOnly": true
-        },
-        "content_types": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "uniqueItems": true
         },
         "name": {
           "title": "Name",
@@ -86196,7 +86208,8 @@
         "as_attachment": {
           "title": "As attachment",
           "description": "Download file as attachment",
-          "type": "boolean"
+          "type": "boolean",
+          "x-omitempty": false
         },
         "created": {
           "title": "Created",
@@ -86211,6 +86224,13 @@
           "format": "date-time",
           "readOnly": true,
           "x-nullable": true
+        },
+        "object_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
         }
       }
     },

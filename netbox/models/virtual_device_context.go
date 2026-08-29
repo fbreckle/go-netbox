@@ -94,10 +94,9 @@ type VirtualDeviceContext struct {
 	// primary ip6
 	PrimaryIp6 *NestedIPAddress `json:"primary_ip6,omitempty"`
 
-	// Status
+	// status
 	// Required: true
-	// Enum: ["active","planned","offline"]
-	Status *string `json:"status"`
+	Status *VirtualDeviceContextStatus `json:"status"`
 
 	// tags
 	Tags []*NestedTag `json:"tags"`
@@ -319,47 +318,21 @@ func (m *VirtualDeviceContext) validatePrimaryIp6(formats strfmt.Registry) error
 	return nil
 }
 
-var virtualDeviceContextTypeStatusPropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["active","planned","offline"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		virtualDeviceContextTypeStatusPropEnum = append(virtualDeviceContextTypeStatusPropEnum, v)
-	}
-}
-
-const (
-
-	// VirtualDeviceContextStatusActive captures enum value "active"
-	VirtualDeviceContextStatusActive string = "active"
-
-	// VirtualDeviceContextStatusPlanned captures enum value "planned"
-	VirtualDeviceContextStatusPlanned string = "planned"
-
-	// VirtualDeviceContextStatusOffline captures enum value "offline"
-	VirtualDeviceContextStatusOffline string = "offline"
-)
-
-// prop value enum
-func (m *VirtualDeviceContext) validateStatusEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, virtualDeviceContextTypeStatusPropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (m *VirtualDeviceContext) validateStatus(formats strfmt.Registry) error {
 
 	if err := validate.Required("status", "body", m.Status); err != nil {
 		return err
 	}
 
-	// value enum
-	if err := m.validateStatusEnum("status", "body", *m.Status); err != nil {
-		return err
+	if m.Status != nil {
+		if err := m.Status.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("status")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -459,6 +432,10 @@ func (m *VirtualDeviceContext) ContextValidate(ctx context.Context, formats strf
 	}
 
 	if err := m.contextValidatePrimaryIp6(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatus(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -605,6 +582,23 @@ func (m *VirtualDeviceContext) contextValidatePrimaryIp6(ctx context.Context, fo
 	return nil
 }
 
+func (m *VirtualDeviceContext) contextValidateStatus(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Status != nil {
+
+		if err := m.Status.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("status")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *VirtualDeviceContext) contextValidateTags(ctx context.Context, formats strfmt.Registry) error {
 
 	for i := 0; i < len(m.Tags); i++ {
@@ -671,6 +665,155 @@ func (m *VirtualDeviceContext) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *VirtualDeviceContext) UnmarshalBinary(b []byte) error {
 	var res VirtualDeviceContext
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// VirtualDeviceContextStatus Status
+//
+// swagger:model VirtualDeviceContextStatus
+type VirtualDeviceContextStatus struct {
+
+	// label
+	// Required: true
+	// Enum: ["Active","Planned","Offline"]
+	Label *string `json:"label"`
+
+	// value
+	// Required: true
+	// Enum: ["active","planned","offline"]
+	Value *string `json:"value"`
+}
+
+// Validate validates this virtual device context status
+func (m *VirtualDeviceContextStatus) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateLabel(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateValue(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var virtualDeviceContextStatusTypeLabelPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["Active","Planned","Offline"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		virtualDeviceContextStatusTypeLabelPropEnum = append(virtualDeviceContextStatusTypeLabelPropEnum, v)
+	}
+}
+
+const (
+
+	// VirtualDeviceContextStatusLabelActive captures enum value "Active"
+	VirtualDeviceContextStatusLabelActive string = "Active"
+
+	// VirtualDeviceContextStatusLabelPlanned captures enum value "Planned"
+	VirtualDeviceContextStatusLabelPlanned string = "Planned"
+
+	// VirtualDeviceContextStatusLabelOffline captures enum value "Offline"
+	VirtualDeviceContextStatusLabelOffline string = "Offline"
+)
+
+// prop value enum
+func (m *VirtualDeviceContextStatus) validateLabelEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, virtualDeviceContextStatusTypeLabelPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *VirtualDeviceContextStatus) validateLabel(formats strfmt.Registry) error {
+
+	if err := validate.Required("status"+"."+"label", "body", m.Label); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateLabelEnum("status"+"."+"label", "body", *m.Label); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var virtualDeviceContextStatusTypeValuePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["active","planned","offline"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		virtualDeviceContextStatusTypeValuePropEnum = append(virtualDeviceContextStatusTypeValuePropEnum, v)
+	}
+}
+
+const (
+
+	// VirtualDeviceContextStatusValueActive captures enum value "active"
+	VirtualDeviceContextStatusValueActive string = "active"
+
+	// VirtualDeviceContextStatusValuePlanned captures enum value "planned"
+	VirtualDeviceContextStatusValuePlanned string = "planned"
+
+	// VirtualDeviceContextStatusValueOffline captures enum value "offline"
+	VirtualDeviceContextStatusValueOffline string = "offline"
+)
+
+// prop value enum
+func (m *VirtualDeviceContextStatus) validateValueEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, virtualDeviceContextStatusTypeValuePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *VirtualDeviceContextStatus) validateValue(formats strfmt.Registry) error {
+
+	if err := validate.Required("status"+"."+"value", "body", m.Value); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateValueEnum("status"+"."+"value", "body", *m.Value); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this virtual device context status based on context it is used
+func (m *VirtualDeviceContextStatus) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *VirtualDeviceContextStatus) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *VirtualDeviceContextStatus) UnmarshalBinary(b []byte) error {
+	var res VirtualDeviceContextStatus
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
