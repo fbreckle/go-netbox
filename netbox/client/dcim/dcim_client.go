@@ -69,6 +69,18 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	DcimCableBundlesCreate(params *DcimCableBundlesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableBundlesCreateCreated, error)
+
+	DcimCableBundlesDelete(params *DcimCableBundlesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableBundlesDeleteNoContent, error)
+
+	DcimCableBundlesList(params *DcimCableBundlesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableBundlesListOK, error)
+
+	DcimCableBundlesPartialUpdate(params *DcimCableBundlesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableBundlesPartialUpdateOK, error)
+
+	DcimCableBundlesRead(params *DcimCableBundlesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableBundlesReadOK, error)
+
+	DcimCableBundlesUpdate(params *DcimCableBundlesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableBundlesUpdateOK, error)
+
 	DcimCableTerminationsCreate(params *DcimCableTerminationsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsCreateCreated, error)
 
 	DcimCableTerminationsDelete(params *DcimCableTerminationsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsDeleteNoContent, error)
@@ -608,6 +620,234 @@ type ClientService interface {
 	DcimVirtualDeviceContextsUpdate(params *DcimVirtualDeviceContextsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimVirtualDeviceContextsUpdateOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+DcimCableBundlesCreate dcim cable bundles create API
+*/
+func (a *Client) DcimCableBundlesCreate(params *DcimCableBundlesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableBundlesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableBundlesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-bundles_create",
+		Method:             "POST",
+		PathPattern:        "/dcim/cable-bundles/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableBundlesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableBundlesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimCableBundlesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimCableBundlesDelete dcim cable bundles delete API
+*/
+func (a *Client) DcimCableBundlesDelete(params *DcimCableBundlesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableBundlesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableBundlesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-bundles_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/cable-bundles/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableBundlesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableBundlesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimCableBundlesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimCableBundlesList dcim cable bundles list API
+*/
+func (a *Client) DcimCableBundlesList(params *DcimCableBundlesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableBundlesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableBundlesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-bundles_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/cable-bundles/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableBundlesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableBundlesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimCableBundlesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimCableBundlesPartialUpdate dcim cable bundles partial update API
+*/
+func (a *Client) DcimCableBundlesPartialUpdate(params *DcimCableBundlesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableBundlesPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableBundlesPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-bundles_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/dcim/cable-bundles/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableBundlesPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableBundlesPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimCableBundlesPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimCableBundlesRead dcim cable bundles read API
+*/
+func (a *Client) DcimCableBundlesRead(params *DcimCableBundlesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableBundlesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableBundlesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-bundles_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/cable-bundles/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableBundlesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableBundlesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimCableBundlesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimCableBundlesUpdate dcim cable bundles update API
+*/
+func (a *Client) DcimCableBundlesUpdate(params *DcimCableBundlesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableBundlesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableBundlesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-bundles_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/cable-bundles/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableBundlesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableBundlesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimCableBundlesUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
