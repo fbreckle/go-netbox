@@ -69,6 +69,16 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	VpnIkeProposalsCreate(params *VpnIkeProposalsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsCreateCreated, error)
+
+	VpnIkeProposalsDelete(params *VpnIkeProposalsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsDeleteNoContent, error)
+
+	VpnIkeProposalsList(params *VpnIkeProposalsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsListOK, error)
+
+	VpnIkeProposalsRead(params *VpnIkeProposalsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsReadOK, error)
+
+	VpnIkeProposalsUpdate(params *VpnIkeProposalsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsUpdateOK, error)
+
 	VpnTunnelGroupsCreate(params *VpnTunnelGroupsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnTunnelGroupsCreateCreated, error)
 
 	VpnTunnelGroupsDelete(params *VpnTunnelGroupsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnTunnelGroupsDeleteNoContent, error)
@@ -100,6 +110,196 @@ type ClientService interface {
 	VpnTunnelsUpdate(params *VpnTunnelsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnTunnelsUpdateOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+VpnIkeProposalsCreate vpn ike proposals create API
+*/
+func (a *Client) VpnIkeProposalsCreate(params *VpnIkeProposalsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkeProposalsCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-proposals_create",
+		Method:             "POST",
+		PathPattern:        "/vpn/ike-proposals/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkeProposalsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkeProposalsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkeProposalsCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIkeProposalsDelete vpn ike proposals delete API
+*/
+func (a *Client) VpnIkeProposalsDelete(params *VpnIkeProposalsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkeProposalsDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-proposals_delete",
+		Method:             "DELETE",
+		PathPattern:        "/vpn/ike-proposals/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkeProposalsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkeProposalsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkeProposalsDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIkeProposalsList vpn ike proposals list API
+*/
+func (a *Client) VpnIkeProposalsList(params *VpnIkeProposalsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkeProposalsListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-proposals_list",
+		Method:             "GET",
+		PathPattern:        "/vpn/ike-proposals/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkeProposalsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkeProposalsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkeProposalsListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIkeProposalsRead vpn ike proposals read API
+*/
+func (a *Client) VpnIkeProposalsRead(params *VpnIkeProposalsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkeProposalsReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-proposals_read",
+		Method:             "GET",
+		PathPattern:        "/vpn/ike-proposals/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkeProposalsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkeProposalsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkeProposalsReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+VpnIkeProposalsUpdate vpn ike proposals update API
+*/
+func (a *Client) VpnIkeProposalsUpdate(params *VpnIkeProposalsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*VpnIkeProposalsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewVpnIkeProposalsUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "vpn_ike-proposals_update",
+		Method:             "PUT",
+		PathPattern:        "/vpn/ike-proposals/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &VpnIkeProposalsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*VpnIkeProposalsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*VpnIkeProposalsUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
