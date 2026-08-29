@@ -79,9 +79,15 @@ type ASN struct {
 	// Required: true
 	Rir *NestedRIR `json:"rir"`
 
+	// Role
+	Role *NestedRole `json:"role,omitempty"`
+
 	// Site count
 	// Read Only: true
 	SiteCount int64 `json:"site_count,omitempty"`
+
+	// Sites
+	Sites []*NestedSite `json:"sites"`
 
 	// tags
 	Tags []*NestedTag `json:"tags"`
@@ -116,6 +122,14 @@ func (m *ASN) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRir(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRole(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSites(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -210,6 +224,51 @@ func (m *ASN) validateRir(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *ASN) validateRole(formats strfmt.Registry) error {
+	if swag.IsZero(m.Role) { // not required
+		return nil
+	}
+
+	if m.Role != nil {
+		if err := m.Role.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("role")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ASN) validateSites(formats strfmt.Registry) error {
+	if swag.IsZero(m.Sites) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Sites); i++ {
+		if swag.IsZero(m.Sites[i]) { // not required
+			continue
+		}
+
+		if m.Sites[i] != nil {
+			if err := m.Sites[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("sites" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("sites" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *ASN) validateTags(formats strfmt.Registry) error {
 	if swag.IsZero(m.Tags) { // not required
 		return nil
@@ -295,7 +354,15 @@ func (m *ASN) ContextValidate(ctx context.Context, formats strfmt.Registry) erro
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateRole(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateSiteCount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSites(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -379,10 +446,56 @@ func (m *ASN) contextValidateRir(ctx context.Context, formats strfmt.Registry) e
 	return nil
 }
 
+func (m *ASN) contextValidateRole(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Role != nil {
+
+		if swag.IsZero(m.Role) { // not required
+			return nil
+		}
+
+		if err := m.Role.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("role")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *ASN) contextValidateSiteCount(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "site_count", "body", int64(m.SiteCount)); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *ASN) contextValidateSites(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Sites); i++ {
+
+		if m.Sites[i] != nil {
+
+			if swag.IsZero(m.Sites[i]) { // not required
+				return nil
+			}
+
+			if err := m.Sites[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("sites" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("sites" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
