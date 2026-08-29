@@ -69,6 +69,18 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	CircuitsCircuitGroupsCreate(params *CircuitsCircuitGroupsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitGroupsCreateCreated, error)
+
+	CircuitsCircuitGroupsDelete(params *CircuitsCircuitGroupsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitGroupsDeleteNoContent, error)
+
+	CircuitsCircuitGroupsList(params *CircuitsCircuitGroupsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitGroupsListOK, error)
+
+	CircuitsCircuitGroupsPartialUpdate(params *CircuitsCircuitGroupsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitGroupsPartialUpdateOK, error)
+
+	CircuitsCircuitGroupsRead(params *CircuitsCircuitGroupsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitGroupsReadOK, error)
+
+	CircuitsCircuitGroupsUpdate(params *CircuitsCircuitGroupsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitGroupsUpdateOK, error)
+
 	CircuitsCircuitTerminationsCreate(params *CircuitsCircuitTerminationsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitTerminationsCreateCreated, error)
 
 	CircuitsCircuitTerminationsDelete(params *CircuitsCircuitTerminationsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitTerminationsDeleteNoContent, error)
@@ -132,6 +144,234 @@ type ClientService interface {
 	CircuitsProvidersUpdate(params *CircuitsProvidersUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProvidersUpdateOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+CircuitsCircuitGroupsCreate circuits circuit groups create API
+*/
+func (a *Client) CircuitsCircuitGroupsCreate(params *CircuitsCircuitGroupsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitGroupsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsCircuitGroupsCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_circuit-groups_create",
+		Method:             "POST",
+		PathPattern:        "/circuits/circuit-groups/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsCircuitGroupsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsCircuitGroupsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsCircuitGroupsCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsCircuitGroupsDelete circuits circuit groups delete API
+*/
+func (a *Client) CircuitsCircuitGroupsDelete(params *CircuitsCircuitGroupsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitGroupsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsCircuitGroupsDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_circuit-groups_delete",
+		Method:             "DELETE",
+		PathPattern:        "/circuits/circuit-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsCircuitGroupsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsCircuitGroupsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsCircuitGroupsDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsCircuitGroupsList circuits circuit groups list API
+*/
+func (a *Client) CircuitsCircuitGroupsList(params *CircuitsCircuitGroupsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitGroupsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsCircuitGroupsListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_circuit-groups_list",
+		Method:             "GET",
+		PathPattern:        "/circuits/circuit-groups/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsCircuitGroupsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsCircuitGroupsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsCircuitGroupsListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsCircuitGroupsPartialUpdate circuits circuit groups partial update API
+*/
+func (a *Client) CircuitsCircuitGroupsPartialUpdate(params *CircuitsCircuitGroupsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitGroupsPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsCircuitGroupsPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_circuit-groups_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/circuits/circuit-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsCircuitGroupsPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsCircuitGroupsPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsCircuitGroupsPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsCircuitGroupsRead circuits circuit groups read API
+*/
+func (a *Client) CircuitsCircuitGroupsRead(params *CircuitsCircuitGroupsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitGroupsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsCircuitGroupsReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_circuit-groups_read",
+		Method:             "GET",
+		PathPattern:        "/circuits/circuit-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsCircuitGroupsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsCircuitGroupsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsCircuitGroupsReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsCircuitGroupsUpdate circuits circuit groups update API
+*/
+func (a *Client) CircuitsCircuitGroupsUpdate(params *CircuitsCircuitGroupsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitGroupsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsCircuitGroupsUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_circuit-groups_update",
+		Method:             "PUT",
+		PathPattern:        "/circuits/circuit-groups/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsCircuitGroupsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsCircuitGroupsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsCircuitGroupsUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
