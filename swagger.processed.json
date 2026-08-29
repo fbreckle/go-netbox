@@ -64124,6 +64124,271 @@
         }
       ]
     },
+    "/vpn/ipsec-policies/": {
+      "get": {
+        "operationId": "vpn_ipsec-policies_list",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pfs_group",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ipsec_proposal_id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ipsec_proposal",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "created",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "last_updated",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The initial index from which to return the results.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/IPSecPolicy"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "tags": [
+          "vpn"
+        ]
+      },
+      "post": {
+        "operationId": "vpn_ipsec-policies_create",
+        "description": "",
+        "tags": [
+          "vpn"
+        ],
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WritableIPSecPolicy"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/IPSecPolicy"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/vpn/ipsec-policies/{id}/": {
+      "get": {
+        "operationId": "vpn_ipsec-policies_read",
+        "description": "",
+        "parameters": [],
+        "tags": [
+          "vpn"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/IPSecPolicy"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "vpn_ipsec-policies_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WritableIPSecPolicy"
+            }
+          }
+        ],
+        "tags": [
+          "vpn"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/IPSecPolicy"
+            }
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "vpn_ipsec-policies_delete",
+        "description": "",
+        "parameters": [],
+        "tags": [
+          "vpn"
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A unique integer value identifying this IPSec policy.",
+          "required": true,
+          "type": "integer"
+        }
+      ]
+    },
     "/wireless/wireless-lan-groups/": {
       "get": {
         "operationId": "wireless_wireless-lan-groups_list",
@@ -68963,6 +69228,104 @@
     }
   },
   "definitions": {
+    "IPSecPolicy": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "readOnly": true
+        },
+        "display": {
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "proposals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NestedIPSecProposal"
+          }
+        },
+        "pfs_group": {
+          "type": "object",
+          "x-nullable": true,
+          "properties": {
+            "value": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                5,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34
+              ]
+            },
+            "label": {
+              "type": "string"
+            }
+          }
+        },
+        "comments": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NestedTag"
+          }
+        },
+        "custom_fields": {
+          "type": "object",
+          "additionalProperties": {}
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        }
+      }
+    },
     "NestedCircuit": {
       "required": [
         "cid"
@@ -68987,6 +69350,36 @@
         },
         "cid": {
           "title": "Circuit ID",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        }
+      }
+    },
+    "NestedIPSecProposal": {
+      "required": [
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "url": {
+          "title": "Url",
+          "type": "string",
+          "format": "uri",
+          "readOnly": true
+        },
+        "display": {
+          "title": "Display",
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "title": "Name",
           "type": "string",
           "maxLength": 100,
           "minLength": 1
@@ -69991,6 +70384,89 @@
           "format": "date-time",
           "readOnly": true,
           "x-nullable": true
+        }
+      }
+    },
+    "WritableIPSecPolicy": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "readOnly": true
+        },
+        "display": {
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "proposals": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "uniqueItems": true
+        },
+        "pfs_group": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32767,
+          "x-nullable": true,
+          "enum": [
+            1,
+            2,
+            5,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34
+          ]
+        },
+        "comments": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NestedTag"
+          }
+        },
+        "custom_fields": {
+          "title": "Custom fields",
+          "type": "object",
+          "default": {}
         }
       }
     },
