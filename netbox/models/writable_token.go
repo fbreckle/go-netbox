@@ -22,6 +22,7 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -33,9 +34,6 @@ import (
 //
 // swagger:model WritableToken
 type WritableToken struct {
-
-	// allowed ips
-	AllowedIps []IPNetwork `json:"allowed_ips"`
 
 	// Created
 	// Read Only: true
@@ -50,6 +48,11 @@ type WritableToken struct {
 	// Read Only: true
 	Display string `json:"display,omitempty"`
 
+	// Enabled
+	//
+	// Disable to temporarily revoke this token without deleting it.
+	Enabled bool `json:"enabled,omitempty"`
+
 	// Expires
 	// Format: date-time
 	Expires *strfmt.DateTime `json:"expires"`
@@ -59,13 +62,24 @@ type WritableToken struct {
 	ID int64 `json:"id,omitempty"`
 
 	// Key
-	// Max Length: 40
-	// Min Length: 40
-	Key string `json:"key,omitempty"`
+	//
+	// v2 token identification key
+	// Read Only: true
+	Key *string `json:"key,omitempty"`
 
 	// Last used
 	// Format: date-time
 	LastUsed *strfmt.DateTime `json:"last_used,omitempty"`
+
+	// Pepper ID
+	//
+	// ID of the cryptographic pepper used for this token
+	// Maximum: 32767
+	// Minimum: 0
+	PepperID *int64 `json:"pepper_id,omitempty"`
+
+	// Token
+	Token string `json:"token,omitempty"`
 
 	// Url
 	// Read Only: true
@@ -75,6 +89,12 @@ type WritableToken struct {
 	// User
 	// Required: true
 	User *int64 `json:"user"`
+
+	// Version
+	//
+	// 1 - v1, 2 - v2
+	// Enum: [1,2]
+	Version int64 `json:"version,omitempty"`
 
 	// Write enabled
 	//
@@ -98,11 +118,11 @@ func (m *WritableToken) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateKey(formats); err != nil {
+	if err := m.validateLastUsed(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateLastUsed(formats); err != nil {
+	if err := m.validatePepperID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -111,6 +131,10 @@ func (m *WritableToken) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateUser(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateVersion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -156,28 +180,28 @@ func (m *WritableToken) validateExpires(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *WritableToken) validateKey(formats strfmt.Registry) error {
-	if swag.IsZero(m.Key) { // not required
-		return nil
-	}
-
-	if err := validate.MinLength("key", "body", m.Key, 40); err != nil {
-		return err
-	}
-
-	if err := validate.MaxLength("key", "body", m.Key, 40); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *WritableToken) validateLastUsed(formats strfmt.Registry) error {
 	if swag.IsZero(m.LastUsed) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("last_used", "body", "date-time", m.LastUsed.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *WritableToken) validatePepperID(formats strfmt.Registry) error {
+	if swag.IsZero(m.PepperID) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("pepper_id", "body", *m.PepperID, 0, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("pepper_id", "body", *m.PepperID, 32767, false); err != nil {
 		return err
 	}
 
@@ -205,6 +229,39 @@ func (m *WritableToken) validateUser(formats strfmt.Registry) error {
 	return nil
 }
 
+var writableTokenTypeVersionPropEnum []interface{}
+
+func init() {
+	var res []int64
+	if err := json.Unmarshal([]byte(`[1,2]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		writableTokenTypeVersionPropEnum = append(writableTokenTypeVersionPropEnum, v)
+	}
+}
+
+// prop value enum
+func (m *WritableToken) validateVersionEnum(path, location string, value int64) error {
+	if err := validate.EnumCase(path, location, value, writableTokenTypeVersionPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *WritableToken) validateVersion(formats strfmt.Registry) error {
+	if swag.IsZero(m.Version) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateVersionEnum("version", "body", m.Version); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // ContextValidate validate this writable token based on the context it is used
 func (m *WritableToken) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -218,6 +275,10 @@ func (m *WritableToken) ContextValidate(ctx context.Context, formats strfmt.Regi
 	}
 
 	if err := m.contextValidateID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateKey(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -252,6 +313,15 @@ func (m *WritableToken) contextValidateDisplay(ctx context.Context, formats strf
 func (m *WritableToken) contextValidateID(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "id", "body", int64(m.ID)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *WritableToken) contextValidateKey(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "key", "body", m.Key); err != nil {
 		return err
 	}
 

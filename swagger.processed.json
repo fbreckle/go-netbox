@@ -91846,7 +91846,7 @@
       "type": "object",
       "properties": {}
     },
-    "Token": {
+"Token": {
       "required": [
         "user"
       ],
@@ -91891,9 +91891,36 @@
         },
         "key": {
           "title": "Key",
+          "description": "v2 token identification key",
           "type": "string",
-          "maxLength": 40,
-          "minLength": 40
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "token": {
+          "title": "Token",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "description": "1 - v1, 2 - v2",
+          "type": "integer",
+          "enum": [
+            1,
+            2
+          ]
+        },
+        "pepper_id": {
+          "title": "Pepper ID",
+          "description": "ID of the cryptographic pepper used for this token",
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 0,
+          "x-nullable": true
+        },
+        "enabled": {
+          "title": "Enabled",
+          "description": "Disable to temporarily revoke this token without deleting it.",
+          "type": "boolean"
         },
         "write_enabled": {
           "title": "Write enabled",
@@ -91904,17 +91931,10 @@
           "title": "Description",
           "type": "string",
           "maxLength": 200
-        },
-        "allowed_ips": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/IPNetwork"
-          },
-          "default": []
         }
       }
     },
-    "WritableToken": {
+"WritableToken": {
       "required": [
         "user"
       ],
@@ -91961,9 +91981,36 @@
         },
         "key": {
           "title": "Key",
+          "description": "v2 token identification key",
           "type": "string",
-          "maxLength": 40,
-          "minLength": 40
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "token": {
+          "title": "Token",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "description": "1 - v1, 2 - v2",
+          "type": "integer",
+          "enum": [
+            1,
+            2
+          ]
+        },
+        "pepper_id": {
+          "title": "Pepper ID",
+          "description": "ID of the cryptographic pepper used for this token",
+          "type": "integer",
+          "maximum": 32767,
+          "minimum": 0,
+          "x-nullable": true
+        },
+        "enabled": {
+          "title": "Enabled",
+          "description": "Disable to temporarily revoke this token without deleting it.",
+          "type": "boolean"
         },
         "write_enabled": {
           "title": "Write enabled",
@@ -91975,13 +92022,6 @@
           "title": "Description",
           "type": "string",
           "maxLength": 200
-        },
-        "allowed_ips": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/IPNetwork"
-          },
-          "default": []
         }
       }
     },
