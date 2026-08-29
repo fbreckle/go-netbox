@@ -35,6 +35,9 @@ import (
 // swagger:model VLANGroup
 type VLANGroup struct {
 
+	// Comments
+	Comments string `json:"comments,omitempty"`
+
 	// Created
 	// Read Only: true
 	// Format: date-time
@@ -85,6 +88,9 @@ type VLANGroup struct {
 
 	// tags
 	Tags []*NestedTag `json:"tags"`
+
+	// Tenant
+	Tenant *int64 `json:"tenant,omitempty"`
 
 	// Url
 	// Read Only: true
