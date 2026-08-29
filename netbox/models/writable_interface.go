@@ -132,9 +132,6 @@ type WritableInterface struct {
 	// Read Only: true
 	LinkPeersType string `json:"link_peers_type,omitempty"`
 
-	// MAC Address
-	MacAddress *string `json:"mac_address,omitempty"`
-
 	// Mark connected
 	//
 	// Treat as if a cable is connected
@@ -232,9 +229,6 @@ type WritableInterface struct {
 	// wireless lans
 	// Unique: true
 	WirelessLans []int64 `json:"wireless_lans"`
-
-	// Wireless link
-	WirelessLink *int64 `json:"wireless_link,omitempty"`
 
 	// WWN
 	//

@@ -76613,7 +76613,7 @@
         }
       }
     },
-    "WritableInterface": {
+"WritableInterface": {
       "required": [
         "device",
         "vdcs",
@@ -76802,11 +76802,6 @@
           "type": "integer",
           "maximum": 65536,
           "minimum": 1,
-          "x-nullable": true
-        },
-        "mac_address": {
-          "title": "MAC Address",
-          "type": "string",
           "x-nullable": true
         },
         "primary_mac_address": {
@@ -77136,11 +77131,6 @@
           "type": "string",
           "readOnly": true,
           "minLength": 1
-        },
-        "wireless_link": {
-          "title": "Wireless link",
-          "type": "integer",
-          "x-nullable": true
         },
         "link_peers": {
           "description": "\nReturn the appropriate serializer for the link termination model.\n",
@@ -92707,7 +92697,7 @@
         }
       }
     },
-    "WritableVMInterface": {
+"WritableVMInterface": {
       "required": [
         "virtual_machine",
         "name"
@@ -92760,11 +92750,6 @@
           "type": "integer",
           "maximum": 65536,
           "minimum": 1,
-          "x-nullable": true
-        },
-        "mac_address": {
-          "title": "MAC Address",
-          "type": "string",
           "x-nullable": true
         },
         "primary_mac_address": {
