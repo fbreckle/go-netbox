@@ -359,6 +359,18 @@ type ClientService interface {
 
 	DcimModuleBaysUpdate(params *DcimModuleBaysUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleBaysUpdateOK, error)
 
+	DcimModuleTypeProfilesCreate(params *DcimModuleTypeProfilesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypeProfilesCreateCreated, error)
+
+	DcimModuleTypeProfilesDelete(params *DcimModuleTypeProfilesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypeProfilesDeleteNoContent, error)
+
+	DcimModuleTypeProfilesList(params *DcimModuleTypeProfilesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypeProfilesListOK, error)
+
+	DcimModuleTypeProfilesPartialUpdate(params *DcimModuleTypeProfilesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypeProfilesPartialUpdateOK, error)
+
+	DcimModuleTypeProfilesRead(params *DcimModuleTypeProfilesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypeProfilesReadOK, error)
+
+	DcimModuleTypeProfilesUpdate(params *DcimModuleTypeProfilesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypeProfilesUpdateOK, error)
+
 	DcimModuleTypesCreate(params *DcimModuleTypesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypesCreateCreated, error)
 
 	DcimModuleTypesDelete(params *DcimModuleTypesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypesDeleteNoContent, error)
@@ -6123,6 +6135,234 @@ func (a *Client) DcimModuleBaysUpdate(params *DcimModuleBaysUpdateParams, authIn
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*DcimModuleBaysUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimModuleTypeProfilesCreate dcim module type profiles create API
+*/
+func (a *Client) DcimModuleTypeProfilesCreate(params *DcimModuleTypeProfilesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypeProfilesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimModuleTypeProfilesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_module-type-profiles_create",
+		Method:             "POST",
+		PathPattern:        "/dcim/module-type-profiles/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimModuleTypeProfilesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimModuleTypeProfilesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimModuleTypeProfilesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimModuleTypeProfilesDelete dcim module type profiles delete API
+*/
+func (a *Client) DcimModuleTypeProfilesDelete(params *DcimModuleTypeProfilesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypeProfilesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimModuleTypeProfilesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_module-type-profiles_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/module-type-profiles/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimModuleTypeProfilesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimModuleTypeProfilesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimModuleTypeProfilesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimModuleTypeProfilesList dcim module type profiles list API
+*/
+func (a *Client) DcimModuleTypeProfilesList(params *DcimModuleTypeProfilesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypeProfilesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimModuleTypeProfilesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_module-type-profiles_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/module-type-profiles/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimModuleTypeProfilesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimModuleTypeProfilesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimModuleTypeProfilesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimModuleTypeProfilesPartialUpdate dcim module type profiles partial update API
+*/
+func (a *Client) DcimModuleTypeProfilesPartialUpdate(params *DcimModuleTypeProfilesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypeProfilesPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimModuleTypeProfilesPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_module-type-profiles_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/dcim/module-type-profiles/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimModuleTypeProfilesPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimModuleTypeProfilesPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimModuleTypeProfilesPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimModuleTypeProfilesRead dcim module type profiles read API
+*/
+func (a *Client) DcimModuleTypeProfilesRead(params *DcimModuleTypeProfilesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypeProfilesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimModuleTypeProfilesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_module-type-profiles_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/module-type-profiles/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimModuleTypeProfilesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimModuleTypeProfilesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimModuleTypeProfilesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DcimModuleTypeProfilesUpdate dcim module type profiles update API
+*/
+func (a *Client) DcimModuleTypeProfilesUpdate(params *DcimModuleTypeProfilesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimModuleTypeProfilesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimModuleTypeProfilesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_module-type-profiles_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/module-type-profiles/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimModuleTypeProfilesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimModuleTypeProfilesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DcimModuleTypeProfilesUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
