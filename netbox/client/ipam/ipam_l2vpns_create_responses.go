@@ -103,12 +103,12 @@ func (o *IpamL2vpnsCreateCreated) Code() int {
 
 func (o *IpamL2vpnsCreateCreated) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /ipam/l2vpns/][%d] ipamL2vpnsCreateCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /vpn/l2vpns/][%d] ipamL2vpnsCreateCreated %s", 201, payload)
 }
 
 func (o *IpamL2vpnsCreateCreated) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /ipam/l2vpns/][%d] ipamL2vpnsCreateCreated %s", 201, payload)
+	return fmt.Sprintf("[POST /vpn/l2vpns/][%d] ipamL2vpnsCreateCreated %s", 201, payload)
 }
 
 func (o *IpamL2vpnsCreateCreated) GetPayload() *models.L2VPN {
@@ -177,12 +177,12 @@ func (o *IpamL2vpnsCreateDefault) Code() int {
 
 func (o *IpamL2vpnsCreateDefault) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /ipam/l2vpns/][%d] ipam_l2vpns_create default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /vpn/l2vpns/][%d] ipam_l2vpns_create default %s", o._statusCode, payload)
 }
 
 func (o *IpamL2vpnsCreateDefault) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[POST /ipam/l2vpns/][%d] ipam_l2vpns_create default %s", o._statusCode, payload)
+	return fmt.Sprintf("[POST /vpn/l2vpns/][%d] ipam_l2vpns_create default %s", o._statusCode, payload)
 }
 
 func (o *IpamL2vpnsCreateDefault) GetPayload() interface{} {
