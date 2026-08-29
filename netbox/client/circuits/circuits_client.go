@@ -107,6 +107,18 @@ type ClientService interface {
 
 	CircuitsCircuitsUpdate(params *CircuitsCircuitsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitsUpdateOK, error)
 
+	CircuitsProviderAccountsCreate(params *CircuitsProviderAccountsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsCreateCreated, error)
+
+	CircuitsProviderAccountsDelete(params *CircuitsProviderAccountsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsDeleteNoContent, error)
+
+	CircuitsProviderAccountsList(params *CircuitsProviderAccountsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsListOK, error)
+
+	CircuitsProviderAccountsPartialUpdate(params *CircuitsProviderAccountsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsPartialUpdateOK, error)
+
+	CircuitsProviderAccountsRead(params *CircuitsProviderAccountsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsReadOK, error)
+
+	CircuitsProviderAccountsUpdate(params *CircuitsProviderAccountsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsUpdateOK, error)
+
 	CircuitsProviderNetworksCreate(params *CircuitsProviderNetworksCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderNetworksCreateCreated, error)
 
 	CircuitsProviderNetworksDelete(params *CircuitsProviderNetworksDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderNetworksDeleteNoContent, error)
@@ -853,6 +865,234 @@ func (a *Client) CircuitsCircuitsUpdate(params *CircuitsCircuitsUpdateParams, au
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*CircuitsCircuitsUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsProviderAccountsCreate circuits provider accounts create API
+*/
+func (a *Client) CircuitsProviderAccountsCreate(params *CircuitsProviderAccountsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_create",
+		Method:             "POST",
+		PathPattern:        "/circuits/provider-accounts/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsProviderAccountsCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsProviderAccountsDelete circuits provider accounts delete API
+*/
+func (a *Client) CircuitsProviderAccountsDelete(params *CircuitsProviderAccountsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_delete",
+		Method:             "DELETE",
+		PathPattern:        "/circuits/provider-accounts/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsProviderAccountsDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsProviderAccountsList circuits provider accounts list API
+*/
+func (a *Client) CircuitsProviderAccountsList(params *CircuitsProviderAccountsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_list",
+		Method:             "GET",
+		PathPattern:        "/circuits/provider-accounts/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsProviderAccountsListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsProviderAccountsPartialUpdate circuits provider accounts partial update API
+*/
+func (a *Client) CircuitsProviderAccountsPartialUpdate(params *CircuitsProviderAccountsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/circuits/provider-accounts/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsProviderAccountsPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsProviderAccountsRead circuits provider accounts read API
+*/
+func (a *Client) CircuitsProviderAccountsRead(params *CircuitsProviderAccountsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_read",
+		Method:             "GET",
+		PathPattern:        "/circuits/provider-accounts/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsProviderAccountsReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsProviderAccountsUpdate circuits provider accounts update API
+*/
+func (a *Client) CircuitsProviderAccountsUpdate(params *CircuitsProviderAccountsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_update",
+		Method:             "PUT",
+		PathPattern:        "/circuits/provider-accounts/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsProviderAccountsUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
