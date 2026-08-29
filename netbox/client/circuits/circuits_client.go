@@ -131,6 +131,18 @@ type ClientService interface {
 
 	CircuitsProvidersUpdate(params *CircuitsProvidersUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProvidersUpdateOK, error)
 
+	CircuitsVirtualCircuitTypesCreate(params *CircuitsVirtualCircuitTypesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsVirtualCircuitTypesCreateCreated, error)
+
+	CircuitsVirtualCircuitTypesDelete(params *CircuitsVirtualCircuitTypesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsVirtualCircuitTypesDeleteNoContent, error)
+
+	CircuitsVirtualCircuitTypesList(params *CircuitsVirtualCircuitTypesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsVirtualCircuitTypesListOK, error)
+
+	CircuitsVirtualCircuitTypesPartialUpdate(params *CircuitsVirtualCircuitTypesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsVirtualCircuitTypesPartialUpdateOK, error)
+
+	CircuitsVirtualCircuitTypesRead(params *CircuitsVirtualCircuitTypesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsVirtualCircuitTypesReadOK, error)
+
+	CircuitsVirtualCircuitTypesUpdate(params *CircuitsVirtualCircuitTypesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsVirtualCircuitTypesUpdateOK, error)
+
 	SetTransport(transport runtime.ClientTransport)
 }
 
@@ -1309,6 +1321,234 @@ func (a *Client) CircuitsProvidersUpdate(params *CircuitsProvidersUpdateParams, 
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*CircuitsProvidersUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsVirtualCircuitTypesCreate circuits virtual circuit types create API
+*/
+func (a *Client) CircuitsVirtualCircuitTypesCreate(params *CircuitsVirtualCircuitTypesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsVirtualCircuitTypesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsVirtualCircuitTypesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_virtual-circuit-types_create",
+		Method:             "POST",
+		PathPattern:        "/circuits/virtual-circuit-types/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsVirtualCircuitTypesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsVirtualCircuitTypesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsVirtualCircuitTypesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsVirtualCircuitTypesDelete circuits virtual circuit types delete API
+*/
+func (a *Client) CircuitsVirtualCircuitTypesDelete(params *CircuitsVirtualCircuitTypesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsVirtualCircuitTypesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsVirtualCircuitTypesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_virtual-circuit-types_delete",
+		Method:             "DELETE",
+		PathPattern:        "/circuits/virtual-circuit-types/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsVirtualCircuitTypesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsVirtualCircuitTypesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsVirtualCircuitTypesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsVirtualCircuitTypesList circuits virtual circuit types list API
+*/
+func (a *Client) CircuitsVirtualCircuitTypesList(params *CircuitsVirtualCircuitTypesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsVirtualCircuitTypesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsVirtualCircuitTypesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_virtual-circuit-types_list",
+		Method:             "GET",
+		PathPattern:        "/circuits/virtual-circuit-types/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsVirtualCircuitTypesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsVirtualCircuitTypesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsVirtualCircuitTypesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsVirtualCircuitTypesPartialUpdate circuits virtual circuit types partial update API
+*/
+func (a *Client) CircuitsVirtualCircuitTypesPartialUpdate(params *CircuitsVirtualCircuitTypesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsVirtualCircuitTypesPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsVirtualCircuitTypesPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_virtual-circuit-types_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/circuits/virtual-circuit-types/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsVirtualCircuitTypesPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsVirtualCircuitTypesPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsVirtualCircuitTypesPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsVirtualCircuitTypesRead circuits virtual circuit types read API
+*/
+func (a *Client) CircuitsVirtualCircuitTypesRead(params *CircuitsVirtualCircuitTypesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsVirtualCircuitTypesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsVirtualCircuitTypesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_virtual-circuit-types_read",
+		Method:             "GET",
+		PathPattern:        "/circuits/virtual-circuit-types/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsVirtualCircuitTypesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsVirtualCircuitTypesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsVirtualCircuitTypesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+CircuitsVirtualCircuitTypesUpdate circuits virtual circuit types update API
+*/
+func (a *Client) CircuitsVirtualCircuitTypesUpdate(params *CircuitsVirtualCircuitTypesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsVirtualCircuitTypesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsVirtualCircuitTypesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_virtual-circuit-types_update",
+		Method:             "PUT",
+		PathPattern:        "/circuits/virtual-circuit-types/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsVirtualCircuitTypesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsVirtualCircuitTypesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*CircuitsVirtualCircuitTypesUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
