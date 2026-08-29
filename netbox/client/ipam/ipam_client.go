@@ -81,6 +81,18 @@ type ClientService interface {
 
 	IpamAggregatesUpdate(params *IpamAggregatesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAggregatesUpdateOK, error)
 
+	IpamAsnRangesCreate(params *IpamAsnRangesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesCreateCreated, error)
+
+	IpamAsnRangesDelete(params *IpamAsnRangesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesDeleteNoContent, error)
+
+	IpamAsnRangesList(params *IpamAsnRangesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesListOK, error)
+
+	IpamAsnRangesPartialUpdate(params *IpamAsnRangesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesPartialUpdateOK, error)
+
+	IpamAsnRangesRead(params *IpamAsnRangesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesReadOK, error)
+
+	IpamAsnRangesUpdate(params *IpamAsnRangesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesUpdateOK, error)
+
 	IpamAsnsCreate(params *IpamAsnsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnsCreateCreated, error)
 
 	IpamAsnsDelete(params *IpamAsnsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnsDeleteNoContent, error)
@@ -517,6 +529,234 @@ func (a *Client) IpamAggregatesUpdate(params *IpamAggregatesUpdateParams, authIn
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*IpamAggregatesUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamAsnRangesCreate ipam asn ranges create API
+*/
+func (a *Client) IpamAsnRangesCreate(params *IpamAsnRangesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_create",
+		Method:             "POST",
+		PathPattern:        "/ipam/asn-ranges/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamAsnRangesCreateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamAsnRangesDelete ipam asn ranges delete API
+*/
+func (a *Client) IpamAsnRangesDelete(params *IpamAsnRangesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_delete",
+		Method:             "DELETE",
+		PathPattern:        "/ipam/asn-ranges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamAsnRangesDeleteDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamAsnRangesList ipam asn ranges list API
+*/
+func (a *Client) IpamAsnRangesList(params *IpamAsnRangesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_list",
+		Method:             "GET",
+		PathPattern:        "/ipam/asn-ranges/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamAsnRangesListDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamAsnRangesPartialUpdate ipam asn ranges partial update API
+*/
+func (a *Client) IpamAsnRangesPartialUpdate(params *IpamAsnRangesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/ipam/asn-ranges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamAsnRangesPartialUpdateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamAsnRangesRead ipam asn ranges read API
+*/
+func (a *Client) IpamAsnRangesRead(params *IpamAsnRangesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_read",
+		Method:             "GET",
+		PathPattern:        "/ipam/asn-ranges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamAsnRangesReadDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+IpamAsnRangesUpdate ipam asn ranges update API
+*/
+func (a *Client) IpamAsnRangesUpdate(params *IpamAsnRangesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_update",
+		Method:             "PUT",
+		PathPattern:        "/ipam/asn-ranges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*IpamAsnRangesUpdateDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
