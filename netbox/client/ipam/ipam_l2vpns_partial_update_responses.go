@@ -103,12 +103,12 @@ func (o *IpamL2vpnsPartialUpdateOK) Code() int {
 
 func (o *IpamL2vpnsPartialUpdateOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /ipam/l2vpns/{id}/][%d] ipamL2vpnsPartialUpdateOK %s", 200, payload)
+	return fmt.Sprintf("[PATCH /vpn/l2vpns/{id}/][%d] ipamL2vpnsPartialUpdateOK %s", 200, payload)
 }
 
 func (o *IpamL2vpnsPartialUpdateOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /ipam/l2vpns/{id}/][%d] ipamL2vpnsPartialUpdateOK %s", 200, payload)
+	return fmt.Sprintf("[PATCH /vpn/l2vpns/{id}/][%d] ipamL2vpnsPartialUpdateOK %s", 200, payload)
 }
 
 func (o *IpamL2vpnsPartialUpdateOK) GetPayload() *models.L2VPN {
@@ -177,12 +177,12 @@ func (o *IpamL2vpnsPartialUpdateDefault) Code() int {
 
 func (o *IpamL2vpnsPartialUpdateDefault) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /ipam/l2vpns/{id}/][%d] ipam_l2vpns_partial_update default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PATCH /vpn/l2vpns/{id}/][%d] ipam_l2vpns_partial_update default %s", o._statusCode, payload)
 }
 
 func (o *IpamL2vpnsPartialUpdateDefault) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PATCH /ipam/l2vpns/{id}/][%d] ipam_l2vpns_partial_update default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PATCH /vpn/l2vpns/{id}/][%d] ipam_l2vpns_partial_update default %s", o._statusCode, payload)
 }
 
 func (o *IpamL2vpnsPartialUpdateDefault) GetPayload() interface{} {

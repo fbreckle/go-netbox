@@ -103,12 +103,12 @@ func (o *IpamL2vpnsReadOK) Code() int {
 
 func (o *IpamL2vpnsReadOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /ipam/l2vpns/{id}/][%d] ipamL2vpnsReadOK %s", 200, payload)
+	return fmt.Sprintf("[GET /vpn/l2vpns/{id}/][%d] ipamL2vpnsReadOK %s", 200, payload)
 }
 
 func (o *IpamL2vpnsReadOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /ipam/l2vpns/{id}/][%d] ipamL2vpnsReadOK %s", 200, payload)
+	return fmt.Sprintf("[GET /vpn/l2vpns/{id}/][%d] ipamL2vpnsReadOK %s", 200, payload)
 }
 
 func (o *IpamL2vpnsReadOK) GetPayload() *models.L2VPN {
@@ -177,12 +177,12 @@ func (o *IpamL2vpnsReadDefault) Code() int {
 
 func (o *IpamL2vpnsReadDefault) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /ipam/l2vpns/{id}/][%d] ipam_l2vpns_read default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /vpn/l2vpns/{id}/][%d] ipam_l2vpns_read default %s", o._statusCode, payload)
 }
 
 func (o *IpamL2vpnsReadDefault) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /ipam/l2vpns/{id}/][%d] ipam_l2vpns_read default %s", o._statusCode, payload)
+	return fmt.Sprintf("[GET /vpn/l2vpns/{id}/][%d] ipam_l2vpns_read default %s", o._statusCode, payload)
 }
 
 func (o *IpamL2vpnsReadDefault) GetPayload() interface{} {

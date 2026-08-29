@@ -103,12 +103,12 @@ func (o *IpamL2vpnTerminationsUpdateOK) Code() int {
 
 func (o *IpamL2vpnTerminationsUpdateOK) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /ipam/l2vpn-terminations/{id}/][%d] ipamL2vpnTerminationsUpdateOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /vpn/l2vpn-terminations/{id}/][%d] ipamL2vpnTerminationsUpdateOK %s", 200, payload)
 }
 
 func (o *IpamL2vpnTerminationsUpdateOK) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /ipam/l2vpn-terminations/{id}/][%d] ipamL2vpnTerminationsUpdateOK %s", 200, payload)
+	return fmt.Sprintf("[PUT /vpn/l2vpn-terminations/{id}/][%d] ipamL2vpnTerminationsUpdateOK %s", 200, payload)
 }
 
 func (o *IpamL2vpnTerminationsUpdateOK) GetPayload() *models.L2VPNTermination {
@@ -177,12 +177,12 @@ func (o *IpamL2vpnTerminationsUpdateDefault) Code() int {
 
 func (o *IpamL2vpnTerminationsUpdateDefault) Error() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /ipam/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_update default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PUT /vpn/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_update default %s", o._statusCode, payload)
 }
 
 func (o *IpamL2vpnTerminationsUpdateDefault) String() string {
 	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[PUT /ipam/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_update default %s", o._statusCode, payload)
+	return fmt.Sprintf("[PUT /vpn/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_update default %s", o._statusCode, payload)
 }
 
 func (o *IpamL2vpnTerminationsUpdateDefault) GetPayload() interface{} {

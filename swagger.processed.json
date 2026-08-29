@@ -46060,7 +46060,7 @@
         }
       ]
     },
-    "/ipam/l2vpn-terminations/": {
+"/vpn/l2vpn-terminations/": {
       "get": {
         "operationId": "ipam_l2vpn-terminations_list",
         "description": "",
@@ -46582,7 +46582,7 @@
       },
       "parameters": []
     },
-    "/ipam/l2vpn-terminations/{id}/": {
+"/vpn/l2vpn-terminations/{id}/": {
       "get": {
         "operationId": "ipam_l2vpn-terminations_read",
         "description": "",
@@ -46700,7 +46700,7 @@
         }
       ]
     },
-    "/ipam/l2vpns/": {
+"/vpn/l2vpns/": {
       "get": {
         "operationId": "ipam_l2vpns_list",
         "description": "",
@@ -47355,7 +47355,7 @@
       },
       "parameters": []
     },
-    "/ipam/l2vpns/{id}/": {
+"/vpn/l2vpns/{id}/": {
       "get": {
         "operationId": "ipam_l2vpns_read",
         "description": "",

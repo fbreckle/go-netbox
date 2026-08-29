@@ -1747,7 +1747,7 @@ func (a *Client) IpamL2vpnTerminationsCreate(params *IpamL2vpnTerminationsCreate
 	op := &runtime.ClientOperation{
 		ID:                 "ipam_l2vpn-terminations_create",
 		Method:             "POST",
-		PathPattern:        "/ipam/l2vpn-terminations/",
+		PathPattern:        "/vpn/l2vpn-terminations/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -1785,7 +1785,7 @@ func (a *Client) IpamL2vpnTerminationsDelete(params *IpamL2vpnTerminationsDelete
 	op := &runtime.ClientOperation{
 		ID:                 "ipam_l2vpn-terminations_delete",
 		Method:             "DELETE",
-		PathPattern:        "/ipam/l2vpn-terminations/{id}/",
+		PathPattern:        "/vpn/l2vpn-terminations/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -1823,7 +1823,7 @@ func (a *Client) IpamL2vpnTerminationsList(params *IpamL2vpnTerminationsListPara
 	op := &runtime.ClientOperation{
 		ID:                 "ipam_l2vpn-terminations_list",
 		Method:             "GET",
-		PathPattern:        "/ipam/l2vpn-terminations/",
+		PathPattern:        "/vpn/l2vpn-terminations/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -1861,7 +1861,7 @@ func (a *Client) IpamL2vpnTerminationsPartialUpdate(params *IpamL2vpnTermination
 	op := &runtime.ClientOperation{
 		ID:                 "ipam_l2vpn-terminations_partial_update",
 		Method:             "PATCH",
-		PathPattern:        "/ipam/l2vpn-terminations/{id}/",
+		PathPattern:        "/vpn/l2vpn-terminations/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -1899,7 +1899,7 @@ func (a *Client) IpamL2vpnTerminationsRead(params *IpamL2vpnTerminationsReadPara
 	op := &runtime.ClientOperation{
 		ID:                 "ipam_l2vpn-terminations_read",
 		Method:             "GET",
-		PathPattern:        "/ipam/l2vpn-terminations/{id}/",
+		PathPattern:        "/vpn/l2vpn-terminations/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -1937,7 +1937,7 @@ func (a *Client) IpamL2vpnTerminationsUpdate(params *IpamL2vpnTerminationsUpdate
 	op := &runtime.ClientOperation{
 		ID:                 "ipam_l2vpn-terminations_update",
 		Method:             "PUT",
-		PathPattern:        "/ipam/l2vpn-terminations/{id}/",
+		PathPattern:        "/vpn/l2vpn-terminations/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -1975,7 +1975,7 @@ func (a *Client) IpamL2vpnsCreate(params *IpamL2vpnsCreateParams, authInfo runti
 	op := &runtime.ClientOperation{
 		ID:                 "ipam_l2vpns_create",
 		Method:             "POST",
-		PathPattern:        "/ipam/l2vpns/",
+		PathPattern:        "/vpn/l2vpns/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -2013,7 +2013,7 @@ func (a *Client) IpamL2vpnsDelete(params *IpamL2vpnsDeleteParams, authInfo runti
 	op := &runtime.ClientOperation{
 		ID:                 "ipam_l2vpns_delete",
 		Method:             "DELETE",
-		PathPattern:        "/ipam/l2vpns/{id}/",
+		PathPattern:        "/vpn/l2vpns/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -2051,7 +2051,7 @@ func (a *Client) IpamL2vpnsList(params *IpamL2vpnsListParams, authInfo runtime.C
 	op := &runtime.ClientOperation{
 		ID:                 "ipam_l2vpns_list",
 		Method:             "GET",
-		PathPattern:        "/ipam/l2vpns/",
+		PathPattern:        "/vpn/l2vpns/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -2089,7 +2089,7 @@ func (a *Client) IpamL2vpnsPartialUpdate(params *IpamL2vpnsPartialUpdateParams, 
 	op := &runtime.ClientOperation{
 		ID:                 "ipam_l2vpns_partial_update",
 		Method:             "PATCH",
-		PathPattern:        "/ipam/l2vpns/{id}/",
+		PathPattern:        "/vpn/l2vpns/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -2127,7 +2127,7 @@ func (a *Client) IpamL2vpnsRead(params *IpamL2vpnsReadParams, authInfo runtime.C
 	op := &runtime.ClientOperation{
 		ID:                 "ipam_l2vpns_read",
 		Method:             "GET",
-		PathPattern:        "/ipam/l2vpns/{id}/",
+		PathPattern:        "/vpn/l2vpns/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
@@ -2165,7 +2165,7 @@ func (a *Client) IpamL2vpnsUpdate(params *IpamL2vpnsUpdateParams, authInfo runti
 	op := &runtime.ClientOperation{
 		ID:                 "ipam_l2vpns_update",
 		Method:             "PUT",
-		PathPattern:        "/ipam/l2vpns/{id}/",
+		PathPattern:        "/vpn/l2vpns/{id}/",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
