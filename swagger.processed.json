@@ -91985,7 +91985,7 @@
         }
       }
     },
-    "User": {
+"User": {
       "required": [
         "username",
         "password"
@@ -92037,11 +92037,6 @@
           "type": "string",
           "format": "email",
           "maxLength": 254
-        },
-        "is_staff": {
-          "title": "Staff status",
-          "description": "Designates whether the user can log into this admin site.",
-          "type": "boolean"
         },
         "is_active": {
           "title": "Active",
@@ -92062,7 +92057,7 @@
         }
       }
     },
-    "WritableUser": {
+"WritableUser": {
       "required": [
         "username",
         "password"
@@ -92114,11 +92109,6 @@
           "type": "string",
           "format": "email",
           "maxLength": 254
-        },
-        "is_staff": {
-          "title": "Staff status",
-          "description": "Designates whether the user can log into this admin site.",
-          "type": "boolean"
         },
         "is_active": {
           "title": "Active",

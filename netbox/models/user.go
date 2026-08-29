@@ -65,11 +65,6 @@ type User struct {
 	// Designates whether this user should be treated as active. Unselect this instead of deleting accounts.
 	IsActive bool `json:"is_active,omitempty"`
 
-	// Staff status
-	//
-	// Designates whether the user can log into this admin site.
-	IsStaff bool `json:"is_staff,omitempty"`
-
 	// Last name
 	// Max Length: 150
 	LastName string `json:"last_name,omitempty"`
