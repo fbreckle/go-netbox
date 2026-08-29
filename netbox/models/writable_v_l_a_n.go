@@ -81,6 +81,13 @@ type WritableVLAN struct {
 	// Read Only: true
 	PrefixCount int64 `json:"prefix_count,omitempty"`
 
+	// Qinq role
+	// Enum: ["svlan","cvlan"]
+	QinqRole *string `json:"qinq_role,omitempty"`
+
+	// Q-in-Q SVLAN
+	QinqSvlan *int64 `json:"qinq_svlan,omitempty"`
+
 	// Role
 	Role *int64 `json:"role,omitempty"`
 
@@ -126,6 +133,10 @@ func (m *WritableVLAN) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateQinqRole(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -198,6 +209,48 @@ func (m *WritableVLAN) validateName(formats strfmt.Registry) error {
 	}
 
 	if err := validate.MaxLength("name", "body", *m.Name, 64); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var writableVLANTypeQinqRolePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["svlan","cvlan"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		writableVLANTypeQinqRolePropEnum = append(writableVLANTypeQinqRolePropEnum, v)
+	}
+}
+
+const (
+
+	// WritableVLANQinqRoleSvlan captures enum value "svlan"
+	WritableVLANQinqRoleSvlan string = "svlan"
+
+	// WritableVLANQinqRoleCvlan captures enum value "cvlan"
+	WritableVLANQinqRoleCvlan string = "cvlan"
+)
+
+// prop value enum
+func (m *WritableVLAN) validateQinqRoleEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, writableVLANTypeQinqRolePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *WritableVLAN) validateQinqRole(formats strfmt.Registry) error {
+	if swag.IsZero(m.QinqRole) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateQinqRoleEnum("qinq_role", "body", *m.QinqRole); err != nil {
 		return err
 	}
 
