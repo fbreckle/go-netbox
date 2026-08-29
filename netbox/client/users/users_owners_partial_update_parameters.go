@@ -1,0 +1,187 @@
+// Copyright 2020 The go-netbox Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+package users
+
+// This file was manually added to extend the client with NetBox's Owner/OwnerGroup
+// endpoints (netbox-community/netbox users app), which are not yet covered by the
+// upstream swagger-generated client.
+
+import (
+	"context"
+	"net/http"
+	"time"
+
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
+
+	"github.com/fbreckle/go-netbox/netbox/models"
+)
+
+// NewUsersOwnersPartialUpdateParams creates a new UsersOwnersPartialUpdateParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
+func NewUsersOwnersPartialUpdateParams() *UsersOwnersPartialUpdateParams {
+	return &UsersOwnersPartialUpdateParams{
+		timeout: cr.DefaultTimeout,
+	}
+}
+
+// NewUsersOwnersPartialUpdateParamsWithTimeout creates a new UsersOwnersPartialUpdateParams object
+// with the ability to set a timeout on a request.
+func NewUsersOwnersPartialUpdateParamsWithTimeout(timeout time.Duration) *UsersOwnersPartialUpdateParams {
+	return &UsersOwnersPartialUpdateParams{
+		timeout: timeout,
+	}
+}
+
+// NewUsersOwnersPartialUpdateParamsWithContext creates a new UsersOwnersPartialUpdateParams object
+// with the ability to set a context for a request.
+func NewUsersOwnersPartialUpdateParamsWithContext(ctx context.Context) *UsersOwnersPartialUpdateParams {
+	return &UsersOwnersPartialUpdateParams{
+		Context: ctx,
+	}
+}
+
+// NewUsersOwnersPartialUpdateParamsWithHTTPClient creates a new UsersOwnersPartialUpdateParams object
+// with the ability to set a custom HTTPClient for a request.
+func NewUsersOwnersPartialUpdateParamsWithHTTPClient(client *http.Client) *UsersOwnersPartialUpdateParams {
+	return &UsersOwnersPartialUpdateParams{
+		HTTPClient: client,
+	}
+}
+
+/*
+UsersOwnersPartialUpdateParams contains all the parameters to send to the API endpoint
+
+	for the users owners partial update operation.
+
+	Typically these are written to a http.Request.
+*/
+type UsersOwnersPartialUpdateParams struct {
+
+	// Data.
+	Data *models.WritableOwner
+
+	/* ID.
+
+	   A unique integer value identifying this owner.
+	*/
+	ID int64
+
+	timeout    time.Duration
+	Context    context.Context
+	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the users owners partial update params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UsersOwnersPartialUpdateParams) WithDefaults() *UsersOwnersPartialUpdateParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the users owners partial update params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UsersOwnersPartialUpdateParams) SetDefaults() {
+	// no default values defined for this parameter
+}
+
+// WithTimeout adds the timeout to the users owners partial update params
+func (o *UsersOwnersPartialUpdateParams) WithTimeout(timeout time.Duration) *UsersOwnersPartialUpdateParams {
+	o.SetTimeout(timeout)
+	return o
+}
+
+// SetTimeout adds the timeout to the users owners partial update params
+func (o *UsersOwnersPartialUpdateParams) SetTimeout(timeout time.Duration) {
+	o.timeout = timeout
+}
+
+// WithContext adds the context to the users owners partial update params
+func (o *UsersOwnersPartialUpdateParams) WithContext(ctx context.Context) *UsersOwnersPartialUpdateParams {
+	o.SetContext(ctx)
+	return o
+}
+
+// SetContext adds the context to the users owners partial update params
+func (o *UsersOwnersPartialUpdateParams) SetContext(ctx context.Context) {
+	o.Context = ctx
+}
+
+// WithHTTPClient adds the HTTPClient to the users owners partial update params
+func (o *UsersOwnersPartialUpdateParams) WithHTTPClient(client *http.Client) *UsersOwnersPartialUpdateParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the users owners partial update params
+func (o *UsersOwnersPartialUpdateParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
+// WithData adds the data to the users owners partial update params
+func (o *UsersOwnersPartialUpdateParams) WithData(data *models.WritableOwner) *UsersOwnersPartialUpdateParams {
+	o.SetData(data)
+	return o
+}
+
+// SetData adds the data to the users owners partial update params
+func (o *UsersOwnersPartialUpdateParams) SetData(data *models.WritableOwner) {
+	o.Data = data
+}
+
+// WithID adds the id to the users owners partial update params
+func (o *UsersOwnersPartialUpdateParams) WithID(id int64) *UsersOwnersPartialUpdateParams {
+	o.SetID(id)
+	return o
+}
+
+// SetID adds the id to the users owners partial update params
+func (o *UsersOwnersPartialUpdateParams) SetID(id int64) {
+	o.ID = id
+}
+
+// WriteToRequest writes these params to a swagger request
+func (o *UsersOwnersPartialUpdateParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
+
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
+	var res []error
+	if o.Data != nil {
+		if err := r.SetBodyParam(o.Data); err != nil {
+			return err
+		}
+	}
+
+	// path param id
+	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {
+		return err
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
