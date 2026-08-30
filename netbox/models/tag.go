@@ -68,6 +68,11 @@ type Tag struct {
 	// Min Length: 1
 	Name *string `json:"name"`
 
+	// Object types
+	//
+	// The object types to which this tag may be applied. An empty list allows all object types.
+	ObjectTypes *[]string `json:"object_types,omitempty"`
+
 	// Slug
 	// Required: true
 	// Max Length: 100
@@ -82,6 +87,13 @@ type Tag struct {
 	// Read Only: true
 	// Format: uri
 	URL strfmt.URI `json:"url,omitempty"`
+
+	// Weight
+	//
+	// Tags with lower weights are displayed before tags with higher weights.
+	// Maximum: 32767
+	// Minimum: 0
+	Weight *int64 `json:"weight,omitempty"`
 }
 
 // Validate validates this tag
@@ -113,6 +125,10 @@ func (m *Tag) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateURL(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWeight(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -218,6 +234,22 @@ func (m *Tag) validateURL(formats strfmt.Registry) error {
 	}
 
 	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Tag) validateWeight(formats strfmt.Registry) error {
+	if swag.IsZero(m.Weight) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("weight", "body", *m.Weight, 0, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("weight", "body", *m.Weight, 32767, false); err != nil {
 		return err
 	}
 
