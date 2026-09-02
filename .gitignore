@@ -1,2 +1,4 @@
 .gobincache/
 *.swp
+__pycache__/
+swagger.processed.json

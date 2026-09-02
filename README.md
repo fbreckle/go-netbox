@@ -1,40 +1,35 @@
 go-netbox
 =========
 
-[![GoDoc](http://godoc.org/github.com/fbreckle/go-netbox?status.svg)](http://godoc.org/github.com/fbreckle/go-netbox) [![Build Status](https://github.com/fbreckle/go-netbox/workflows/main/badge.svg?branch=master)](https://github.com/fbreckle/go-netbox/actions) [![Report Card](https://goreportcard.com/badge/github.com/fbreckle/go-netbox)](https://goreportcard.com/report/github.com/fbreckle/go-netbox)
+[![Go Reference](https://pkg.go.dev/badge/github.com/fbreckle/go-netbox.svg)](https://pkg.go.dev/github.com/fbreckle/go-netbox) [![Report Card](https://goreportcard.com/badge/github.com/fbreckle/go-netbox)](https://goreportcard.com/report/github.com/fbreckle/go-netbox)
 
-Package `netbox` provides an API 2.0 client for [netbox-community's NetBox](https://github.com/netbox-community/netbox)
-IPAM and DCIM service.
-
-This package assumes you are using NetBox 2.0, as the NetBox 1.0 API no longer exists.
-
+The `netbox/client` and `netbox/models` packages are a Go client for the REST API of
+[netbox-community's NetBox](https://github.com/netbox-community/netbox) IPAM and DCIM service,
+generated from NetBox's own OpenAPI document, kept in this repository.
 
 Why this fork exists
 ====================
 
 This fork exists solely to support [e-breuninger/terraform-provider-netbox](https://github.com/e-breuninger/terraform-provider-netbox). As such, some changes in this fork do only make sense in that context.
 
+Goals
+=====
 
-About the state of this fork
-============================
+NetBox has published OpenAPI 3 since 3.5 ([announcement](https://github.com/netbox-community/netbox/discussions/11808)),
+and go-swagger — which generates this client — reads OpenAPI 2 only. The spec is converted from
+version 3 down to version 2 rather than switching generators, as netbox-community's go-netbox did
+([issue](https://github.com/netbox-community/go-netbox/issues/155),
+[discussion](https://github.com/netbox-community/go-netbox/discussions/156)): I prefer the code
+go-swagger produces to what the OpenAPI 3 generators emit, and that preference is why I maintain
+this fork.
 
-For a long time, the approach of taking the original netbox-provided swaggerfile, processing it and then generating a client from the processed swagger file was the only acceptable way for me to manage changes in this client.
-The main advantage of this was that changes in the netbox api in newer versions could mostly be implemented fast, while simultaneously ensuring that the fixes that are necessary to make the terraform provider work were always present in the code.
+How the spec is maintained
+==========================
 
-With NetBox 3.5, the NetBox authors decided to change the api documentation from openapi2 to openapi3. This means that the code generator that is being used in this project can no longer be used.
-
-Switching the code generator will also induce the need to change every single api call in the terraform provider. Furthermore, I am no expert whatsoever on openapi (or even Go), so evaluating the different available openapi generators and then choosing one to use is not an endeavour I can pursue right now. This means we cannot re-generate the client with newer api specs right now or in the immediate future.
-
-In conclusion, at the time of writing this, NetBox 3.5 is out quite some time already with NetBox 3.6 around the corner, so I decided that the show must go on and manual adjustments to the swaggerfile in this repository are now the fastest way to allow the terraform provider to support newer NetBox versions.
-
-This will be re-evaluated if the list of to-dos in the netbox provider gets smaller (e.g. all newish versions are supported, custom fields are solved globally).
-
-Links:
-
-[Original announcement of openapi3 change](https://github.com/netbox-community/netbox/discussions/11808)
-
-[Issue](https://github.com/netbox-community/go-netbox/issues/155) and [discussion](https://github.com/netbox-community/go-netbox/discussions/156) in https://github.com/netbox-community/go-netbox
-
+`tools/v3migrate/migrate.py` converts the v3 spec to v2 spec
+`tools/v3migrate/README.md` documents the tool and its translation rules, and
+`tools/v3migrate/patches.py` holds what the conversion cannot derive, each entry with the reason it
+is there.
 
 Versioning
 ==========
@@ -44,40 +39,19 @@ tbd. Meanwhile, look at branches and tags.
 Using the client
 ================
 
-The `github.com/fbreckle/go-netbox/netbox` package has some convenience functions for creating clients with the most common
-configurations you are likely to need while connecting to NetBox. `NewNetboxAt` allows you to specify a hostname
-(including port, if you need it), and `NewNetboxWithAPIKey` allows you to specify both a hostname:port and API token.
+The client is a go-swagger client: build a transport for your NetBox host, put the API token on it,
+and every operation can then be called with `nil` for `authInfo`. For example:
 
-```golang
-import (
-    "github.com/fbreckle/go-netbox/netbox"
-)
-...
-    c := netbox.NewNetboxAt("your.netbox.host:8000")
-    // OR
-    c := netbox.NewNetboxWithAPIKey("your.netbox.host:8000", "your_netbox_token")
-```
-
-If you specify the API key, you do not need to pass an additional `authInfo` to operations that need authentication, and
-can pass `nil`:
-
-```golang
-    c.Dcim.DcimDeviceTypesCreate(createRequest, nil)
-```
-
-If you connect to netbox via HTTPS you have to create an HTTPS configured transport:
-
-```
+```go
 package main
 
 import (
+	"log"
 	"os"
 
-	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/fbreckle/go-netbox/netbox/client"
 	"github.com/fbreckle/go-netbox/netbox/client/dcim"
-
-	log "github.com/sirupsen/logrus"
+	httptransport "github.com/go-openapi/runtime/client"
 )
 
 func main() {
@@ -101,14 +75,14 @@ func main() {
 	if err != nil {
 		log.Fatalf("Cannot get sites list: %v", err)
 	}
-	log.Infof("res: %v", res)
+	log.Printf("res: %v", res)
 }
 ```
 
 Go Module support
 ================
 
-Go 1.13+
+Go 1.25+
 
 `go get github.com/fbreckle/go-netbox`
 
@@ -122,15 +96,19 @@ a more complex configuration, it is probably possible with a combination of this
 options.
 
 The [godocs for the go-openapi/runtime/client module](https://godoc.org/github.com/go-openapi/runtime/client) explain
-the client options in detail, including different authentication and debugging options. One thing I want to flag because
-it is so useful: setting the `DEBUG` environment variable will dump all requests to standard out.
+the client options in detail, including different authentication and debugging options. Worth knowing: setting the
+`DEBUG` environment variable dumps every request to standard out.
 
 Regenerating the client
 =======================
 
-To regenerate the client with a new or different swagger schema, first clean the existing client, then re-generate:
+`make generate` converts the tracked v3 document to `swagger.processed.json` and runs go-swagger on
+it; `make check` does that from a clean tree and fails if the tracked client changed — that is the
+whole drift test.
+
+Moving to a newer NetBox version means replacing the document with that version's, downloaded from
+`/api/schema/`, then regenerating and committing both:
 
 ```
-make clean
-make generate
+make clean generate
 ```
